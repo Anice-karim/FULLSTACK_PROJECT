@@ -9,7 +9,7 @@
       integrity="sha512-KO1h5ynYuqsFuEicc7DmOQc+S9m2xiCKYlC3zcZCSEw0RGDsxcMnppRaMZnb0DdzTDPaW22ID/gAGCZ9i+RT/w=="
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../css/stylelogin.css" />
     <title>login</title>
   </head>
   <body>
@@ -55,6 +55,15 @@
   
        
       </div>
-    <script src="script.js"></script>
+    <script >
+    const password = document.getElementById('password')
+    const background = document.getElementById('background')
+
+    password.addEventListener('input', (e) => {
+    const input = e.target.value
+      const length = input.length
+      const blurValue = 20 - length * 2
+      background.style.filter = `blur(${blurValue}px)`
+      })</script>
   </body>
 </html>
