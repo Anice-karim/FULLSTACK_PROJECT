@@ -1,0 +1,2 @@
+# This is a 404 error Page to show
+ErrorDocument 404 http://localhost/admin1/admin/404.php

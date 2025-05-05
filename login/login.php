@@ -1,69 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.8.11/tailwind.min.css"
-      integrity="sha512-KO1h5ynYuqsFuEicc7DmOQc+S9m2xiCKYlC3zcZCSEw0RGDsxcMnppRaMZnb0DdzTDPaW22ID/gAGCZ9i+RT/w=="
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="../css/stylelogin.css" />
-    <title>login</title>
-  </head>
-  <body>
-    <body class="min-h-screen flex items-center justify-center px-4">
-      <div class="background" id="background"></div>
-  
-      <div class="bg-white rounded-3xl shadow-2xl p-10 w-full max-w-md">
-        <h1 class="text-4xl font-bold text-blue-600 text-center mb-8">Login / Register</h1>
-  
-        <form class="space-y-6">
-          <!-- Email -->
-          <div>
-            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-            <input
-              type="email"
-              id="email"
-              class="mt-2 block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
-              placeholder="you@example.com"
-              required
-            />
-          </div>
-  
-          <!-- Password -->
-          <div>
-            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-            <input
-              type="password"
-              id="password"
-              class="mt-2 block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
-              placeholder="••••••••"
-              required
-            />
-          </div>
-  
-          <!-- Submit -->
-          <button
-            type="submit"
-            class="w-full py-3 rounded-lg bg-blue-600  hover:bg-blue-800  text-white font-semibold transition duration-300"
-          >
-            Submit
-          </button>
-        </form>
-  
-       
-      </div>
-    <script >
-    const password = document.getElementById('password')
-    const background = document.getElementById('background')
+<?php
+session_start();
+include('includes/header.php'); 
+?>
+<div class="container">
 
-    password.addEventListener('input', (e) => {
-    const input = e.target.value
-      const length = input.length
-      const blurValue = 20 - length * 2
-      background.style.filter = `blur(${blurValue}px)`
-      })</script>
-  </body>
-</html>
+<!-- Outer Row -->
+<div class="row justify-content-center">
+
+    <div class="col-xl-10 col-lg-12 col-md-9">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Login Here!</h1>
+                                <?php
+                                if(isset($_SESSION['status'])&& $_SESSION['status']!=''){
+                                  echo '<h2 class="bg-danger text-white">'.$_SESSION['status'].'</h2>';
+                                  unset($_SESSION['status']);
+                                }
+                                ?>
+                            </div>
+                            <form class="user" action="logincode.php" method="POST">
+                                <div class="form-group">
+                                    <input type="email" name="email" class="form-control form-control-user"
+                    
+                                        placeholder="Enter Email Address...">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password" class="form-control form-control-user"
+                                         placeholder="Password">
+                                </div>
+                                <div class="form-group">
+                                    
+                                </div>
+                                <button type="submit" name="login_btn"  class="btn btn-primary btn-user btn-block">
+                                    Login
+                                </button>
+                              </form> 
+                            
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+
+
+
+
+
+<?php
+
+include('includes/scripts.php'); 
+?>
