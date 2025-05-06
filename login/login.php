@@ -11,6 +11,7 @@
     />
     <link rel="stylesheet" href="../css/stylelogin.css" />
     <title>Login</title>
+    <link rel="icon" href="img/icon.svg" type="image/svg+xml">
   </head>
   <body>
   <body class="min-h-screen flex items-center justify-center px-4">

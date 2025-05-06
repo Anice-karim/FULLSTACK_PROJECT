@@ -37,7 +37,7 @@
 </li>
 
 <li class="nav-item">
-  <a class="nav-link" href="register.php">
+  <a class="nav-link" href="register_etab.php">
     <i class="fas fa-fw fa-hospital"></i>
     <span>Medical facilities</span></a>
 </li>
