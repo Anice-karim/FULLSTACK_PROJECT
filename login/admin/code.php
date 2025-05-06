@@ -20,11 +20,11 @@ if(isset($_POST['registerbtn_Hp']))
         $query_run = mysqli_query($connection , $query);
         if($query_run){
             //echo "Saved";
-            $_SESSION['success']="A Profile Added";
+            $_SESSION['success']="A Health Profile Added";
             header('Location:register_Hp.php');
         }else{
             //echo "Not Saved";
-            $_SESSION['status']="A Profile Not Added";
+            $_SESSION['status']="A Health Profile Not Added";
             header('Location:register_Hp.php');
         }
     }else{
