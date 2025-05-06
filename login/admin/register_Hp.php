@@ -1,8 +1,7 @@
 <?php
-include('security.php'); 
-include('includes/header.php'); 
-include('includes/navbar.php');
-
+include('../security.php'); 
+include('../includes/header.php'); 
+include('../includes/navbar.php'); 
 ?>
 
 
@@ -181,8 +180,8 @@ include('includes/navbar.php');
 
 </div>
 <!-- /.container-fluid -->
-<script src="../js/scripthp.js"></script>
+<script src="js/scripthp.js"></script>
 <?php
-include('includes/scripts.php');
-include('includes/footer.php');
+include('../includes/scripts.php');
+include('../includes/footer.php');
 ?>

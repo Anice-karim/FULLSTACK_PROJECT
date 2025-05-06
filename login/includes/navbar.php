@@ -31,13 +31,13 @@
 
 
 <li class="nav-item">
-  <a class="nav-link" href="register_Hp.php">
+  <a class="nav-link" href="..\admin\register_Hp.php">
     <i class="fas fa-fw fa-user-md"></i>
     <span>Health professionals</span></a>
 </li>
 
 <li class="nav-item">
-  <a class="nav-link" href="register_etab.php">
+  <a class="nav-link" href="..\admin\register_etab.php">
     <i class="fas fa-fw fa-hospital"></i>
     <span>Medical facilities</span></a>
 </li>

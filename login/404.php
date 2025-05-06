@@ -1,8 +1,6 @@
 <?php
-include('security.php');
-include('includes/header.php'); 
-
-
+include('../login/security.php');
+include('../login/includes/header.php'); 
 ?>
 
         <!-- Begin Page Content -->
@@ -28,7 +26,7 @@ include('includes/header.php');
 
 
   <?php
-include('includes/scripts.php');
+include('../login/includes/scripts.php');
 
 ?>
 

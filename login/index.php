@@ -1,7 +1,7 @@
 <?php
-include('security.php');
-include('includes/header.php'); 
-include('includes/navbar.php');
+include('../login/security.php');
+include('../login/includes/header.php'); 
+include('../login/includes/navbar.php');
 
 ?>
 
@@ -117,6 +117,6 @@ include('includes/navbar.php');
 
 
   <?php
-include('includes/scripts.php');
-include('includes/footer.php');
+include('../login/includes/scripts.php');
+include('../login/includes/footer.php');
 ?>

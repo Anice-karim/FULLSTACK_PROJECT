@@ -1,5 +1,5 @@
 <?php
-include('security.php');
+include('../security.php'); 
 
 
 if(isset($_POST['registerbtn_Hp']))

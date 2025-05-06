@@ -1,10 +1,8 @@
 <?php
-include('security.php'); 
-include('includes/header.php'); 
-include('includes/navbar.php');
-
+include('../security.php'); 
+include('../includes/header.php'); 
+include('../includes/navbar.php'); 
 ?>
-
 
 <div class="modal fade" id="addadminprofile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -178,6 +176,6 @@ include('includes/navbar.php');
 <!-- /.container-fluid -->
 
 <?php
-include('includes/scripts.php');
-include('includes/footer.php');
+include('../includes/scripts.php');
+include('../includes/footer.php');
 ?>

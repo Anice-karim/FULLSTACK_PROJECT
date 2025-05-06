@@ -1,7 +1,7 @@
 <?php
-include('security.php');
-include('includes/header.php'); 
-include('includes/navbar.php'); 
+include('../security.php'); 
+include('../includes/header.php'); 
+include('../includes/navbar.php'); 
 ?>
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
@@ -128,6 +128,6 @@ include('includes/navbar.php');
 
 
 <?php
-include('includes/scripts.php');
-include('includes/footer.php');
+include('../includes/scripts.php');
+include('../includes/footer.php');
 ?>
