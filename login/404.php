@@ -1,35 +1,52 @@
-<?php
-include('../login/security.php');
-include('../login/includes/header.php'); 
-?>
+<!DOCTYPE html>
+<html lang="en">
 
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, 
+								initial-scale=1.0" />
+	<link rel="stylesheet" href=
+"https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: "poppins";
+		}
 
-          <!-- 404 Error Text -->
-          <div class="d-flex vh-100 justify-content-center align-items-center text-center">
-            <div>
-               <div class="error" data-text="404">404</div>
-               <p class="lead text-dark mb-3">Page Not Found</p>
-               <p class="text-muted mb-4">It looks like you found a glitch in the matrix...</p>
-               <a href="index.php" class="btn btn-primary">&larr; Back to Dashboard</a>
-           </div>
-        </div>
+		.bg_img {
+			background: url(
+'https://media.geeksforgeeks.org/wp-content/uploads/20240226131034/2142357.jpg');
+			height: 400px;
+			width: 100%;
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: contain;
+		}
+	</style>
+	<title>Document</title>
+</head>
 
-        </div>
-        <!-- /.container-fluid -->
-
-      </div>
-      <!-- End of Main Content -->
-
-    
-
-
-  <?php
-include('../login/includes/scripts.php');
-
-?>
-
+<body>
+	<section class="py-5">
+		<div class="d-flex justify-content-center 
+					align-items-center flex-column 
+					text-center w-100">
+			<div class="bg_img w-50">
+			</div>
+			<div>
+				<p class="display-4">Looks Like You're Lost</p>
+				<p>The page you are looking for not available...</p>
+				<a href="#"
+				class="text-white text-decoration-none px-4 py-3 
+						bg-success d-inline-block mt-2 rounded">
+					Go to Home
+				</a>
+			</div>
+		</div>
+	</section>
 </body>
 
 </html>

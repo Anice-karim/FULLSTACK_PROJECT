@@ -14,7 +14,7 @@
 
 <!-- Nav Item - Dashboard -->
 <li class="nav-item active">
-  <a class="nav-link" href="../index.php">
+  <a class="nav-link" href="index.php">
     <i class="fas fa-fw fa-tachometer-alt"></i>
     <span>Dashboard</span></a>
 </li>
@@ -29,6 +29,11 @@
 
 <!-- Nav Item - Pages Collapse Menu -->
 
+<li class="nav-item">
+  <a class="nav-link" href="..\admin\register.php">
+    <i class="fas fa-fw fas fa-user-shield"></i>
+    <span>Admin</span></a>
+</li>
 
 <li class="nav-item">
   <a class="nav-link" href="..\admin\register_Hp.php">
@@ -45,7 +50,7 @@
 <li class="nav-item">
   <a class="nav-link" href="..\admin\register_assu.php">
     <i class="fas fa-fw fa-file-invoice-dollar"></i>
-    <span>Assurance</span></a>
+    <span>Insurance Company</span></a>
 </li>
 
 

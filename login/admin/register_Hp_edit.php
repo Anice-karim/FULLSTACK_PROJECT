@@ -13,7 +13,7 @@ include('../includes/navbar.php');
 
  <?php 
 
- if(isset($_POST['edit_btn'])){
+ if(isset($_POST['edit_btn_hp'])){
     $id = $_POST['edit_hp'];
     $query= "SELECT * FROM  health_professionals WHERE id_Hp='$id' ";
     $query_run=mysqli_query($connection,$query);   
@@ -85,7 +85,7 @@ include('../includes/navbar.php');
               </div>
 
         <a href="register_Hp.php" class="btn btn-danger">CANCEL</a>
-        <button type="submit" name ="updatebtn" class="btn btn-primary" >Update</button>
+        <button type="submit" name ="updatebtn_hp" class="btn btn-primary" >Update</button>
         </form>
         <?php
     }

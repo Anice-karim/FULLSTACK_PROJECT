@@ -1,6 +1,65 @@
 <?php
 include('../security.php'); 
 
+if(isset($_POST['registerbtn']))
+ {
+    $username = $_POST['username'];
+    $email= $_POST['email'];
+    $password= $_POST['password'];
+    $cpassword= $_POST['confirmpassword'];
+   
+
+    if($password === $cpassword){
+        $query ="INSERT INTO register (name,email,password) VALUES('$username','$email','$password')";
+        $query_run = mysqli_query($connection , $query);
+        if($query_run){
+            //echo "Saved";
+            $_SESSION['success']="Admin Profile Added";
+            header('Location:register.php');
+        }else{
+            //echo "Not Saved";
+            $_SESSION['status']="Admin Profile Not Added";
+            header('Location:register.php');
+        }
+    }else{
+        $_SESSION['status']="Password and Confirm password does not match";
+        header('Location:register.php');
+    }
+
+    
+ }
+
+ if(isset($_POST['updatebtn'])){
+    $id=$_POST['edit_id'];
+    $username = $_POST['edit_username'];
+    $email= $_POST['edit_email'];
+    $password= $_POST['edit_password'];
+    $usertype=$_POST['update_usertype'];
+
+    $query ="UPDATE register SET name='$username',email='$email',password='$password'WHERE id='$id'";
+    $query_run=mysqli_query($connection,$query);
+    if($query_run){
+        $_SESSION['success']="Your Data is Updated";
+        header('Location:register.php');
+    }else{
+        $_SESSION['status']="Your Data is NOT Updated";
+        header('Location:register.php');
+    }
+ }
+
+ if(isset($_POST['delete_btn'])){
+    $id =$_POST['delete_id'];
+    $query="DELETE  FROM register WHERE id='$id'";
+    $query_run=mysqli_query($connection,$query);
+    if($query_run){
+        $_SESSION['success']="Your Data is Deleted";
+        header('Location:register.php');
+    }else{
+        $_SESSION['status']="Your Data is NOT Deleted";
+        header('Location:register.php');
+    }
+
+ }
 
 if(isset($_POST['registerbtn_Hp']))
  {
@@ -37,7 +96,7 @@ if(isset($_POST['registerbtn_Hp']))
     
  }
 
- if(isset($_POST['updatebtn'])){
+ if(isset($_POST['updatebtn_hp'])){
     $id=$_POST['edit_id'];
     $inpe = $_POST['inpe_edit'];
     $fname = $_POST['name1_edit'];
@@ -66,7 +125,7 @@ if(isset($_POST['registerbtn_Hp']))
     }
  }
 
- if(isset($_POST['delete_btn'])){
+ if(isset($_POST['delete_btn_hp'])){
     $id =$_POST['delete_hp'];
     $query="DELETE  FROM health_professionals 
                 WHERE id_Hp='$id'";
@@ -184,6 +243,44 @@ if(isset($_POST['registerbtn_Hp']))
     }
 
     
+ }
+ if(isset($_POST['delete_btn_assu'])){
+    $id =$_POST['delete_assu'];
+    $query="DELETE  FROM assu WHERE id_assu='$id'";
+    $query_run=mysqli_query($connection,$query);
+    if($query_run){
+        $_SESSION['success']="Your Data is Deleted";
+        header('Location:register_assu.php');
+    }else{
+        $_SESSION['status']="Your Data is NOT Deleted";
+        header('Location:register_assu.php');
+    }
+
+ }
+ if(isset($_POST['updatebtn_assu'])){
+    $id=$_POST['edit_id'];
+    $patente = $_POST['patente_edit'];
+    $name=$_POST['name_edit'];
+    $pub= $_POST['prv-pub-edit'];
+    $email= $_POST['email_edit'];
+    $tel= $_POST['tel_edit'];
+    $password=md5( $_POST['edit_password']);
+
+    $query ="UPDATE assu SET patente_assu='$patente'
+                                    ,nom_assu='$name'
+                                    ,prv_pub_assu='$pub'
+                                    ,tele_assu='$tel'
+                                    ,email_assu='$email'
+                                    ,password='$password'
+                                     WHERE id_assu='$id'";
+    $query_run=mysqli_query($connection,$query);
+    if($query_run){
+        $_SESSION['success']="Your Data is Updated";
+        header('Location:register_assu.php');
+    }else{
+        $_SESSION['status']="Your Data is NOT Updated";
+        header('Location:register_assu.php');
+    }
  }
  
 

@@ -47,7 +47,7 @@ include('../includes/navbar.php');
 
             <div class="form-group">
                 <label>Phone</label>
-                <input type="tel" name="tel" id="email" class="form-control" placeholder="name@health.ma" >
+                <input type="tel" name="tel" id="tel" class="form-control" placeholder="06" >
             </div>
           
             <div class="form-group">
@@ -125,15 +125,15 @@ include('../includes/navbar.php');
             <td><?php echo $row['tele_assu']; ?></td>
 
             <td>
-                <form action="register_assu_edit.php" method="post">
-                    <input type="hidden" name="edit_hp" value="<?php  echo $row['id_assu']; ?>">
-                    <button  type="submit" name="edit_btn" class="btn btn-success"> EDIT</button>
+                <form action="register_assu_edit .php" method="post">
+                    <input type="hidden" name="edit_assu" value="<?php  echo $row['id_assu']; ?>">
+                    <button  type="submit" name="edit_assu_btn" class="btn btn-success"> EDIT</button>
                 </form>
             </td>
             <td>
                 <form action="code.php" method="post">
-                  <input type="hidden" name="delete_hp" value="<?php echo $row['id_assu']; ?>">
-                  <button type="submit" name="delete_btn" class="btn btn-danger"> DELETE</button>
+                  <input type="hidden" name="delete_assu" value="<?php echo $row['id_assu']; ?>">
+                  <button type="submit" name="delete_btn_assu" class="btn btn-danger"> DELETE</button>
                 </form>
             </td>
           </tr>
