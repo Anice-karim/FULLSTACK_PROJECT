@@ -9,7 +9,7 @@ include('../includes/navbar.php');
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add HP profile</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add  Insurance Company profile</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -19,52 +19,22 @@ include('../includes/navbar.php');
         <div class="modal-body">
 
             <div class="form-group">
-                <label>INPE</label>
-                <input type="number" name="inpe" class="form-control" placeholder="Enter INPE">
+                <label>Patente</label>
+                <input type="number" name="patente" class="form-control" placeholder="Enter INPE">
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>First Name</label>
-                    <input type="text" name="name1" class="form-control" placeholder="Enter First Name">
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Last Name</label>
-                    <input type="text" name="name2" class="form-control" placeholder="Enter Last Name">
-                  </div>
-                </div>
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="name" class="form-control" placeholder="Enter Name">
+            </div>
+            
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="prv-pub" id="public" value="true" required>
+                <label class="form-check-label" for="public">Public</label>
               </div>
-            <div class="mb-3">
-                <label class="form-label d-block">Designation</label>
 
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="type" id="doctor" value="doctor">
-                  <label class="form-check-label" for="doctor">Doctor</label>
-                </div>
-
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="type" id="bri" value="Bio_Rad_Imag">
-                  <label class="form-check-label" for="bri">BRI</label>
-                </div>
-
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="type" id="paramedical" value="paramedical">
-                  <label class="form-check-label" for="paramedical">Paramedical</label>
-                </div>
-
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="type" id="pharmacy" value="pharmacy">
-                  <label class="form-check-label" for="pharmacy">Pharmacy</label>
-                </div>
-              </div>
-              <div class="mb-3" id="specialtyContainer" style="display: none;">
-                <label for="specialty" class="form-label">Specialty</label>
-                <select class="form-control" name="spec" id="specialty">
-                  <!-- options will be added dynamically -->
-                </select>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="prv-pub" id="private" value="false">
+                <label class="form-check-label" for="private">Private</label>
               </div>
 
 
@@ -73,6 +43,11 @@ include('../includes/navbar.php');
               <div class="form-group">
                 <label>Email to log in</label>
                 <input type="email" name="email" id="email" class="form-control" placeholder="name@health.ma" >
+            </div>
+
+            <div class="form-group">
+                <label>Phone</label>
+                <input type="tel" name="tel" id="email" class="form-control" placeholder="name@health.ma" >
             </div>
           
             <div class="form-group">
@@ -87,7 +62,7 @@ include('../includes/navbar.php');
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" name="registerbtn_Hp" class="btn btn-primary">Save</button>
+            <button type="submit" name="registerbtn_assu" class="btn btn-primary">Save</button>
         </div>
       </form>
 
@@ -101,9 +76,9 @@ include('../includes/navbar.php');
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Health professionals
+    <h6 class="m-0 font-weight-bold text-primary">Insurance Company
             <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#addadminprofile">
-              Add A profile Medical
+              Add A Insurance Company Profile
             </button>
     </h6>
   </div>
@@ -122,17 +97,16 @@ include('../includes/navbar.php');
     ?>
     <div class="table-responsive">
     <?php 
-      $query ="SELECT * FROM health_professionals";
+      $query ="SELECT * FROM assu";
       $query_run = mysqli_query($connection,$query);
     ?>
      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
           <tr>
-            <th> INPE </th>
+            <th> Patente </th>
             <th> Name </th>
             <th>Email </th>
-            <th>Type</th>
-            <th>Specialty</th>
+            <th>Phone</th>
             <th>EDIT </th>
             <th>DELETE </th>
           </tr>
@@ -145,20 +119,20 @@ include('../includes/navbar.php');
           ?>
           
           <tr>
-            <td><?php echo $row['inpe']; ?></td>
-            <td><?php echo $row['l_name_hp'] ?></td>
-            <td><?php echo $row['email']; ?></td>
-            <td><?php echo $row['type']; ?></td>
-            <td><?php echo $row['specialty']; ?></td>
+            <td><?php echo $row['patente_assu']; ?></td>
+            <td><?php echo $row['nom_assu'] ?></td>
+            <td><?php echo $row['email_assu']; ?></td>
+            <td><?php echo $row['tele_assu']; ?></td>
+
             <td>
-                <form action="register_Hp_edit.php" method="post">
-                    <input type="hidden" name="edit_hp" value="<?php  echo $row['id_Hp']; ?>">
+                <form action="register_assu_edit.php" method="post">
+                    <input type="hidden" name="edit_hp" value="<?php  echo $row['id_assu']; ?>">
                     <button  type="submit" name="edit_btn" class="btn btn-success"> EDIT</button>
                 </form>
             </td>
             <td>
                 <form action="code.php" method="post">
-                  <input type="hidden" name="delete_hp" value="<?php echo $row['id_Hp']; ?>">
+                  <input type="hidden" name="delete_hp" value="<?php echo $row['id_assu']; ?>">
                   <button type="submit" name="delete_btn" class="btn btn-danger"> DELETE</button>
                 </form>
             </td>

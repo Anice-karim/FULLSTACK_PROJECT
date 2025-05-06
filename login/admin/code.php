@@ -16,7 +16,9 @@ if(isset($_POST['registerbtn_Hp']))
     
 
     if($password === $cpassword){
-        $query ="INSERT INTO health_professionals (inpe,f_name_hp,l_name_hp,type,specialty,email,password,registred) VALUES('$inpe','$fname','$lname','$dsg','$spec','$email','$password','$rgst')";
+        $query ="INSERT INTO health_professionals 
+                    (inpe,f_name_hp,l_name_hp,type,specialty,email,password,registred)
+                     VALUES('$inpe','$fname','$lname','$dsg','$spec','$email','$password','$rgst')";
         $query_run = mysqli_query($connection , $query);
         if($query_run){
             //echo "Saved";
@@ -45,7 +47,15 @@ if(isset($_POST['registerbtn_Hp']))
     $type=$_POST['type_edit'];
     $spec = $_POST['edit_spec'];
 
-    $query ="UPDATE health_professionals SET inpe='$inpe',f_name_hp='$fname',l_name_hp='$lname',email='$email',password='$password',type='$type',specialty='$spec' WHERE id_Hp='$id'";
+    $query ="UPDATE health_professionals 
+                    SET inpe='$inpe'
+                    ,f_name_hp='$fname'
+                    ,l_name_hp='$lname'
+                    ,email='$email'
+                    ,password='$password'
+                    ,type='$type'
+                    ,specialty='$spec'
+                     WHERE id_Hp='$id'";
     $query_run=mysqli_query($connection,$query);
     if($query_run){
         $_SESSION['success']="Your Data is Updated";
@@ -58,7 +68,8 @@ if(isset($_POST['registerbtn_Hp']))
 
  if(isset($_POST['delete_btn'])){
     $id =$_POST['delete_hp'];
-    $query="DELETE  FROM health_professionals WHERE id_Hp='$id'";
+    $query="DELETE  FROM health_professionals 
+                WHERE id_Hp='$id'";
     $query_run=mysqli_query($connection,$query);
     if($query_run){
         $_SESSION['success']="Your Data is Deleted";
@@ -82,8 +93,9 @@ if(isset($_POST['registerbtn_Hp']))
     
 
     if($password === $cpassword){
-        $query ="INSERT INTO etablissement (inpe_etab,name_etab,pub_prv_etab,type_etab,tele_etab,email_etab,password) 
-                                    VALUES('$inpe','$name','$pub','$type','$phone','$email','$password')";
+        $query ="INSERT INTO etablissement 
+                        (inpe_etab,name_etab,pub_prv_etab,type_etab,tele_etab,email_etab,password) 
+                         VALUES('$inpe','$name','$pub','$type','$phone','$email','$password')";
         $query_run = mysqli_query($connection , $query);
         if($query_run){
             //echo "Saved";
@@ -141,8 +153,38 @@ if(isset($_POST['registerbtn_Hp']))
         header('Location:register_etab.php');
     }
  }
+ if(isset($_POST['registerbtn_assu']))
+ {
+    $patente = $_POST['patente'];
+    $name=$_POST['name'];
+    $pub= $_POST['prv-pub'];
+    $email= $_POST['email'];
+    $tel= $_POST['tel'];
+    $password=md5( $_POST['password']);
+    $cpassword= md5($_POST['confirmpassword']);
+    
 
+    if($password === $cpassword){
+        $query = "INSERT INTO assu
+        (patente_assu, nom_assu, prv_pub_assu, tele_assu, email_assu, password)
+        VALUES ('$patente', '$name', '$pub', '$tel', '$email', '$password')";
+        $query_run = mysqli_query($connection , $query);
+        if($query_run){
+            //echo "Saved";
+            $_SESSION['success']="A Health Profile Added";
+            header('Location:register_assu.php');
+        }else{
+            //echo "Not Saved";
+            $_SESSION['status']="A Health Profile Not Added";
+            header('Location:register_assu.php');
+        }
+    }else{
+        $_SESSION['status']="Password and Confirm password does not match";
+        header('Location:register_assu.php');
+    }
 
+    
+ }
  
 
 
