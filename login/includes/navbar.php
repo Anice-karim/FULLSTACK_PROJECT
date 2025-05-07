@@ -59,6 +59,12 @@
     <span>Join Invitation</span></a>
 </li>
 
+<li class="nav-item">
+  <a class="nav-link" href="..\health_professionals\joboffer.php">
+    <i class="fas fa-briefcase"></i>
+    <span>Job Offers</span></a>
+</li>
+
 
 
 
