@@ -53,6 +53,11 @@
     <span>Insurance Company</span></a>
 </li>
 
+<li class="nav-item">
+  <a class="nav-link" href="..\Medical facilities\invitation.php">
+    <i class="fas fa-fw fa-handshake"></i>
+    <span>Join Invitation</span></a>
+</li>
 
 
 
