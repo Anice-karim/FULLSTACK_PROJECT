@@ -5,8 +5,8 @@ if(isset($_POST['registerbtn']))
  {
     $username = $_POST['username'];
     $email= $_POST['email'];
-    $password= $_POST['password'];
-    $cpassword= $_POST['confirmpassword'];
+    $password= md5($_POST['password']);
+    $cpassword= md5($_POST['confirmpassword']);
    
 
     if($password === $cpassword){
@@ -127,18 +127,32 @@ if(isset($_POST['registerbtn_Hp']))
 
  if(isset($_POST['delete_btn_hp'])){
     $id =$_POST['delete_hp'];
-    $query="DELETE  FROM health_professionals 
-                WHERE id_Hp='$id'";
-    $query_run=mysqli_query($connection,$query);
-    if($query_run){
-        $_SESSION['success']="Your Data is Deleted";
-        header('Location:register_Hp.php');
-    }else{
-        $_SESSION['status']="Your Data is NOT Deleted";
-        header('Location:register_Hp.php');
+    
+    $delete_invitations_query = "DELETE FROM invitations WHERE id_Hp = '$id'";
+    $delete_employe_query     = "DELETE FROM employe WHERE id_Hp = '$id'";
+    $delete_hp_query          = "DELETE FROM health_professionals WHERE id_Hp = '$id'";
+    
+    //all or nothing
+    mysqli_begin_transaction($connection);
+
+
+    try {
+        mysqli_query($connection, $delete_invitations_query);
+        mysqli_query($connection, $delete_employe_query);
+        mysqli_query($connection, $delete_hp_query);
+        mysqli_commit($connection);//Yes, go ahead and apply all the changes.
+        
+        $_SESSION['success'] = "Health professional and related records deleted successfully.";
+    } catch (Exception $e) {
+        // Rollback in case of error
+        mysqli_rollback($connection);//cancels all previous deletions
+        $_SESSION['status'] = "Error during deletion: " . $e->getMessage();
     }
+    header('Location:register_Hp.php');  
 
  }
+
+
  if(isset($_POST['registerbtn_etab']))
  {
     $inpe = $_POST['inpe'];

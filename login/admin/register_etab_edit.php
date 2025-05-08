@@ -27,14 +27,14 @@ include('../includes/navbar.php');
   <div class="col-md-6">
     <div class="form-group">
       <label>INPE</label>
-      <input type="number" name="inpe_edit" class="form-control" value="<?php echo $row['inpe_etab'] ?>">
+      <input type="number" name="inpe_edit" class="form-control" value="<?php echo $row['inpe_etab'] ?>" required>
     </div>
   </div>
 
   <div class="col-md-6">
     <div class="form-group">
       <label>Name</label>
-      <input type="text" name="name_edit" class="form-control" value="<?php echo $row['name_etab'] ?>">
+      <input type="text" name="name_edit" class="form-control" value="<?php echo $row['name_etab'] ?>" required>
     </div>
   </div>
 </div>
@@ -88,7 +88,7 @@ include('../includes/navbar.php');
   <div class="col-md-6">
     <div class="form-group">
       <label>Email</label>
-      <input type="email" name="edit_email" value="<?php echo $row['email_etab']?>" class="form-control" placeholder="Enter Email">
+      <input type="email" name="edit_email" value="<?php echo $row['email_etab']?>" class="form-control" placeholder="Enter Email" required>
     </div>
   </div>
 
@@ -96,13 +96,13 @@ include('../includes/navbar.php');
   <div class="col-md-6">
     <div class="form-group">
       <label>Phone</label>
-      <input type="tel" name="edit_tele" value="<?php echo $row['tele_etab']?>" class="form-control" placeholder="Enter Phone Number">
+      <input type="tel" name="edit_tele" value="<?php echo $row['tele_etab']?>" class="form-control" placeholder="Enter Phone Number" required>
     </div>
   </div>
 </div>
         <div class="form-group">
             <label>Password</label>
-            <input type="password" name="edit_password"  class="form-control" placeholder="Enter Password">
+            <input type="password" name="edit_password"  class="form-control" placeholder="Enter Password" required>
         </div>
         
         

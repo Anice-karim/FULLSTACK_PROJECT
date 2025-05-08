@@ -22,43 +22,40 @@ include('../includes/navbar.php');
         
 <div class="modal-body">
 <form action="code.php" method="post">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="reRegister" name="register">
-                <label class="form-check-label" value='false' for="reRegister">Re-register</label>
-              </div>
+          
         <input type="hidden" name="edit_id" value="<?php echo $row['id_Hp']?>">
         <div class="form-group">
                 <label>INPE</label>
-                <input type="number" name="inpe_edit" value="<?php echo $row['inpe']?>" class="form-control" placeholder="Enter INPE">
+                <input type="number" name="inpe_edit" value="<?php echo $row['inpe']?>" class="form-control" placeholder="Enter INPE" required>
             </div>
         <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>First Name</label>
-                    <input type="text" name="name1_edit" value="<?php echo $row['f_name_hp']?>"  class="form-control" placeholder="Enter First Name">
+                    <input type="text" name="name1_edit" value="<?php echo $row['f_name_hp']?>"  class="form-control" placeholder="Enter First Name" required>
                   </div>
                 </div>
 
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Last Name</label>
-                    <input type="text" name="name2_edit" class="form-control" value="<?php echo $row['l_name_hp']?>" placeholder="Enter Last Name">
+                    <input type="text" name="name2_edit" class="form-control" value="<?php echo $row['l_name_hp']?>" placeholder="Enter Last Name" required>
                   </div>
                 </div>
               </div>
         <div class="form-group">
             <label>Email</label>
-            <input type="email" name="edit_email" value="<?php echo $row['email']?>" class="form-control" placeholder="Enter Email">
+            <input type="email" name="edit_email" value="<?php echo $row['email']?>" class="form-control" placeholder="Enter Email" required>
         </div>
         <div class="form-group">
             <label>Password</label>
-            <input type="password" name="edit_password"  class="form-control" placeholder="Enter Password">
+            <input type="password" name="edit_password"  class="form-control" placeholder="Enter Password" required>
         </div>
         <div class="mb-3">
                 <label class="form-label d-block">Designation</label>
 
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="type_edit" id="doctor" value="doctor">
+                  <input class="form-check-input" type="radio" name="type_edit" id="doctor" value="doctor" required>
                   <label class="form-check-label" for="doctor">Doctor</label>
                 </div>
 

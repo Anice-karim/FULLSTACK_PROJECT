@@ -27,12 +27,12 @@ include('../includes/navbar.php');
         <div class="form-row">
     <div class="form-group col-md-6">
         <label>Patente</label>
-        <input type="number" name="patente_edit" class="form-control" value="<?php echo $row['patente_assu']; ?>">
+        <input type="number" name="patente_edit" class="form-control" value="<?php echo $row['patente_assu']; ?>" required>
     </div>
 
     <div class="form-group col-md-6">
         <label>Name</label>
-        <input type="text" name="name_edit" class="form-control" value="<?php echo $row['nom_assu']; ?>">
+        <input type="text" name="name_edit" class="form-control" value="<?php echo $row['nom_assu']; ?>" required>
     </div>
 </div>
             <div class="form-check form-check-inline">
@@ -47,18 +47,18 @@ include('../includes/navbar.php');
               <div class="form-row">
     <div class="form-group col-md-6">
         <label>Email to log in</label>
-        <input type="email" name="email_edit" id="email" class="form-control" value="<?php echo $row['email_assu']; ?>">
+        <input type="email" name="email_edit" id="email" class="form-control" value="<?php echo $row['email_assu']; ?>" required>
     </div>
 
     <div class="form-group col-md-6">
         <label>Phone</label>
-        <input type="tel" name="tel_edit" id="tel" class="form-control" value="<?php echo $row['tele_assu']; ?>">
+        <input type="tel" name="tel_edit" id="tel" class="form-control" value="<?php echo $row['tele_assu']; ?>" required>
     </div>
 </div>
         
         <div class="form-group">
             <label>Password</label>
-            <input type="password" name="edit_password"  class="form-control" placeholder="Enter Password">
+            <input type="password" name="edit_password"  class="form-control" placeholder="Enter Password" required>
         </div>
         
 

@@ -20,11 +20,11 @@ include('../includes/navbar.php');
 
             <div class="form-group">
                 <label>Patente</label>
-                <input type="number" name="patente" class="form-control" placeholder="Enter INPE">
+                <input type="number" name="patente" class="form-control" placeholder="Enter INPE" required>
             </div>
             <div class="form-group">
                 <label>Name</label>
-                <input type="text" name="name" class="form-control" placeholder="Enter Name">
+                <input type="text" name="name" class="form-control" placeholder="Enter Name" required>
             </div>
             
             <div class="form-check form-check-inline">
@@ -42,17 +42,17 @@ include('../includes/navbar.php');
              
               <div class="form-group">
                 <label>Email to log in</label>
-                <input type="email" name="email" id="email" class="form-control" placeholder="name@health.ma" >
+                <input type="email" name="email" id="email" class="form-control" placeholder="name@health.ma" required>
             </div>
 
             <div class="form-group">
                 <label>Phone</label>
-                <input type="tel" name="tel" id="tel" class="form-control" placeholder="06" >
+                <input type="tel" name="tel" id="tel" class="form-control" placeholder="06" required>
             </div>
           
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" name="password" class="form-control" placeholder="Enter Password">
+                <input type="password" name="password" class="form-control" placeholder="Enter Password" required>
             </div>
             <div class="form-group">
                 <label>Confirm Password</label>

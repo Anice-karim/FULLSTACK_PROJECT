@@ -29,17 +29,17 @@ include('../includes/navbar.php');
             
             <div class="form-group">
               <label>Username</label>
-              <input type="text" name="edit_username" value="<?php echo $row['name']; ?>" class="form-control" placeholder="Enter Username">
+              <input type="text" name="edit_username" value="<?php echo $row['name']; ?>" class="form-control" placeholder="Enter Username" required>
             </div>
 
             <div class="form-group">
               <label>Email</label>
-              <input type="email" name="edit_email" value="<?php echo $row['email']; ?>" class="form-control" placeholder="Enter Email">
+              <input type="email" name="edit_email" value="<?php echo $row['email']; ?>" class="form-control" placeholder="Enter Email" required>
             </div>
 
             <div class="form-group">
               <label>Password</label>
-              <input type="password" name="edit_password" class="form-control" placeholder="Enter Password">
+              <input type="password" name="edit_password" class="form-control" placeholder="Enter Password" required>
             </div>
 
             <div class="d-flex justify-content-between">

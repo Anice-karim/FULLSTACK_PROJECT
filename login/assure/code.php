@@ -12,11 +12,13 @@ if(isset($_POST['registerbtn']))
     $salaire= $_POST['salaire'];
     $password= $_POST['password'];
     $cpassword= $_POST['confirmpassword'];
+    $immatr= $_POST['N_immatriculation_assure'];
+    
    
 
     if($password === $cpassword){
-        $query ="INSERT INTO assure (nom_as,prenom_as,email,CIN_as,RIB_as,designation,salaire_as,password)
-                             VALUES('$name','$last_name','$email','$cin','$rib','$des','$salaire','$password')";
+        $query ="INSERT INTO assure (nom_as,prenom_as,email,CIN_as,RIB_as,designation,salaire_as,password,N_immatriculation_assure)
+                             VALUES('$name','$last_name','$email','$cin','$rib','$des','$salaire','$password','$immatr')";
         $query_run = mysqli_query($connection , $query);
         if($query_run){
             //echo "Saved";
@@ -31,6 +33,36 @@ if(isset($_POST['registerbtn']))
         $_SESSION['status']="Password and Confirm password does not match";
         header('Location:assure_register.php');
     }
+
+    
+ }
+
+
+ if(isset($_POST['registerbtn_beni']))
+ {
+    $fname = $_POST['name1'];
+    $lname = $_POST['name2'];
+    $cin= $_POST['cin2'];
+    $birth= $_POST['date'];
+    $chronic= $_POST['chronic'];
+    $chronic2= $_POST['chronic2'];
+    $relation= $_POST['relation'];
+    $id_as=$_POST['admin_id'];
+    
+   
+        $query ="INSERT INTO beneficiaire (f_name,l_name,cin_ben,chronic,chronic1,id_as,relation)
+                             VALUES('$fname','$lname','$cin','$chronic','$chronic2','$id_as','$relation')";
+        $query_run = mysqli_query($connection , $query);
+        if($query_run){
+            //echo "Saved";
+            $_SESSION['success']="A Familly Member added";
+            header('Location:assure_register.php');
+        }else{
+            //echo "Not Saved";
+            $_SESSION['status']="A Familly Member Not Added";
+            header('Location:assure_register.php');
+        }
+
 
     
  }

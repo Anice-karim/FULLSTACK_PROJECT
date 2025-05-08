@@ -20,11 +20,11 @@ include('../includes/navbar.php');
 
             <div class="form-group">
                 <label>INPE</label>
-                <input type="number" name="inpe" class="form-control" placeholder="Enter INPE">
+                <input type="number" name="inpe" class="form-control" placeholder="Enter INPE" required>
             </div>
             <div class="form-group">
                 <label>Name</label>
-                <input type="text" name="name" class="form-control" placeholder="Enter Name">
+                <input type="text" name="name" class="form-control" placeholder="Enter Name" required>
             </div>
             <div class="mb-3">
                 <label for="typeInstitution" class="form-label">Type of Medical Institution</label>
@@ -66,20 +66,20 @@ include('../includes/navbar.php');
 
             <div class="form-group">
                 <label>Email</label>
-                <input type="email" name="email" class="form-control" placeholder="Enter Email">
+                <input type="email" name="email" class="form-control" placeholder="Enter Email" required>
             </div>
             <div class="form-group">
                 <label>Phone</label>
-                <input type="tel" name="phone" class="form-control" placeholder="+212 6...">
+                <input type="tel" name="phone" class="form-control" placeholder="+212 6..." required>
             </div>
             
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" name="password" class="form-control" placeholder="Enter Password">
+                <input type="password" name="password" class="form-control" placeholder="Enter Password" required>
             </div>
             <div class="form-group">
                 <label>Confirm Password</label>
-                <input type="password" name="confirmpassword" class="form-control" placeholder="Confirm Password">
+                <input type="password" name="confirmpassword" class="form-control" placeholder="Confirm Password" required>
             </div>
         </div>
         <div class="modal-footer">

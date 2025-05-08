@@ -20,20 +20,20 @@ include('../includes/navbar.php');
 
             <div class="form-group">
                 <label>INPE</label>
-                <input type="number" name="inpe" class="form-control" placeholder="Enter INPE">
+                <input type="number" name="inpe" class="form-control" placeholder="Enter INPE" required>
             </div>
             <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>First Name</label>
-                    <input type="text" name="name1" class="form-control" placeholder="Enter First Name">
+                    <input type="text" name="name1" class="form-control" placeholder="Enter First Name" required>
                   </div>
                 </div>
 
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Last Name</label>
-                    <input type="text" name="name2" class="form-control" placeholder="Enter Last Name">
+                    <input type="text" name="name2" class="form-control" placeholder="Enter Last Name" required>
                   </div>
                 </div>
               </div>
@@ -41,7 +41,7 @@ include('../includes/navbar.php');
                 <label class="form-label d-block">Designation</label>
 
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="type" id="doctor" value="doctor">
+                  <input class="form-check-input" type="radio" name="type" id="doctor" value="doctor" required>
                   <label class="form-check-label" for="doctor">Doctor</label>
                 </div>
 
@@ -62,7 +62,7 @@ include('../includes/navbar.php');
               </div>
               <div class="mb-3" id="specialtyContainer" style="display: none;">
                 <label for="specialty" class="form-label">Specialty</label>
-                <select class="form-control" name="spec" id="specialty">
+                <select class="form-control" name="spec" id="specialty" required>
                   <!-- options will be added dynamically -->
                 </select>
               </div>
@@ -72,12 +72,12 @@ include('../includes/navbar.php');
              
               <div class="form-group">
                 <label>Email to log in</label>
-                <input type="email" name="email" id="email" class="form-control" placeholder="name@health.ma" >
+                <input type="email" name="email" id="email" class="form-control" placeholder="name@health.ma" required>
             </div>
           
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" name="password" class="form-control" placeholder="Enter Password">
+                <input type="password" name="password" class="form-control" placeholder="Enter Password" required>
             </div>
             <div class="form-group">
                 <label>Confirm Password</label>
