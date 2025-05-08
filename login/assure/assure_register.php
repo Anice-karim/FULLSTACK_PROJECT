@@ -61,7 +61,7 @@ include('../includes/navbar.php');
             </div>
             </select>
         </div>
-        </div>
+        
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" name="registerbtn" class="btn btn-primary">Save</button>
@@ -99,60 +99,54 @@ include('../includes/navbar.php');
     ?>
     <div class="table-responsive">
     <?php 
-      $connection=mysqli_connect("localhost","root","","health_assurance");
-
       $query ="SELECT * FROM assure";
       $query_run = mysqli_query($connection,$query);
     ?>
-      <!-- <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
           <tr>
-            <th>ID</th>
             <th>Name</th>
             <th>Last name</th>
-            <th>name</th>
-            <th>Email </th>
             <th>CIN</th>
-            <th>RIB</th>
+            <th>Email </th>
             <th>NR D'IMMATRICULATION</th>
-     
+            <th>Edit</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
      <?php 
-      //if(mysqli_num_rows($query_run)>0){
-       // while($row = mysqli_fetch_assoc($query_run))
-       // {
+      if(mysqli_num_rows($query_run)>0){
+        while($row = mysqli_fetch_assoc($query_run))
+        {
           ?>
           
           <tr>
-            <td><?php //echo $row['id_as']; ?></td>
-            <td><?php //echo $row['nom_as'] ?></td>
-            <td><?php //echo $row['prenom_as'] ?></td>
-            <td><?php //echo $row['email']; ?></td>
-            <td><?php //echo $row['CIN_as']; ?></td>
-            <td><?php //echo $row['RIB_as']; ?></td>
-            <td><?php //echo $row['N_immatriculation_assure']; ?></td>
+            <td><?php echo $row['nom_as']; ?></td>
+            <td><?php echo $row['prenom_as'] ?></td>
+            <td><?php echo $row['CIN_as']; ?></td>
+            <td><?php echo $row['email'] ?></td>
+            <td><?php echo $row['N_immatriculation_assure']; ?></td>
       
             <td>
                 <form action="assure_edit.php" method="post">
-                    <input type="hidden" name="edit_id" value="<?php //echo $row['id']; ?>">
+                    <input type="hidden" name="edit_id" value="<?php echo $row['id_as']; ?>">
                     <button  type="submit" name="edit_btn" class="btn btn-success"> EDIT</button>
                 </form>
             </td>
             <td>
                 <form action="assure_edit.php" method="post">
-                  <input type="hidden" name="delete_id" value="<?php //echo $row['id']; ?>">
+                  <input type="hidden" name="delete_id" value="<?php echo $row['id_as']; ?>">
                   <button type="submit" name="delete_btn" class="btn btn-danger"> DELETE</button>
                 </form>
             </td>
-          </tr> -->
+          </tr> 
           <?php
-        //}
-      //}
-      //else {
-        //echo "No Record Found";
-      //}
+        }
+      }
+      else {
+        echo "No Record Found";
+      }
       ?>
         
         </tbody>

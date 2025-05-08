@@ -15,7 +15,8 @@ if(isset($_POST['registerbtn']))
    
 
     if($password === $cpassword){
-        $query ="INSERT INTO assure (nom_as,prenom_as,email,CIN_as,RIB_as,designation,salaire_as,password) VALUES('$name','$last_name','$email','$cin','$rib','$des','$salaire','$password')";
+        $query ="INSERT INTO assure (nom_as,prenom_as,email,CIN_as,RIB_as,designation,salaire_as,password)
+                             VALUES('$name','$last_name','$email','$cin','$rib','$des','$salaire','$password')";
         $query_run = mysqli_query($connection , $query);
         if($query_run){
             //echo "Saved";

@@ -65,6 +65,12 @@
     <span>Job Offers</span></a>
 </li>
 
+<li class="nav-item">
+  <a class="nav-link" href="..\assure\assure_register.php">
+    <i class="fas fa-user"></i>
+    <span>Client</span></a>
+</li>
+
 
 
 

@@ -129,15 +129,5 @@ include('../includes/navbar.php');
 
   <?php
 include('../includes/scripts.php');
-
+include('../includes/footer.php');
 ?>
-</div>
-      <!-- End of Main Content -->
-       
-    </div>
-    <!-- End of Content Wrapper -->
-   
-    
-</body>
-
-</html>
