@@ -10,7 +10,7 @@
   <meta name="author" content="">
 
   <title>Panel</title>
-  <link rel="icon" href="img/icon.svg" type="image/svg+xml">
+  <link rel="icon" href="../img/icon.svg" type="image/svg+xml">
 
 
   <!-- Custom fonts for this template-->
