@@ -101,9 +101,16 @@ include('../includes/navbar.php');
   </div>
 </div>
         <div class="form-group">
-            <label>Password</label>
-            <input type="password" name="edit_password"  class="form-control" placeholder="Enter Password" required>
-        </div>
+              <label for="password">Password</label>
+              <div class="input-group">
+                <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" required>
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button" id="eye-icon">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
         
         
         <a href="register_etab.php" class="btn btn-danger">CANCEL</a>

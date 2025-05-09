@@ -51,3 +51,30 @@ function generateEmail() {
     alert('Please enter a name first.');
   }
 }
+const eyeIcon = document.getElementById('eye-icon');
+const passwordField = document.getElementById('password');
+
+  eyeIcon.addEventListener('click', function() {
+    if (passwordField.type === 'password') {
+      passwordField.type = 'text';
+      eyeIcon.innerHTML = '<i class="fas fa-eye-slash"></i>';
+    } else {
+      passwordField.type = 'password';
+      eyeIcon.innerHTML = '<i class="fas fa-eye"></i>';
+    }
+  });
+
+  // Toggle Confirm Password visibility
+  const eyeIconConfirm = document.getElementById('eye-icon-confirm');
+  const confirmPasswordField = document.getElementById('confirmpassword');
+
+  eyeIconConfirm.addEventListener('click', function() {
+    if (confirmPasswordField.type === 'password') {
+      confirmPasswordField.type = 'text';
+      eyeIconConfirm.innerHTML = '<i class="fas fa-eye-slash"></i>';
+    } else {
+      confirmPasswordField.type = 'password';
+      eyeIconConfirm.innerHTML = '<i class="fas fa-eye"></i>';
+    }
+  });
+

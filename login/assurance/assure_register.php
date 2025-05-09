@@ -68,13 +68,27 @@ include('../includes/navbar.php');
                 <input type="text" name="salaire" class="form-control" placeholder="Enter salaire" required>
             </div>
             <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control" placeholder="Enter password" required>
+              <label for="password">Password</label>
+              <div class="input-group">
+                <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" required>
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button" id="eye-icon">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+              </div>
             </div>
             <div class="form-group">
-                <label>Confirm Password</label>
-                <input type="password" name="confirmpassword" class="form-control" placeholder="Confirm Password">
-            </div>
+                <label for="confirmpassword">Confirm Password</label>
+                <div class="input-group">
+                  <input type="password" name="confirmpassword" id="confirmpassword" class="form-control" placeholder="Confirm Password" required>
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" id="eye-icon-confirm">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
             </select>
             <input type="hidden" name="assu_id" value="6">
         </div>
