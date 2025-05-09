@@ -33,7 +33,7 @@ include('../includes/navbar.php');
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Last Name</label>
-                    <input type="text" name="name2" class="form-control" placeholder="Enter Last Name" required>
+                    <input type="text" name="name2" class="form-control" placeholder="Enter Last Name" id="name" required>
                   </div>
                 </div>
               </div>
@@ -71,8 +71,13 @@ include('../includes/navbar.php');
 
              
               <div class="form-group">
-                <label>Email to log in</label>
-                <input type="email" name="email" id="email" class="form-control" placeholder="name@health.ma" required>
+                <label>Email</label>
+                <div class="input-group">
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email" readonly required>
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary" type="button" onclick="generateEmail()">Auto</button>
+                    </div>
+                </div>
             </div>
           
             <div class="form-group">
@@ -146,7 +151,7 @@ include('../includes/navbar.php');
           
           <tr>
             <td><?php echo $row['inpe']; ?></td>
-            <td><?php echo $row['l_name_hp'] ?></td>
+            <td><?php echo $row['name'] ?></td>
             <td><?php echo $row['email']; ?></td>
             <td><?php echo $row['type']; ?></td>
             <td><?php echo $row['specialty']; ?></td>

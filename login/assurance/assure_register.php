@@ -26,18 +26,25 @@ include('../includes/navbar.php');
             </div>
             <div class="form-group">
                 <label>Last Name</label>
-                <input type="text" name="last_name" class="form-control" placeholder="Enter last name" required>
+                <input type="text" name="last_name" class="form-control" id="name" placeholder="Enter last name" required>
             </div>
             <div class="form-group">
-                <label for="uniqueIdInput">N° Immatriculation</label>
-                <!-- Input for immatriculation -->
-                <input type="text" name="N_immatriculation_assure" id="uniqueIdInput" class="form-control" placeholder="Generated ID will appear here" readonly>
-                <!-- Button to generate ID -->
-                <button type="button" class="btn btn-primary" id="generateIdButton">Generate ID</button>
-            </div>
+              <label for="uniqueIdInput">N° Immatriculation</label>
+              <div class="input-group">
+                  <input type="text" name="N_immatriculation_assure" id="uniqueIdInput" class="form-control" placeholder="Generated ID will appear here" readonly>
+                  <div class="input-group-append">
+                      <button type="button" class="btn btn-secondary" id="generateIdButton">Auto</button>
+                  </div>
+              </div>
+          </div>
             <div class="form-group">
                 <label>Email</label>
-                <input type="email" name="email" class="form-control" placeholder="Enter Email" required>
+                <div class="input-group">
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email" readonly required>
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary" type="button" onclick="generateEmail()">Auto</button>
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <label>CIN</label>
@@ -69,6 +76,7 @@ include('../includes/navbar.php');
                 <input type="password" name="confirmpassword" class="form-control" placeholder="Confirm Password">
             </div>
             </select>
+            <input type="hidden" name="assu_id" value="6">
         </div>
         
         <div class="modal-footer">
@@ -95,7 +103,7 @@ include('../includes/navbar.php');
       <form action="code.php" method="POST">
         <div class="modal-body">
             
-        
+        <input type="hidden" name="admin_id" id="admin_id">
 
             <div class="form-group">
                 <label>First Name</label>
@@ -145,7 +153,7 @@ include('../includes/navbar.php');
                       <label class="form-check-label" for="relationChild">Child</label>
                   </div>
               </div>
-          
+              
     
             
         </div>
@@ -209,7 +217,7 @@ include('../includes/navbar.php');
           ?>
           
           <tr>
-            <td><?php echo $row['nom_as']; ?></td>
+            <td><?php echo $row['name']; ?></td>
             <td><?php echo $row['prenom_as'] ?></td>
             <td><?php echo $row['CIN_as']; ?></td>
             <td><?php echo $row['email'] ?></td>
@@ -223,8 +231,8 @@ include('../includes/navbar.php');
             </td>
             <td>
                 <form action="assure_edit.php" method="post">
-                  <input type="hidden" name="delete_id" value="<?php echo $row['id_as']; ?>">
-                  <button type="submit" name="delete_btn" class="btn btn-danger"> DELETE</button>
+                  <input type="hidden" name="delete_id_as" value="<?php echo $row['id_as']; ?>">
+                  <button type="submit" name="delete_btn_as" class="btn btn-danger"> DELETE</button>
                 </form>
             </td>
             <td>
@@ -254,68 +262,7 @@ include('../includes/navbar.php');
 
 </div>
 <!-- /.container-fluid -->
-<script>
-      document.addEventListener('DOMContentLoaded', function () {
-    // Handling the "Add Admin Profile" button click event
-    const addAdminButton = document.getElementById('addAdminButton');
-    const uniqueIdInput = document.getElementById('uniqueIdInput');
-    const addButton = document.getElementById('generateIdButton');
-    const chronicCheck = document.getElementById('chronicCheck');
-    const cinInput = document.getElementById('cin');
-    const birthInput = document.getElementById('birth');
-    const chronicSelectGroup = document.getElementById('chronicSelectGroup');
-
-    // Ensure all elements exist before adding event listeners
-    if (addAdminButton) {
-        addAdminButton.addEventListener('click', function () {
-            const adminId = this.value;
-            document.getElementById('admin_id').value = adminId;
-        });
-    }
-
-    if (chronicCheck) {
-        chronicCheck.addEventListener('change', function () {
-            chronicSelectGroup.style.display = this.checked ? 'block' : 'none';
-        });
-    }
-
-    if (birthInput) {
-        birthInput.addEventListener('change', function () {
-            const birthDate = new Date(this.value);
-            const today = new Date();
-            let age = today.getFullYear() - birthDate.getFullYear();
-            const m = today.getMonth() - birthDate.getMonth();
-            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-                age--;
-            }
-
-            if (age >= 18) {
-                cinInput.setAttribute('required', 'required');
-            } else {
-                cinInput.removeAttribute('required');
-            }
-        });
-    }
-
-    if (addButton && uniqueIdInput) {
-        addButton.addEventListener('click', function () {
-            console.log("Button clicked!");
-            generateUniqueId();
-        });
-    } else {
-        console.log("Button or input field for unique ID not found.");
-    }
-
-    // Function to generate a unique ID
-    function generateUniqueId() {
-        // Create a unique ID using timestamp and a random number
-        const uniqueNum = Date.now().toString() + Math.floor(Math.random() * 1000).toString().padStart(3, '0');
-        uniqueIdInput.value = uniqueNum;
-        console.log("Generated immatr: " + uniqueNum); // Log the generated ID for debugging
-    }
-});
-
-</script>
+<script src="script.js" ></script>
 <?php
 include('../includes/scripts.php');
 include('../includes/footer.php');

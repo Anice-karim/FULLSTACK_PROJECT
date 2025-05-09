@@ -20,7 +20,7 @@
     <div class="bg-white rounded-3xl shadow-2xl p-10 w-full max-w-md">
       <h1 class="text-4xl font-bold text-blue-400 text-center mb-8">Login / Register</h1>
 
-      <form class="space-y-6">
+      <form method="POST" action="logincode.php" class="space-y-6">
         <!-- Email -->
         <div>
           <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
@@ -29,6 +29,7 @@
             id="email"
             class="mt-2 block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
             placeholder="you@example.com"
+            name="email"
             required
           />
         </div>
@@ -41,6 +42,7 @@
             id="password"
             class="mt-2 block w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
             placeholder="••••••••"
+            name="password"
             required
           />
         </div>
@@ -49,6 +51,7 @@
         <button
           type="submit"
           class="w-full py-3 rounded-lg bg-blue-300 hover:bg-blue-700 text-white font-semibold transition duration-300"
+          name="login_btn"
         >
           Submit
         </button>

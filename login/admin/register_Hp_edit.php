@@ -39,13 +39,13 @@ include('../includes/navbar.php');
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Last Name</label>
-                    <input type="text" name="name2_edit" class="form-control" value="<?php echo $row['l_name_hp']?>" placeholder="Enter Last Name" required>
+                    <input type="text" name="name2_edit" class="form-control" value="<?php echo $row['name']?>" placeholder="Enter Last Name" required>
                   </div>
                 </div>
               </div>
         <div class="form-group">
             <label>Email</label>
-            <input type="email" name="edit_email" value="<?php echo $row['email']?>" class="form-control" placeholder="Enter Email" required>
+            <input type="email" name="edit_email" value="<?php echo $row['email']?>" class="form-control" placeholder="Enter Email" readonly>
         </div>
         <div class="form-group">
             <label>Password</label>

@@ -13,12 +13,13 @@ if(isset($_POST['registerbtn']))
     $password= $_POST['password'];
     $cpassword= $_POST['confirmpassword'];
     $immatr= $_POST['N_immatriculation_assure'];
+    $id_assu=$_POST['assu_id'];
     
    
 
     if($password === $cpassword){
-        $query ="INSERT INTO assure (nom_as,prenom_as,email,CIN_as,RIB_as,designation,salaire_as,password,N_immatriculation_assure)
-                             VALUES('$name','$last_name','$email','$cin','$rib','$des','$salaire','$password','$immatr')";
+        $query ="INSERT INTO assure (nom_as,prenom_as,email,CIN_as,RIB_as,designation,salaire_as,password,N_immatriculation_assure,id_assurance)
+                             VALUES('$name','$last_name','$email','$cin','$rib','$des','$salaire','$password','$immatr','$id_assu')";
         $query_run = mysqli_query($connection , $query);
         if($query_run){
             //echo "Saved";
@@ -61,9 +62,31 @@ if(isset($_POST['registerbtn']))
             //echo "Not Saved";
             $_SESSION['status']="A Familly Member Not Added";
             header('Location:assure_register.php');
-        }
-
-
+        }    
+ }
+ if(isset($_POST['delete_btn_as'])){
+    $id =$_POST['delete_id_as'];
     
+    $delete_as_query = "DELETE FROM assure WHERE id_as = '$id'";
+    $delete_ben_query = "DELETE FROM beneficiaire WHERE id_as = '$id'";
+  
+    
+    //all or nothing
+    mysqli_begin_transaction($connection);
+
+
+    try {
+        mysqli_query($connection, $delete_as_query);
+        mysqli_query($connection, $delete_ben_query );
+        mysqli_commit($connection);//Yes, go ahead and apply all the changes.
+        
+        $_SESSION['success'] = "Ex-client and related records deleted successfully.";
+    } catch (Exception $e) {
+        // Rollback in case of error
+        mysqli_rollback($connection);//cancels all previous deletions
+        $_SESSION['status'] = "Error during deletion: " . $e->getMessage();
+    }
+    header('Location:assure_register.php');  
+
  }
 ?>

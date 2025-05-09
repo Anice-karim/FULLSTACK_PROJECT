@@ -34,7 +34,7 @@ include('../includes/navbar.php');
   <div class="col-md-6">
     <div class="form-group">
       <label>Name</label>
-      <input type="text" name="name_edit" class="form-control" value="<?php echo $row['name_etab'] ?>" required>
+      <input type="text" name="name_edit" class="form-control" value="<?php echo $row['name'] ?>" required>
     </div>
   </div>
 </div>
@@ -88,7 +88,7 @@ include('../includes/navbar.php');
   <div class="col-md-6">
     <div class="form-group">
       <label>Email</label>
-      <input type="email" name="edit_email" value="<?php echo $row['email_etab']?>" class="form-control" placeholder="Enter Email" required>
+      <input type="email" name="edit_email" value="<?php echo $row['email']?>" class="form-control" placeholder="Enter Email" readonly>
     </div>
   </div>
 

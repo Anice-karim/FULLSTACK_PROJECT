@@ -24,7 +24,7 @@ include('../includes/navbar.php');
             </div>
             <div class="form-group">
                 <label>Name</label>
-                <input type="text" name="name" class="form-control" placeholder="Enter Name" required>
+                <input type="text" name="name" class="form-control" placeholder="Enter Name" id="name" required>
             </div>
             <div class="mb-3">
                 <label for="typeInstitution" class="form-label">Type of Medical Institution</label>
@@ -66,8 +66,13 @@ include('../includes/navbar.php');
 
             <div class="form-group">
                 <label>Email</label>
-                <input type="email" name="email" class="form-control" placeholder="Enter Email" required>
-            </div>
+                <div class="input-group">
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email" readonly required>
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary" type="button" onclick="generateEmail()">Auto</button>
+                    </div>
+                </div>
+              </div>
             <div class="form-group">
                 <label>Phone</label>
                 <input type="tel" name="phone" class="form-control" placeholder="+212 6..." required>
@@ -142,9 +147,9 @@ include('../includes/navbar.php');
           
           <tr>
             <td><?php echo $row['inpe_etab']; ?></td>
-            <td><?php echo $row['name_etab'] ?></td>
+            <td><?php echo $row['name'] ?></td>
             <td><?php echo $row['type_etab']; ?></td>
-            <td><?php echo $row['email_etab']; ?></td>
+            <td><?php echo $row['email']; ?></td>
             <td>
                 <form action="register_etab_edit.php" method="post">
                     <input type="hidden" name="edit_id_etab" value="<?php echo $row['id_etab']; ?>">
@@ -175,7 +180,7 @@ include('../includes/navbar.php');
 
 </div>
 <!-- /.container-fluid -->
-
+<script src="js/scripthp.js"></script>
 <?php
 include('../includes/scripts.php');
 include('../includes/footer.php');

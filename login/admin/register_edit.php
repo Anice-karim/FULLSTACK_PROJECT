@@ -34,7 +34,7 @@ include('../includes/navbar.php');
 
             <div class="form-group">
               <label>Email</label>
-              <input type="email" name="edit_email" value="<?php echo $row['email']; ?>" class="form-control" placeholder="Enter Email" required>
+              <input type="email" name="edit_email" value="<?php echo $row['email']; ?>" class="form-control" placeholder="Enter Email" readonly>
             </div>
 
             <div class="form-group">

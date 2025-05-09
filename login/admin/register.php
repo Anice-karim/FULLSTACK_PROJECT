@@ -20,11 +20,16 @@ include('../includes/navbar.php');
 
             <div class="form-group">
                 <label> Username </label>
-                <input type="text" name="username" class="form-control" placeholder="Enter Username" required>
+                <input type="text" name="username" class="form-control" placeholder="Enter Username" id="name"required>
             </div>
             <div class="form-group">
                 <label>Email</label>
-                <input type="email" name="email" class="form-control" placeholder="Enter Email" required>
+                <div class="input-group">
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email"  readonly required>
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary" type="button" onclick="generateEmail()">Auto</button>
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <label>Password</label>
@@ -127,7 +132,7 @@ include('../includes/navbar.php');
 
 </div>
 <!-- /.container-fluid -->
-
+<script src="js/scripthp.js"></script>
 <?php
 include('../includes/scripts.php');
 include('../includes/footer.php');

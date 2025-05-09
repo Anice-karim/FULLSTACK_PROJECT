@@ -25,8 +25,7 @@ if(isset($_POST['registerbtn']))
         $_SESSION['status']="Password and Confirm password does not match";
         header('Location:register.php');
     }
-
-    
+   
  }
 
  if(isset($_POST['updatebtn'])){
@@ -76,7 +75,7 @@ if(isset($_POST['registerbtn_Hp']))
 
     if($password === $cpassword){
         $query ="INSERT INTO health_professionals 
-                    (inpe,f_name_hp,l_name_hp,type,specialty,email,password,registred)
+                    (inpe,f_name_hp,name,type,specialty,email,password,registred)
                      VALUES('$inpe','$fname','$lname','$dsg','$spec','$email','$password','$rgst')";
         $query_run = mysqli_query($connection , $query);
         if($query_run){
@@ -109,7 +108,7 @@ if(isset($_POST['registerbtn_Hp']))
     $query ="UPDATE health_professionals 
                     SET inpe='$inpe'
                     ,f_name_hp='$fname'
-                    ,l_name_hp='$lname'
+                    ,name='$lname'
                     ,email='$email'
                     ,password='$password'
                     ,type='$type'
@@ -167,7 +166,7 @@ if(isset($_POST['registerbtn_Hp']))
 
     if($password === $cpassword){
         $query ="INSERT INTO etablissement 
-                        (inpe_etab,name_etab,pub_prv_etab,type_etab,tele_etab,email_etab,password) 
+                        (inpe_etab,name,pub_prv_etab,type_etab,tele_etab,email,password) 
                          VALUES('$inpe','$name','$pub','$type','$phone','$email','$password')";
         $query_run = mysqli_query($connection , $query);
         if($query_run){
@@ -209,9 +208,9 @@ if(isset($_POST['registerbtn_Hp']))
     $tele = $_POST['edit_tele'];
 
     $query ="UPDATE etablissement SET inpe_etab='$inpe'
-                                    ,name_etab='$name'
+                                    ,name='$name'
                                     ,type_etab='$type'
-                                    ,email_etab='$email'
+                                    ,email='$email'
                                     ,pub_prv_etab='$pub'
                                     ,tele_etab='$tele'
                                     ,password='$password'
@@ -238,8 +237,8 @@ if(isset($_POST['registerbtn_Hp']))
     
 
     if($password === $cpassword){
-        $query = "INSERT INTO assu
-        (patente_assu, nom_assu, prv_pub_assu, tele_assu, email_assu, password)
+        $query = "INSERT INTO assurance
+        (patente_assu, name, prv_pub_assu, tele_assu, email, password)
         VALUES ('$patente', '$name', '$pub', '$tel', '$email', '$password')";
         $query_run = mysqli_query($connection , $query);
         if($query_run){
@@ -260,7 +259,7 @@ if(isset($_POST['registerbtn_Hp']))
  }
  if(isset($_POST['delete_btn_assu'])){
     $id =$_POST['delete_assu'];
-    $query="DELETE  FROM assu WHERE id_assu='$id'";
+    $query="DELETE  FROM assurance WHERE id_assu='$id'";
     $query_run=mysqli_query($connection,$query);
     if($query_run){
         $_SESSION['success']="Your Data is Deleted";
@@ -280,11 +279,11 @@ if(isset($_POST['registerbtn_Hp']))
     $tel= $_POST['tel_edit'];
     $password=md5( $_POST['edit_password']);
 
-    $query ="UPDATE assu SET patente_assu='$patente'
-                                    ,nom_assu='$name'
+    $query ="UPDATE assurance SET patente_assu='$patente'
+                                    ,name='$name'
                                     ,prv_pub_assu='$pub'
                                     ,tele_assu='$tel'
-                                    ,email_assu='$email'
+                                    ,email='$email'
                                     ,password='$password'
                                      WHERE id_assu='$id'";
     $query_run=mysqli_query($connection,$query);

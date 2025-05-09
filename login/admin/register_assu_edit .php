@@ -15,7 +15,7 @@ include('../includes/navbar.php');
 
  if(isset($_POST['edit_assu_btn'])){
     $id = $_POST['edit_assu'];
-    $query= "SELECT * FROM  assu WHERE id_assu='$id' ";
+    $query= "SELECT * FROM  assurance WHERE id_assu='$id' ";
     $query_run=mysqli_query($connection,$query);   
     foreach($query_run as $row){
         ?>
@@ -47,7 +47,7 @@ include('../includes/navbar.php');
               <div class="form-row">
     <div class="form-group col-md-6">
         <label>Email to log in</label>
-        <input type="email" name="email_edit" id="email" class="form-control" value="<?php echo $row['email_assu']; ?>" required>
+        <input type="email" name="email_edit" id="email" class="form-control" value="<?php echo $row['email']; ?>" readonly>
     </div>
 
     <div class="form-group col-md-6">

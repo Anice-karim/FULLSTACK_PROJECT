@@ -79,7 +79,7 @@ include('../includes/navbar.php');
               <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Insurance Company</div>
                 
               <?php
-                  $query = "SELECT COUNT(*) AS total FROM assu";
+                  $query = "SELECT COUNT(*) AS total FROM assurance";
                   $query_run = mysqli_query($connection, $query);
                   $data = mysqli_fetch_assoc($query_run);
                   

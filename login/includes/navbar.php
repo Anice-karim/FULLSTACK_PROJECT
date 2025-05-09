@@ -1,5 +1,28 @@
    <!-- Sidebar -->
-   <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <?php
+    $table = $_SESSION['table'] ?? '';
+if (isset($table)) {
+  switch ($table) {
+      case 'register':
+          $sidebar_class = 'bg-gradient-admin'; // Admin
+          break;
+      case 'etablissement':
+          $sidebar_class = 'bg-gradient-etablissement'; // Medical Facilities
+          break;
+      case 'health_professionals':
+          $sidebar_class = 'bg-gradient-health'; // Health Pros
+          break;
+      case 'assurance':
+          $sidebar_class = 'bg-gradient-assurance'; // Insurance
+          break;
+      default:
+          $sidebar_class = 'bg-gradient-dark';
+          break;
+  }
+}
+?>
+     
+   <ul class="navbar-nav <?php echo $sidebar_class; ?> sidebar sidebar-dark accordion" id="accordionSidebar">
 
 <!-- Sidebar - Brand -->
 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index.html">
@@ -29,47 +52,67 @@
 
 <!-- Nav Item - Pages Collapse Menu -->
 
-<li class="nav-item">
-  <a class="nav-link" href="..\admin\register.php">
-    <i class="fas fa-fw fas fa-user-shield"></i>
-    <span>Admin</span></a>
-</li>
 
-<li class="nav-item">
-  <a class="nav-link" href="..\admin\register_Hp.php">
-    <i class="fas fa-fw fa-user-md"></i>
-    <span>Health professionals</span></a>
-</li>
+<!-- ADMIN-ONLY LINKS -->
+<?php if ($table === 'register'): ?>
+    <li class="nav-item">
+        <a class="nav-link" href="..\admin\register.php">
+            <i class="fas fa-fw fas fa-user-shield"></i>
+            <span>Admin</span>
+        </a>
+    </li>
 
-<li class="nav-item">
-  <a class="nav-link" href="..\admin\register_etab.php">
-    <i class="fas fa-fw fa-hospital"></i>
-    <span>Medical facilities</span></a>
-</li>
+    <li class="nav-item">
+        <a class="nav-link" href="..\admin\register_Hp.php">
+            <i class="fas fa-fw fa-user-md"></i>
+            <span>Health professionals</span>
+        </a>
+    </li>
 
-<li class="nav-item">
-  <a class="nav-link" href="..\admin\register_assu.php">
-    <i class="fas fa-fw fa-file-invoice-dollar"></i>
-    <span>Insurance Company</span></a>
-</li>
+    <li class="nav-item">
+        <a class="nav-link" href="..\admin\register_etab.php">
+            <i class="fas fa-fw fa-hospital"></i>
+            <span>Medical facilities</span>
+        </a>
+    </li>
 
-<li class="nav-item">
-  <a class="nav-link" href="..\Medical facilities\invitation.php">
-    <i class="fas fa-fw fa-handshake"></i>
-    <span>Join Invitation</span></a>
-</li>
+    <li class="nav-item">
+        <a class="nav-link" href="..\admin\register_assu.php">
+            <i class="fas fa-fw fa-file-invoice-dollar"></i>
+            <span>Insurance Company</span>
+        </a>
+    </li>
+<?php endif; ?>
 
-<li class="nav-item">
-  <a class="nav-link" href="..\health_professionals\joboffer.php">
-    <i class="fas fa-briefcase"></i>
-    <span>Job Offers</span></a>
-</li>
+<!-- ETABLISSEMENT -->
+<?php if ($table === 'etablissement'): ?>
+    <li class="nav-item">
+        <a class="nav-link" href="..\etablissement\invitation.php">
+            <i class="fas fa-fw fa-handshake"></i>
+            <span>Join Invitation</span>
+        </a>
+    </li>
+<?php endif; ?>
 
-<li class="nav-item">
-  <a class="nav-link" href="..\assure\assure_register.php">
-    <i class="fas fa-user"></i>
-    <span>Client</span></a>
-</li>
+<!-- HEALTH PROFESSIONALS -->
+<?php if ($table === 'health_professionals'): ?>
+    <li class="nav-item">
+        <a class="nav-link" href="..\health_professionals\joboffer.php">
+            <i class="fas fa-briefcase"></i>
+            <span>Job Offers</span>
+        </a>
+    </li>
+<?php endif; ?>
+
+<!-- ASSURANCE -->
+<?php if ($table === 'assurance'): ?>
+    <li class="nav-item">
+        <a class="nav-link" href="..\assurance\assure_register.php">
+            <i class="fas fa-user"></i>
+            <span>Client</span>
+        </a>
+    </li>
+<?php endif; ?>
 
 
 
@@ -124,17 +167,8 @@
             <i class="fa fa-bars"></i>
           </button>
 
-          <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
-            </div>
-          </form>
+          
+          
 
 
           <!-- Topbar Navbar -->
@@ -325,7 +359,7 @@
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
 
-          <form action="logout.php" method="POST"> 
+          <form action="../logout.php" method="POST"> 
           
             <button type="submit" name="logout_btn" class="btn btn-primary">Logout</button>
 

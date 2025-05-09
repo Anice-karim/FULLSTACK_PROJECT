@@ -27,9 +27,9 @@ include('../includes/navbar.php');
     <div class="table-responsive">
     <?php 
        $query ="SELECT 
-                  etab.name_etab ,
+                  etab.name ,
                   etab.type_etab,
-                  etab.email_etab,
+                  etab.email,
                   inv.status,
                   inv.id
               FROM 
@@ -59,9 +59,9 @@ include('../includes/navbar.php');
           ?>
           
           <tr>
-            <td><?php echo $row['name_etab']; ?></td>
+            <td><?php echo $row['name']; ?></td>
             <td><?php echo $row['type_etab'] ?></td>
-            <td><?php echo $row['email_etab']; ?></td>
+            <td><?php echo $row['email']; ?></td>
             <td>
               <form action="code.php" method="post">
                   <input type="hidden" name="accept_invi_id" value="<?php echo $row['id']; ?>">

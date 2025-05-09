@@ -33,7 +33,7 @@ include('../includes/navbar.php');
           </div>
 
           <!-- If you already have the institution ID in session, no need for this -->
-          <input type="hidden" name="etab_id" value="8"> <!-- Or set dynamically in PHP -->
+          <input type="hidden" name="etab_id" value="10"> <!-- Or set dynamically in PHP -->
 
         </div>
 
@@ -74,7 +74,7 @@ include('../includes/navbar.php');
     <div class="table-responsive">
     <?php 
        $query ="SELECT 
-                  hp.l_name_hp ,
+                  hp.name ,
                   hp.specialty,
                   hp.email,
                   inv.status,
@@ -104,7 +104,7 @@ include('../includes/navbar.php');
           ?>
           
           <tr>
-            <td><?php echo $row['l_name_hp']; ?></td>
+            <td><?php echo $row['name']; ?></td>
             <td><?php echo $row['specialty'] ?></td>
             <td><?php echo $row['email']; ?></td>
             <td>

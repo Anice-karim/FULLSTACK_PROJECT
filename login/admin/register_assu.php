@@ -24,7 +24,7 @@ include('../includes/navbar.php');
             </div>
             <div class="form-group">
                 <label>Name</label>
-                <input type="text" name="name" class="form-control" placeholder="Enter Name" required>
+                <input type="text" name="name" class="form-control" placeholder="Enter Name" id="name" required>
             </div>
             
             <div class="form-check form-check-inline">
@@ -41,9 +41,14 @@ include('../includes/navbar.php');
 
              
               <div class="form-group">
-                <label>Email to log in</label>
-                <input type="email" name="email" id="email" class="form-control" placeholder="name@health.ma" required>
-            </div>
+                <label>Email</label>
+                <div class="input-group">
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email" readonly  required>
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary" type="button" onclick="generateEmail()">Auto</button>
+                    </div>
+                </div>
+</div>
 
             <div class="form-group">
                 <label>Phone</label>
@@ -97,7 +102,7 @@ include('../includes/navbar.php');
     ?>
     <div class="table-responsive">
     <?php 
-      $query ="SELECT * FROM assu";
+      $query ="SELECT * FROM assurance";
       $query_run = mysqli_query($connection,$query);
     ?>
      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -120,8 +125,8 @@ include('../includes/navbar.php');
           
           <tr>
             <td><?php echo $row['patente_assu']; ?></td>
-            <td><?php echo $row['nom_assu'] ?></td>
-            <td><?php echo $row['email_assu']; ?></td>
+            <td><?php echo $row['name'] ?></td>
+            <td><?php echo $row['email']; ?></td>
             <td><?php echo $row['tele_assu']; ?></td>
 
             <td>

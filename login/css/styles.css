@@ -1,0 +1,15 @@
+.bg-gradient-admin {
+    background: linear-gradient(135deg, #1e3c72, #2a5298); /* deep royal blue */
+  }
+  
+  .bg-gradient-etablissement {
+    background: linear-gradient(135deg, #396afc, #2948ff); /* blue electric */
+  }
+  
+  .bg-gradient-health {
+    background: linear-gradient(135deg, #56ccf2, #2f80ed); /* sky blue */
+  }
+  
+  .bg-gradient-assurance {
+    background: linear-gradient(135deg, #2193b0, #6dd5ed); /* turquoise blue */
+  }

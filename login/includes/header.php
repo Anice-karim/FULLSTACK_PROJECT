@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Admin Panel</title>
+  <title>Panel</title>
   <link rel="icon" href="img/icon.svg" type="image/svg+xml">
 
 
@@ -19,6 +19,7 @@
 
   <!-- Custom styles for this template-->
   <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="../css/styles.css" rel="stylesheet">
 
 </head>
 
