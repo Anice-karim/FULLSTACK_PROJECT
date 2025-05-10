@@ -30,6 +30,7 @@ if (isset($_POST['login_btn'])) {
             if ($user['password'] == $password_login) {
                 $_SESSION['email'] = $email_login;
                 $_SESSION['username'] = $user['name']; 
+                
                 $_SESSION['table'] = $table;
                 header("Location: $folder/index.php");
                 exit();

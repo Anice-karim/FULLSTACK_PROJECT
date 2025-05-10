@@ -19,7 +19,7 @@ include('../includes/navbar.php');
         <div class="modal-body">
         
 
-
+            <input type="hidden" name="assu_id" value="4">
             <div class="form-group">
                 <label> First Name </label>
                 <input type="text" name="name" class="form-control" placeholder="Enter name" required>
@@ -90,7 +90,7 @@ include('../includes/navbar.php');
                 </div>
               </div>
             </select>
-            <input type="hidden" name="assu_id" value="6">
+            
         </div>
         
         <div class="modal-footer">
@@ -105,81 +105,7 @@ include('../includes/navbar.php');
   </div>
 </div>
  <!-- add a family member form -->
-<div class="modal fade" id="addfamily" tabindex="-1" role="dialog" aria-labelledby="ADD family" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addfamily">Add Family</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form action="code.php" method="POST">
-        <div class="modal-body">
-            
-        <input type="hidden" name="admin_id" id="admin_id">
 
-            <div class="form-group">
-                <label>First Name</label>
-                <input type="text" name="name1" class="form-control" placeholder="Enter Name" required>
-            </div>
-
-            <div class="form-group">
-                <label>Last Name</label>
-                <input type="text" name="name2" class="form-control" placeholder="Enter Name" required>
-            </div>
-
-            <div class="form-group">
-                <label>CIN</label>
-                <input type="text" name="cin2" class="form-control" placeholder="Enter Name" >
-            </div>
-     
-              <div class="form-group">
-                <label>Birth</label>
-                <input type="date" name="date"  class="form-control" placeholder="name@health.ma" required>
-            </div>
-            <div class="form-group form-check">
-                  <input type="checkbox" name="chronic" value="true" class="form-check-input" id="chronicCheck">
-                  <label class="form-check-label"  for="chronicCheck">Do you have a chronic disease?</label>
-              </div>
-
-              <!-- Select input shown only if checkbox is checked -->
-              <div class="form-group" id="chronicSelectGroup" style="display: none;">
-                  <label for="chronicSelect">Select Chronic Disease</label>
-                  <select name="chronic2" id="chronicSelect" class="form-control">
-                      <option value="">-- Choose one --</option>
-                      <option value="Diabetes">Diabetes</option>
-                      <option value="Hypertension">Hypertension</option>
-                      <option value="Asthma">Asthma</option>
-                      <option value="Cardiopathy">Cardiopathy</option>
-                      <option value="Other">Other</option>
-                  </select>
-              </div>
-
-              <div class="form-group">
-                  <label>Relationship to Primary Insured:</label><br>
-                  <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="relation" id="relationSpouse" value="Spouse">
-                      <label class="form-check-label" for="relationSpouse">Spouse</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="relation" id="relationChild" value="Child">
-                      <label class="form-check-label" for="relationChild">Child</label>
-                  </div>
-              </div>
-              
-    
-            
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" name="registerbtn_beni" class="btn btn-primary">Save</button>
-        </div>
-      </form>
-
-    </div>
-  </div>
-</div>
 <!-- end of add a family member form -->
 <div class="container-fluid">
 
@@ -250,11 +176,87 @@ include('../includes/navbar.php');
                 </form>
             </td>
             <td>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addfamily" id="addAdminButton" value="<?php echo $row['id_as']; ?>">
-                  Add Family member
-              </button>
+                <!-- Bouton avec l'id_as dans un attribut data -->
+              <button type="submit" name="add_family_btn" class="add-family-btn btn btn-primary" data-toggle="modal" data-target="#addfamily" id="addAdminButton">Add Family member</button>
+            </td>
 
-              <!-- Modal -->
+              <div class="modal fade" id="addfamily" tabindex="-1" role="dialog" aria-labelledby="ADD family" >
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="addfamily">Add Family</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <form action="code.php" method="POST">
+                      <div class="modal-body">
+                          
+                      
+                        <input type="hidden" id="admin_id_modal" name="admin_id" readonly class="form-control" value="<?php echo $row['id_as']; ?>">
+
+                          <div class="form-group">
+                              <label>First Name</label>
+                              <input type="text" name="name1" class="form-control" placeholder="Enter Name" required>
+                          </div>
+
+                          <div class="form-group">
+                              <label>Last Name</label>
+                              <input type="text" name="name2" class="form-control" placeholder="Enter Name" required>
+                          </div>
+
+                          <div class="form-group">
+                              <label>CIN</label>
+                              <input type="text" name="cin2" class="form-control" placeholder="Enter Name" >
+                          </div>
+                  
+                            <div class="form-group">
+                              <label>Birth</label>
+                              <input type="date" name="date"  class="form-control" placeholder="name@health.ma" required>
+                          </div>
+                          <div class="form-group form-check">
+                                <input type="hidden" name="chronic" value="false" >
+                                <input type="checkbox" name="chronic" value="true" class="form-check-input" id="chronicCheck">
+                                <label class="form-check-label"  for="chronicCheck">Do you have a chronic disease?</label>
+                            </div>
+
+                            <!-- Select input shown only if checkbox is checked -->
+                            <div class="form-group" id="chronicSelectGroup" style="display: none;">
+                                <label for="chronicSelect">Select Chronic Disease</label>
+                                <select name="chronic2" id="chronicSelect" class="form-control">
+                                    <option value="">-- Choose one --</option>
+                                    <option value="Diabetes">Diabetes</option>
+                                    <option value="Hypertension">Hypertension</option>
+                                    <option value="Asthma">Asthma</option>
+                                    <option value="Cardiopathy">Cardiopathy</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Relationship to Primary Insured:</label><br>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="relation" id="relationSpouse" value="Spouse">
+                                    <label class="form-check-label" for="relationSpouse">Spouse</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="relation" id="relationChild" value="Child">
+                                    <label class="form-check-label" for="relationChild">Child</label>
+                                </div>
+                            </div>
+                            
+                  
+                          
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="submit" name="registerbtn_beni" class="btn btn-primary">Save</button>
+                      </div>
+                    </form>
+
+                  </div>
+                </div>
+              </div>
               
             </td>
 
@@ -277,6 +279,7 @@ include('../includes/navbar.php');
 </div>
 <!-- /.container-fluid -->
 <script src="script.js" ></script>
+
 <?php
 include('../includes/scripts.php');
 include('../includes/footer.php');

@@ -1,23 +1,14 @@
 document.addEventListener('DOMContentLoaded', function () {
     // ====== Element References ======
-    const addAdminButton     = document.getElementById('addAdminButton');
-    const uniqueIdInput      = document.getElementById('uniqueIdInput');
-    const generateIdButton   = document.getElementById('generateIdButton');
-    const chronicCheck       = document.getElementById('chronicCheck');
-    const chronicSelectGroup = document.getElementById('chronicSelectGroup');
-    const birthInput         = document.getElementById('birth');
-    const cinInput           = document.getElementById('cin');
 
-    // ====== Add Admin ID to Hidden Input ======
-    if (addAdminButton) {
-        addAdminButton.addEventListener('click', function () {
-            const adminId = this.value;
-            const adminIdInput = document.getElementById('admin_id');
-            if (adminIdInput) {
-                adminIdInput.value = adminId;
-            }
-        });
-    }
+    const uniqueIdInput = document.getElementById('uniqueIdInput');
+    const generateIdButton = document.getElementById('generateIdButton');
+    const chronicCheck = document.getElementById('chronicCheck');
+    const chronicSelectGroup = document.getElementById('chronicSelectGroup');
+    const birthInput = document.getElementById('birth');
+    const cinInput = document.getElementById('cin');
+
+
 
     // ====== Show/Hide Chronic Disease Field ======
     if (chronicCheck && chronicSelectGroup) {
@@ -63,46 +54,68 @@ document.addEventListener('DOMContentLoaded', function () {
     function generateUniqueId() {
         return Date.now().toString() + Math.floor(Math.random() * 1000).toString().padStart(3, '0');
     }
+
+    // ====== Handle Modal Opening and Closing ======
+    $('#addfamily').on('show.bs.modal', function () {
+        // Retirer aria-hidden quand la modal s'ouvre
+        $(this).removeAttr('aria-hidden');
+        
+        // Mettre le focus sur l'élément à l'intérieur de la modal (par exemple, un champ de saisie)
+        $('#admin_id').focus();
+    });
+
+    $('#addfamily').on('hide.bs.modal', function () {
+        // Réappliquer aria-hidden quand la modal est fermée
+        $(this).attr('aria-hidden', 'true');
+    });
+
+    // ====== Toggle Confirm Password visibility ======
+    const eyeIcon = document.getElementById('eye-icon');
+    const passwordField = document.getElementById('password');
+
+    if (eyeIcon && passwordField) {
+        eyeIcon.addEventListener('click', function () {
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                eyeIcon.innerHTML = '<i class="fas fa-eye-slash"></i>';
+            } else {
+                passwordField.type = 'password';
+                eyeIcon.innerHTML = '<i class="fas fa-eye"></i>';
+            }
+        });
+    }
+
+    // Toggle Confirm Password visibility
+    const eyeIconConfirm = document.getElementById('eye-icon-confirm');
+    const confirmPasswordField = document.getElementById('confirmpassword');
+
+    if (eyeIconConfirm && confirmPasswordField) {
+        eyeIconConfirm.addEventListener('click', function () {
+            if (confirmPasswordField.type === 'password') {
+                confirmPasswordField.type = 'text';
+                eyeIconConfirm.innerHTML = '<i class="fas fa-eye-slash"></i>';
+            } else {
+                confirmPasswordField.type = 'password';
+                eyeIconConfirm.innerHTML = '<i class="fas fa-eye"></i>';
+            }
+        });
+    }
+
+    // ====== Generate Email Address ======
+    function generateEmail() {
+        const nameField = document.getElementById('name');
+        const emailField = document.getElementById('email');
+
+        if (!nameField || !emailField) return;
+
+        const name = nameField.value.trim().toLowerCase().replace(/\s+/g, '');
+        const random = Math.floor(100 + Math.random() * 900); // random 3-digit
+
+        if (name) {
+            const email = `${name}${random}@health.ma`;
+            emailField.value = email;
+        } else {
+            alert('Please enter a name first.');
+        }
+    }
 });
-function generateEmail() {
-  const nameField = document.getElementById('name');
-  const emailField = document.getElementById('email');
-
-  if (!nameField || !emailField) return;
-
-  const name = nameField.value.trim().toLowerCase().replace(/\s+/g, '');
-  const random = Math.floor(100 + Math.random() * 900); // random 3-digit
-
-  if (name) {
-    const email = `${name}${random}@health.ma`;
-    emailField.value = email;
-  } else {
-    alert('Please enter a name first.');
-  }
-}
-const eyeIcon = document.getElementById('eye-icon');
-  const passwordField = document.getElementById('password');
-
-  eyeIcon.addEventListener('click', function() {
-    if (passwordField.type === 'password') {
-      passwordField.type = 'text';
-      eyeIcon.innerHTML = '<i class="fas fa-eye-slash"></i>';
-    } else {
-      passwordField.type = 'password';
-      eyeIcon.innerHTML = '<i class="fas fa-eye"></i>';
-    }
-  });
-
-  // Toggle Confirm Password visibility
-  const eyeIconConfirm = document.getElementById('eye-icon-confirm');
-  const confirmPasswordField = document.getElementById('confirmpassword');
-
-  eyeIconConfirm.addEventListener('click', function() {
-    if (confirmPasswordField.type === 'password') {
-      confirmPasswordField.type = 'text';
-      eyeIconConfirm.innerHTML = '<i class="fas fa-eye-slash"></i>';
-    } else {
-      confirmPasswordField.type = 'password';
-      eyeIconConfirm.innerHTML = '<i class="fas fa-eye"></i>';
-    }
-  });
