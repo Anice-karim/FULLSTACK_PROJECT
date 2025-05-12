@@ -60,7 +60,7 @@ include('../includes/navbar.php');
                   <option value="" disabled selected>Select type</option>
                   <option value="employed">employed</option>
                   <option value="retired">retired</option>
-                  <!-- options will be added dynamically -->
+                  
                 </select>
               </div>
             <div class="form-group">
@@ -170,13 +170,13 @@ include('../includes/navbar.php');
                 </form>
             </td>
             <td>
-                <form action="assure_edit.php" method="post">
+                <form action="code.php" method="post">
                   <input type="hidden" name="delete_id_as" value="<?php echo $row['id_as']; ?>">
                   <button type="submit" name="delete_btn_as" class="btn btn-danger"> DELETE</button>
                 </form>
             </td>
             <td>
-                <!-- Bouton avec l'id_as dans un attribut data -->
+              >
               <button type="submit" name="add_family_btn" class="add-family-btn btn btn-primary" data-toggle="modal" data-target="#addfamily" id="addAdminButton">Add Family member</button>
             </td>
 

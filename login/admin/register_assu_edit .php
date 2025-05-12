@@ -32,7 +32,7 @@ include('../includes/navbar.php');
 
     <div class="form-group col-md-6">
         <label>Name</label>
-        <input type="text" name="name_edit" class="form-control" value="<?php echo $row['nom_assu']; ?>" required>
+        <input type="text" name="name_edit" class="form-control" value="<?php echo $row['name']; ?>" required>
     </div>
 </div>
             <div class="form-check form-check-inline">
@@ -69,7 +69,7 @@ include('../includes/navbar.php');
             </div>
         
 
-        <a href="register_asu.php" class="btn btn-danger">CANCEL</a>
+        <a href="register_assu.php" class="btn btn-danger">CANCEL</a>
         <button type="submit" name ="updatebtn_assu" class="btn btn-primary" >Update</button>
         </form>
         <?php
