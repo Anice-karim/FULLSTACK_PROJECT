@@ -51,8 +51,8 @@ if(isset($_POST['registerbtn']))
     $id_as=$_POST['admin_id'];
     
    
-        $query ="INSERT INTO beneficiaire (f_name,l_name,cin_ben,chronic,chronic1,id_as,relation)
-                             VALUES('$fname','$lname','$cin','$chronic','$chronic2','$id_as','$relation')";
+        $query ="INSERT INTO beneficiaire (f_name,l_name,cin_ben,chronic,chronic1,id_as,relation,birth)
+                             VALUES('$fname','$lname','$cin','$chronic','$chronic2','$id_as','$relation','$birth')";
         $query_run = mysqli_query($connection , $query);
         if($query_run){
             //echo "Saved";

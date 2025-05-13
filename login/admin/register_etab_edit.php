@@ -132,7 +132,7 @@ include('../includes/navbar.php');
 
 
 
-
+<script src="js/scripthp.js"></script>
 
 <?php
 include('../includes/scripts.php');

@@ -67,7 +67,7 @@ include('../includes/navbar.php');
   </div>
 
 </div>
-
+<script src="js/scripthp.js"></script>
 <?php
 include('../includes/scripts.php');
 include('../includes/footer.php');
