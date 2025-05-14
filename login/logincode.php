@@ -24,14 +24,15 @@ if (isset($_POST['login_btn'])) {
         $query_run = mysqli_query($connection, $query);
 
         if (mysqli_num_rows($query_run) > 0) {
-            $user = mysqli_fetch_array($query_run);
+           $user = mysqli_fetch_assoc($query_run);
 
             // Plaintext password check (NOT RECOMMENDED — see below)
             if ($user['password'] == $password_login) {
                 $_SESSION['email'] = $email_login;
+                $_SESSION['user_id'] = $user['id']; 
                 $_SESSION['username'] = $user['name']; 
-                
                 $_SESSION['table'] = $table;
+                $_SESSION['profile_pic'] = $user['profile_pic'];
                 header("Location: $folder/index.php");
                 exit();
             }

@@ -138,7 +138,7 @@ include('../includes/navbar.php');
                 <input type="hidden" name="edit_id" value="<?php echo $row['id_ben']; ?>">
                 <button  type="submit" name="edit_btn" class="btn btn-success"  data-toggle="modal" data-target="#editfamily"> EDIT</button>
             </td>
-            <td>
+            
                 <div class="modal fade" id="editfamily" tabindex="-1" role="dialog" aria-labelledby="ADD family" >
                  <div class="modal-dialog" role="document">
                   <div class="modal-content">
@@ -215,7 +215,7 @@ include('../includes/navbar.php');
                   </div>
                 </div>
               </div>
-            </td>
+            
              <?php
         }
       }

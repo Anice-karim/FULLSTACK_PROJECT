@@ -1,7 +1,21 @@
 <?php
-include('../security.php'); 
-include('../includes/header.php'); 
-include('../includes/navbar.php'); 
+include('../security.php');
+include('../includes/header.php');
+
+
+$email = $_SESSION['email'];
+$table = $_SESSION['table'];
+
+// Fetch current user data
+$query = "SELECT * FROM $table WHERE email = '$email'";
+$query_run = mysqli_query($connection, $query);
+
+if (!$query_run || mysqli_num_rows($query_run) == 0) {
+    echo "User not found!";
+    exit();
+}
+$user = mysqli_fetch_assoc($query_run);
+include('../includes/navbar.php');
 ?>
 
 
@@ -42,6 +56,7 @@ include('../includes/navbar.php');
                 </div>
               </div>
             </div>
+            <h6 id="message"></h6>
             <div class="form-group">
               <label for="confirmpassword">Confirm Password</label>
               <div class="input-group">
@@ -115,7 +130,9 @@ include('../includes/navbar.php');
           <tr>
             <td><?php echo $row['id']; ?></td>
             <td><?php echo $row['name'] ?></td>
-            <td><?php echo $row['email']; ?></td>
+            <td><a href="mailto:<?php echo $row['email']; ?>">
+              <?php echo $row['email']; ?>
+            </a></td>
             <td>
                 <form action="register_edit.php" method="post">
                     <input type="hidden" name="edit_id" value="<?php echo $row['id']; ?>">
@@ -146,7 +163,7 @@ include('../includes/navbar.php');
 
 </div>
 <!-- /.container-fluid -->
-<script src="js/scripthp.js"></script>
+<script src="js/script.js"></script>
 <?php
 include('../includes/scripts.php');
 include('../includes/footer.php');

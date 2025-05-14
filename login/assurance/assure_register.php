@@ -176,7 +176,6 @@ include('../includes/navbar.php');
                 </form>
             </td>
             <td>
-              >
               <button type="submit" name="add_family_btn" class="add-family-btn btn btn-primary" data-toggle="modal" data-target="#addfamily" id="addAdminButton">Add Family member</button>
             </td>
 
@@ -258,7 +257,7 @@ include('../includes/navbar.php');
                 </div>
               </div>
               
-            </td>
+            
 
           </tr> 
           <?php

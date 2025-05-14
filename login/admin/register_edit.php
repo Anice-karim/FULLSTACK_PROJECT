@@ -1,7 +1,21 @@
 <?php
-include('../security.php'); 
-include('../includes/header.php'); 
-include('../includes/navbar.php'); 
+include('../security.php');
+include('../includes/header.php');
+
+
+$email = $_SESSION['email'];
+$table = $_SESSION['table'];
+
+// Fetch current user data
+$query = "SELECT * FROM $table WHERE email = '$email'";
+$query_run = mysqli_query($connection, $query);
+
+if (!$query_run || mysqli_num_rows($query_run) == 0) {
+    echo "User not found!";
+    exit();
+}
+$user = mysqli_fetch_assoc($query_run);
+include('../includes/navbar.php');
 ?>
 
 <div class="container-fluid">
@@ -48,6 +62,7 @@ include('../includes/navbar.php');
                 </div>
               </div>
             </div>
+            <h5 id="message"></h5>
 
             <div class="d-flex justify-content-between">
               <a href="register.php" class="btn btn-danger">Cancel</a>
@@ -67,7 +82,7 @@ include('../includes/navbar.php');
   </div>
 
 </div>
-<script src="js/scripthp.js"></script>
+<script src="js/script.js"></script>
 <?php
 include('../includes/scripts.php');
 include('../includes/footer.php');
