@@ -18,7 +18,15 @@
     <div class="background" id="background"></div>
 
     <div class="bg-white rounded-3xl shadow-2xl p-10 w-full max-w-md">
+     <?php
+      session_start();
+      $msg = $_SESSION['msg'] ?? '';
+      unset($_SESSION['msg']); // clear after displaying
+      ?>
       <h1 class="text-4xl font-bold text-blue-400 text-center mb-8">Login / Register</h1>
+      <?php if ($msg): ?>
+        <div class="text-red-500 text-center mb-4"><?= $msg ?></div>
+      <?php endif; ?>
 
       <form method="POST" action="logincode.php" class="space-y-6">
         <!-- Email -->

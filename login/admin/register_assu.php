@@ -160,7 +160,7 @@ include('../includes/navbar.php');
               <?php echo $row['email']; ?>
             </a></td>
             <td><a href="tel:<?php echo $row['tele_assu']; ?>">
-              <?php echo $row['tele_assu']; ?>
+              +<?php echo $row['tele_assu']; ?>
             </a></td>
 
             <td>

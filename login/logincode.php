@@ -22,7 +22,7 @@ if (isset($_POST['login_btn'])) {
     foreach ($role_tables as $table => $folder) {
         $query = "SELECT * FROM $table WHERE email = '$email_login'";
         $query_run = mysqli_query($connection, $query);
-
+        $msg='';
         if (mysqli_num_rows($query_run) > 0) {
            $user = mysqli_fetch_assoc($query_run);
 
@@ -40,8 +40,9 @@ if (isset($_POST['login_btn'])) {
     }
 
     // If we reach here, login failed
-    $_SESSION['status'] = "Email or password is invalid";
+   $_SESSION['msg'] = "Email or password is invalid";
     header('Location: login.php');
     exit();
+   
 }
 ?>
