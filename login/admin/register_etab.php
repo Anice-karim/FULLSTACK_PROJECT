@@ -28,14 +28,15 @@ include('../includes/navbar.php');
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="code.php" method="POST">
+      <form action="code.php" method="POST" id="form">
 
         <div class="modal-body">
 
             <div class="form-group">
                 <label>INPE</label>
-                <input type="number" name="inpe" class="form-control" placeholder="Enter INPE" required>
+                <input type="number" id="inpe" name="inpe" class="form-control" placeholder="Enter INPE" required>
             </div>
+            <h6 id="msg"></h6>
             <div class="form-group">
                 <label>Name</label>
                 <input type="text" name="name" class="form-control" placeholder="Enter Name" id="name" required>
@@ -89,7 +90,7 @@ include('../includes/navbar.php');
               </div>
             <div class="form-group">
                 <label>Phone</label>
-                <input type="tel" name="phone" class="form-control" placeholder="+212 6..." required>
+                <input type="tel" name="phone" id="phone" class="form-control" placeholder="+212 6..." required>
             </div>
             
             <div class="form-group">
@@ -103,6 +104,7 @@ include('../includes/navbar.php');
                 </div>
               </div>
             </div>
+            <h6 id="message"></h6>
             <div class="form-group">
               <label for="confirmpassword">Confirm Password</label>
               <div class="input-group">
@@ -162,6 +164,7 @@ include('../includes/navbar.php');
             <th>NAME</th>
             <th>Type</th>
             <th>Email </th>
+            <th>Phone</th>
             <th>EDIT </th>
             <th>DELETE </th>
           </tr>
@@ -177,7 +180,12 @@ include('../includes/navbar.php');
             <td><?php echo $row['inpe_etab']; ?></td>
             <td><?php echo $row['name'] ?></td>
             <td><?php echo $row['type_etab']; ?></td>
-            <td><?php echo $row['email']; ?></td>
+            <td><a href="mailto:<?php echo $row['email']; ?>">
+              <?php echo $row['email']; ?>
+            </a></td>
+            <td><a href="tel:<?php echo $row['tele_etab']; ?>">
+              <?php echo $row['tele_etab']; ?>
+            </a></td>
             <td>
                 <form action="register_etab_edit.php" method="post">
                     <input type="hidden" name="edit_id_etab" value="<?php echo $row['id_etab']; ?>">

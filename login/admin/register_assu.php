@@ -28,14 +28,15 @@ include('../includes/navbar.php');
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="code.php" method="POST">
+      <form action="code.php" method="POST" id="form">
 
         <div class="modal-body">
 
             <div class="form-group">
                 <label>Patente</label>
-                <input type="number" name="patente" class="form-control" placeholder="Enter INPE" required>
+                <input type="number" name="patente" class="form-control" id="inpe" placeholder="Enter Patente" required>
             </div>
+            <h6 id="msg"></h6>
             <div class="form-group">
                 <label>Name</label>
                 <input type="text" name="name" class="form-control" placeholder="Enter Name" id="name" required>
@@ -66,7 +67,7 @@ include('../includes/navbar.php');
 
             <div class="form-group">
                 <label>Phone</label>
-                <input type="tel" name="tel" id="tel" class="form-control" placeholder="06" required>
+                <input type="tel" name="tel" id="phone" class="form-control" placeholder="06" required>
             </div>
           
             <div class="form-group">
@@ -80,6 +81,7 @@ include('../includes/navbar.php');
                 </div>
               </div>
             </div>
+            <div id="message"></div>
             <div class="form-group">
                 <label for="confirmpassword">Confirm Password</label>
                 <div class="input-group">
@@ -154,8 +156,12 @@ include('../includes/navbar.php');
           <tr>
             <td><?php echo $row['patente_assu']; ?></td>
             <td><?php echo $row['name'] ?></td>
-            <td><?php echo $row['email']; ?></td>
-            <td><?php echo $row['tele_assu']; ?></td>
+            <td><a href="mailto:<?php echo $row['email']; ?>">
+              <?php echo $row['email']; ?>
+            </a></td>
+            <td><a href="tel:<?php echo $row['tele_assu']; ?>">
+              <?php echo $row['tele_assu']; ?>
+            </a></td>
 
             <td>
                 <form action="register_assu_edit .php" method="post">

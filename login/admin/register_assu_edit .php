@@ -35,7 +35,7 @@ include('../includes/navbar.php');
         ?>
         
 <div class="modal-body">
-<form action="code.php" method="post">
+<form action="code.php" method="post" id="form">
               
         <input type="hidden" name="edit_id" value="<?php echo $row['id_assu']?>">
         <div class="form-row">

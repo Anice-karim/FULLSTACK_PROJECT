@@ -28,7 +28,7 @@ include('../includes/navbar.php');
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="code.php" method="POST">
+      <form action="code.php" method="POST" id="form">
 
         <div class="modal-body">
 
@@ -61,8 +61,8 @@ include('../includes/navbar.php');
                 </div>
 
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="type" id="bri" value="Bio_Rad_Imag">
-                  <label class="form-check-label" for="bri">BRI</label>
+                  <input class="form-check-input" type="radio" name="type" id="BRI" value="BRI">
+                  <label class="form-check-label" for="BRI">BRI</label>
                 </div>
 
                 <div class="form-check form-check-inline">
@@ -106,6 +106,7 @@ include('../includes/navbar.php');
                 </div>
               </div>
             </div>
+            <h6 id="message"></h6>
             <div class="form-group">
                 <label for="confirmpassword">Confirm Password</label>
                 <div class="input-group">
@@ -181,7 +182,9 @@ include('../includes/navbar.php');
           <tr>
             <td><?php echo $row['inpe']; ?></td>
             <td><?php echo $row['name'] ?></td>
-            <td><?php echo $row['email']; ?></td>
+            <td><a href="mailto:<?php echo $row['email']; ?>">
+              <?php echo $row['email']; ?>
+            </a></td>
             <td><?php echo $row['type']; ?></td>
             <td><?php echo $row['specialty']; ?></td>
             <td>

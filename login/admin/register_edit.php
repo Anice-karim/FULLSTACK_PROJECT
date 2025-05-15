@@ -38,7 +38,7 @@ include('../includes/navbar.php');
             if(mysqli_num_rows($query_run) > 0){
               foreach($query_run as $row){
           ?>
-          <form action="code.php" method="post">
+          <form action="code.php" method="post" id="form">
             <input type="hidden" name="edit_id" value="<?php echo $row['id']; ?>">
             
             <div class="form-group">

@@ -35,13 +35,14 @@ include('../includes/navbar.php');
         ?>
         
 <div class="modal-body">
-<form action="code.php" method="post">
+<form action="code.php" method="post" id="form">
           
         <input type="hidden" name="edit_id" value="<?php echo $row['id_Hp']?>">
         <div class="form-group">
                 <label>INPE</label>
-                <input type="number" name="inpe_edit" value="<?php echo $row['inpe']?>" class="form-control" placeholder="Enter INPE" required>
+                <input type="number" id="inpe" name="inpe_edit" value="<?php echo $row['inpe']?>" class="form-control" placeholder="Enter INPE" required>
             </div>
+            <h6 id="msg"></h6>
         <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
@@ -72,6 +73,7 @@ include('../includes/navbar.php');
                 </div>
               </div>
             </div>
+            <h6 id="message"></h6>
         <div class="mb-3">
                 <label class="form-label d-block">Designation</label>
 
@@ -81,7 +83,7 @@ include('../includes/navbar.php');
                 </div>
 
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="type_edit" id="bri" value="Bio_Rad_Imag">
+                  <input class="form-check-input" type="radio" name="type_edit" id="bri" value="BRI">
                   <label class="form-check-label" for="bri">BRI</label>
                 </div>
 

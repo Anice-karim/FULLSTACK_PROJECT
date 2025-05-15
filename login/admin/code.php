@@ -74,7 +74,7 @@ if(isset($_POST['registerbtn_Hp']))
     
     if($password === $cpassword){
         $query ="INSERT INTO health_professionals 
-                    (inpe,f_name_hp,name,type,specialty,email,password,)
+                    (inpe,f_name_hp,name,type,specialty,email,password)
                      VALUES('$inpe','$fname','$lname','$dsg','$spec','$email','$password')";
         $query_run = mysqli_query($connection , $query);
         if($query_run){

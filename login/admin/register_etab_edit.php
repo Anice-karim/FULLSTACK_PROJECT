@@ -35,7 +35,7 @@ include('../includes/navbar.php');
         ?>
         
 <div class="modal-body">
-<form action="code.php" method="post">
+<form action="code.php" method="post" id="form">
         <input type="hidden" name="edit_id" value="<?php echo $row['id_etab']?>">
         <div class="row">
   <div class="col-md-6">
@@ -125,7 +125,7 @@ include('../includes/navbar.php');
                 </div>
               </div>
             </div>
-        
+            <h6 id="message"></h6>
         
         <a href="register_etab.php" class="btn btn-danger">CANCEL</a>
         <button type="submit" name ="updatebtn_etab" class="btn btn-primary" >Update</button>
