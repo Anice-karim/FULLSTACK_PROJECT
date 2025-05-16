@@ -14,7 +14,8 @@ if (isset($_POST['login_btn'])) {
         'assurance' => 'assurance',
         'etablissement' => 'etablissement',
         'health_professionals' => 'health_professionals',
-        'register' => 'admin'
+        'register' => 'admin',
+        'assure'=>'client'
     ];
 
     $authenticated = false;

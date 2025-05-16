@@ -35,7 +35,7 @@ include('../includes/navbar.php');
               FROM 
                   invitations inv
               JOIN 
-                  etablissement etab ON inv.id_etab = etab.id_etab
+                  etablissement etab ON inv.id_etab = etab.id
               WHERE 
                   inv.status = 'pending';
               ";

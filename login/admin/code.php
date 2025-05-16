@@ -96,34 +96,49 @@ if(isset($_POST['registerbtn_Hp']))
 
 //Update A health profissionnals
 
- if(isset($_POST['updatebtn_hp'])){
-    $id=$_POST['edit_id'];
+ if (isset($_POST['updatebtn_hp'])) {
+    $id = $_POST['edit_id'];
     $inpe = $_POST['inpe_edit'];
     $fname = $_POST['name1_edit'];
     $lname = $_POST['name2_edit'];
-    $email= $_POST['edit_email'];
-    $password=md5( $_POST['edit_password']);
-    $type=$_POST['type_edit'];
+    $email = $_POST['edit_email'];
+    $new_password = $_POST['edit_password'];
+    $type = $_POST['type_edit'];
     $spec = $_POST['edit_spec'];
 
-    $query ="UPDATE health_professionals 
-                    SET inpe='$inpe'
-                    ,f_name_hp='$fname'
-                    ,name='$lname'
-                    ,email='$email'
-                    ,password='$password'
-                    ,type='$type'
-                    ,specialty='$spec'
-                     WHERE id_Hp='$id'";
-    $query_run=mysqli_query($connection,$query);
-    if($query_run){
-        $_SESSION['success']="Your Data is Updated";
-        header('Location:register_Hp.php');
-    }else{
-        $_SESSION['status']="Your Data is NOT Updated";
-        header('Location:register_Hp.php');
+    // Get current password from database
+    $result = mysqli_query($connection, "SELECT password FROM health_professionals WHERE id = '$id'");
+    $row = mysqli_fetch_assoc($result);
+    $current_password = $row['password'];
+
+    // Only update password if it's changed
+    if (md5($new_password) !== $current_password) {
+        $password = md5($new_password);
+    } else {
+        $password = $current_password; // unchanged
     }
- }
+
+    $query = "UPDATE health_professionals 
+              SET inpe='$inpe',
+                  f_name_hp='$fname',
+                  name='$lname',
+                  email='$email',
+                  password='$password',
+                  type='$type',
+                  specialty='$spec'
+              WHERE id='$id'";
+
+    $query_run = mysqli_query($connection, $query);
+
+    if ($query_run) {
+        $_SESSION['success'] = "Your Data is Updated";
+        header('Location: register_Hp.php');
+    } else {
+        $_SESSION['status'] = "Your Data is NOT Updated";
+        header('Location: register_Hp.php');
+    }
+}
+
 
 //Delete A health profissionnals
 
@@ -132,7 +147,7 @@ if(isset($_POST['registerbtn_Hp']))
     
     $delete_invitations_query = "DELETE FROM invitations WHERE id_Hp = '$id'";
     $delete_employe_query     = "DELETE FROM employe WHERE id_Hp = '$id'";
-    $delete_hp_query          = "DELETE FROM health_professionals WHERE id_Hp = '$id'";
+    $delete_hp_query          = "DELETE FROM health_professionals WHERE id = '$id'";
     
     //all or nothing
     mysqli_begin_transaction($connection);
@@ -190,7 +205,7 @@ if(isset($_POST['registerbtn_Hp']))
  //Delete Health Facilitie Profile
  if(isset($_POST['delete_btn_etab'])){
     $id =$_POST['delete_etab'];
-    $query="DELETE  FROM etablissement WHERE id_etab='$id'";
+    $query="DELETE  FROM etablissement WHERE id='$id'";
     $query_run=mysqli_query($connection,$query);
     if($query_run){
         $_SESSION['success']="Your Data is Deleted";
@@ -209,7 +224,7 @@ if(isset($_POST['registerbtn_Hp']))
     $name = $_POST['name_edit'];
     $type = $_POST['type_edit'];
     $pub= $_POST['prv-pub_edit'];
-    $password=md5( $_POST['edit_password']);
+    $password=md5($_POST['edit_password']);
     $type=$_POST['type_edit'];
     $email = $_POST['edit_email'];
     $tele = $_POST['edit_tele'];
@@ -222,7 +237,7 @@ if(isset($_POST['registerbtn_Hp']))
                                     ,tele_etab='$tele'
                                     ,password='$password'
                                     ,type_etab='$type'
-                                     WHERE id_etab='$id'";
+                                     WHERE id='$id'";
     $query_run=mysqli_query($connection,$query);
     if($query_run){
         $_SESSION['success']="Your Data is Updated";
@@ -247,8 +262,8 @@ if(isset($_POST['registerbtn_Hp']))
 
     if($password === $cpassword){
         $query = "INSERT INTO assurance
-        (patente_assu, name, prv_pub_assu, tele_assu, email, password)
-        VALUES ('$patente', '$name', '$pub', '$tel', '$email', '$password')";
+        (patente_assu, name, prv_pub_assu, tele_assu, email,password)
+        VALUES ('$patente', '$name', '$pub', '$tel', '$email','$password')";
         $query_run = mysqli_query($connection , $query);
         if($query_run){
             //echo "Saved";
@@ -270,7 +285,7 @@ if(isset($_POST['registerbtn_Hp']))
  //Delete Insurrance Company
  if(isset($_POST['delete_btn_assu'])){
     $id =$_POST['delete_assu'];
-    $query="DELETE  FROM assurance WHERE id_assu='$id'";
+    $query="DELETE  FROM assurance WHERE id='$id'";
     $query_run=mysqli_query($connection,$query);
     if($query_run){
         $_SESSION['success']="Your Data is Deleted";
@@ -290,7 +305,7 @@ if(isset($_POST['registerbtn_Hp']))
     $pub= $_POST['prv-pub-edit'];
     $email= $_POST['email_edit'];
     $tel= $_POST['tel_edit'];
-    $password=md5( $_POST['edit_password']);
+    $password=md5($_POST['edit_password']);
 
     $query ="UPDATE assurance SET patente_assu='$patente'
                                     ,name='$name'
@@ -298,7 +313,7 @@ if(isset($_POST['registerbtn_Hp']))
                                     ,tele_assu='$tel'
                                     ,email='$email'
                                     ,password='$password'
-                                     WHERE id_assu='$id'";
+                                     WHERE id='$id'";
     $query_run=mysqli_query($connection,$query);
     if($query_run){
         $_SESSION['success']="Your Data is Updated";

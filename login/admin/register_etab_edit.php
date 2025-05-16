@@ -29,14 +29,14 @@ include('../includes/navbar.php');
 
  if(isset($_POST['edit_btn_etab'])){
     $id = $_POST['edit_id_etab'];
-    $query= "SELECT * FROM  etablissement WHERE id_etab='$id' ";
+    $query= "SELECT * FROM  etablissement WHERE id='$id' ";
     $query_run=mysqli_query($connection,$query);   
     foreach($query_run as $row){
         ?>
         
 <div class="modal-body">
 <form action="code.php" method="post" id="form">
-        <input type="hidden" name="edit_id" value="<?php echo $row['id_etab']?>">
+        <input type="hidden" name="edit_id" value="<?php echo $row['id']?>">
         <div class="row">
   <div class="col-md-6">
     <div class="form-group">

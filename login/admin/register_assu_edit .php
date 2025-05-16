@@ -29,7 +29,7 @@ include('../includes/navbar.php');
 
  if(isset($_POST['edit_assu_btn'])){
     $id = $_POST['edit_assu'];
-    $query= "SELECT * FROM  assurance WHERE id_assu='$id' ";
+    $query= "SELECT * FROM  assurance WHERE id='$id' ";
     $query_run=mysqli_query($connection,$query);   
     foreach($query_run as $row){
         ?>
@@ -37,7 +37,7 @@ include('../includes/navbar.php');
 <div class="modal-body">
 <form action="code.php" method="post" id="form">
               
-        <input type="hidden" name="edit_id" value="<?php echo $row['id_assu']?>">
+        <input type="hidden" name="edit_id" value="<?php echo $row['id']?>">
         <div class="form-row">
     <div class="form-group col-md-6">
         <label>Patente</label>

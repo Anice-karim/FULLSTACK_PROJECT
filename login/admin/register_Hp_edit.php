@@ -29,7 +29,7 @@ include('../includes/navbar.php');
 
  if(isset($_POST['edit_btn_hp'])){
     $id = $_POST['edit_hp'];
-    $query= "SELECT * FROM  health_professionals WHERE id_Hp='$id' ";
+    $query= "SELECT * FROM  health_professionals WHERE id='$id' ";
     $query_run=mysqli_query($connection,$query);   
     foreach($query_run as $row){
         ?>
@@ -37,7 +37,7 @@ include('../includes/navbar.php');
 <div class="modal-body">
 <form action="code.php" method="post" id="form">
           
-        <input type="hidden" name="edit_id" value="<?php echo $row['id_Hp']?>">
+        <input type="hidden" name="edit_id" value="<?php echo $row['id']?>">
         <div class="form-group">
                 <label>INPE</label>
                 <input type="number" id="inpe" name="inpe_edit" value="<?php echo $row['inpe']?>" class="form-control" placeholder="Enter INPE" required>

@@ -92,6 +92,12 @@ if (isset($table)) {
             <span>Join Invitation</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="..\etablissement\invitation.php">
+            <i class="fas fa-fw fa-file"></i>
+            <span>File</span>
+        </a>
+    </li>
 <?php endif; ?>
 
 <!-- HEALTH PROFESSIONALS -->
@@ -102,6 +108,12 @@ if (isset($table)) {
             <span>Job Offers</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="..\health_professionals\joboffer.php">
+            <i class="fas fa-file"></i>
+            <span>File</span>
+        </a>
+    </li>
 <?php endif; ?>
 
 <!-- ASSURANCE -->
@@ -110,6 +122,12 @@ if (isset($table)) {
         <a class="nav-link" href="..\assurance\assure_register.php">
             <i class="fas fa-user"></i>
             <span>Client</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="..\assurance\assure_register.php">
+            <i class="fas fa-user"></i>
+            <span>File</span>
         </a>
     </li>
 <?php endif; ?>

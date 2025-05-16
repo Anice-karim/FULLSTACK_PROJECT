@@ -1,7 +1,21 @@
 <?php
-include('../security.php'); 
-include('../includes/header.php'); 
-include('../includes/navbar.php'); 
+include('../security.php');
+include('../includes/header.php');
+
+
+$email = $_SESSION['email'];
+$table = $_SESSION['table'];
+
+// Fetch current user data
+$query = "SELECT * FROM $table WHERE email = '$email'";
+$query_run = mysqli_query($connection, $query);
+
+if (!$query_run || mysqli_num_rows($query_run) == 0) {
+    echo "User not found!";
+    exit();
+}
+$user = mysqli_fetch_assoc($query_run);
+include('../includes/navbar.php');
 ?>
 
 
@@ -33,7 +47,7 @@ include('../includes/navbar.php');
           </div>
 
           <!-- If you already have the institution ID in session, no need for this -->
-          <input type="hidden" name="etab_id" value="10"> <!-- Or set dynamically in PHP -->
+          <input type="hidden" name="etab_id" value="<?php echo $_SESSION['user_id']  ?>"> <!-- Or set dynamically in PHP -->
 
         </div>
 
@@ -82,7 +96,7 @@ include('../includes/navbar.php');
               FROM 
                   invitations inv
               JOIN 
-                  health_professionals hp ON inv.id_Hp = hp.id_Hp;
+                  health_professionals hp ON inv.id_Hp = hp.id;
               ";
        $query_run = mysqli_query($connection,$query);
     ?>
