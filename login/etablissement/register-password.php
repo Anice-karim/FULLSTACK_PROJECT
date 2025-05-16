@@ -14,15 +14,19 @@
     <link rel="icon" href="../img/icon.svg" type="image/svg+xml" />
   </head>
   <body class="min-h-screen flex items-center justify-center px-4">
-    <div class="background" id="background"></div>
+    <div
+      class="fixed inset-0 bg-cover bg-center -z-10"
+      id="background"
+      style="background-image: url('uploads/bg.jpg');"
+    ></div>
 
-    <div class="bg-white rounded-3xl shadow-2xl p-10 w-full max-w-md">
+    <div class="bg-white rounded-3xl shadow-2xl p-10 w-full max-w-md relative z-10 ">
       <?php
         session_start();
         $msg = $_SESSION['msg'] ?? '';
         unset($_SESSION['msg']);
       ?>
-      <h1 class="text-4xl font-bold text-green-500 text-center mb-8">Last Step</h1>
+      <h1 class="text-4xl font-bold text-blue-500 text-center mb-8">Personalize your password</h1>
       <?php if ($msg): ?>
         <div class="text-red-500 text-center mb-4"><?= $msg ?></div>
       <?php endif; ?>
@@ -100,9 +104,9 @@
         <button
           type="submit"
           name="register_btn"
-          class="w-full py-3 rounded-lg bg-green-400 hover:bg-green-700 text-white font-semibold transition duration-300"
+          class="w-full py-3 rounded-lg bg-blue-400 hover:bg-green-700 text-white font-semibold transition duration-300"
         >
-          Continue
+          Finish
         </button>
       </form>
     </div>

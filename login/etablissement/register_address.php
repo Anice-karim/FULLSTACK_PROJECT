@@ -26,7 +26,7 @@
         $msg = $_SESSION['msg'] ?? '';
         unset($_SESSION['msg']);
       ?>
-      <h1 class="text-4xl font-bold text-green-500 text-center mb-8">Welcome to our community</h1>
+      <h1 class="text-4xl font-bold text-blue-500 text-center mb-8">Welcome to our community</h1>
       <?php if ($msg): ?>
         <div class="text-red-500 text-center mb-4"><?= $msg ?></div>
       <?php endif; ?>
@@ -57,7 +57,25 @@
       <option value="">-- Select a City --</option>
     </select>
   </div>
-
+        <div class="mb-4">
+  <label for="address" class="block text-sm font-medium text-gray-700 mb-2">
+    Enter your address
+  </label>
+  <input
+    type="text"
+    name="address"
+    id="address"
+    class="w-full px-5 py-4 text-base rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+    placeholder="123 Main Street"
+  />
+</div>
+<button
+          type="submit"
+          class="w-full py-3 rounded-lg bg-blue-300 hover:bg-blue-700 text-white font-semibold transition duration-300"
+          name="login_btn"
+        >
+          Next
+        </button>
       </form>
 
     <script>
