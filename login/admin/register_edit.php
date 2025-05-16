@@ -38,7 +38,7 @@ include('../includes/navbar.php');
             if(mysqli_num_rows($query_run) > 0){
               foreach($query_run as $row){
           ?>
-          <form action="code.php" method="post" id="form">
+          <form action="update-code.php" method="post" id="form">
             <input type="hidden" name="edit_id" value="<?php echo $row['id']; ?>">
             
             <div class="form-group">
@@ -54,7 +54,7 @@ include('../includes/navbar.php');
             <div class="form-group">
               <label for="password">Password</label>
               <div class="input-group">
-                <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" required>
+                <input type="password" name="edit_password" id="password" class="form-control" placeholder="Enter Password" required>
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary" type="button" id="eye-icon">
                     <i class="fas fa-eye"></i>

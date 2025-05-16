@@ -28,7 +28,7 @@ include('../includes/navbar.php');
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="code.php" method="POST" id="form">
+      <form action="register-code.php" method="POST" id="form">
 
         <div class="modal-body">
 
@@ -194,7 +194,7 @@ include('../includes/navbar.php');
                 </form>
             </td>
             <td>
-                <form action="code.php" method="post">
+                <form action="delete-code.php" method="post">
                   <input type="hidden" name="delete_hp" value="<?php echo $row['id']; ?>">
                   <button type="submit" name="delete_btn_hp" class="btn btn-danger"> DELETE</button>
                 </form>
