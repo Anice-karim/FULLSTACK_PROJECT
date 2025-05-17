@@ -135,7 +135,7 @@ if(isset($_POST['addbtn']))
     $etab =$_POST['id_etab'];
     $date = date("Y-m-d");
 
-    $query1 = "SELECT * FROM beneficiaire WHERE id_ben = '$id_client'";
+    $query1 = "SELECT * FROM beneficiaire WHERE id = '$id_client'";
     $query_run1=mysqli_query($connection,$query1);
     
     if($query_run1){
