@@ -127,23 +127,17 @@ include('../includes/navbar.php');
               </button>
             </td>
           </tr>
+              <?php
+        }
+      } else {
+        echo "<tr><td colspan='5'>No Records Found</td></tr>";
+      }
+      ?>
         </tbody>
       </table>
     </div>
 
     <!-- This is the modal (outside the <tr>) -->
-    <?php 
-    if($user['type'] == "doctor" ){
-
-
-
-
-    }
-
-
-
-
-    ?>
     <div
       class="modal fade"
       id="AddFacteur"
@@ -196,12 +190,7 @@ include('../includes/navbar.php');
         </div>
       </div>
     </div>
-    <?php
-        }
-      } else {
-        echo "<tr><td colspan='5'>No Records Found</td></tr>";
-      }
-      ?>
+
 <!-- /.container-fluid -->
 <script src="js/script.js" ></script>
 
