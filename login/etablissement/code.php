@@ -128,9 +128,39 @@ if(isset($_POST['delete_invi_btn'])){
     header('Location: profile_edit.php');
     exit();
 }
+//add dossier
+if(isset($_POST['addbtn']))
+ {
+    $id_client= $_POST['id_client'];
+    $etab =$_POST['id_etab'];
+    $date = date("Y-m-d");
 
+    $query1 = "SELECT * FROM beneficiaire WHERE id_ben = '$id_client'";
+    $query_run1=mysqli_query($connection,$query1);
+    
+    if($query_run1){
+        $run2 = mysqli_fetch_assoc($query_run1);
+        if($run2){
+        $query ="INSERT INTO dossier (id_benef, id_etab, date) VALUES('$id_client','$etab','$date')";
+        $query_run = mysqli_query($connection , $query);
+        if($query_run){
+            $_SESSION['success']="dossier Added";
+            header('Location:file.php');
+        }else{
+            $_SESSION['status']="dossier Not Added";
+            header('Location:file.php');
+        }
+    }else{
+        $_SESSION['status']="id not found";
+        header('Location:file.php');
+    }
+    }else{
+        $_SESSION['status']="ERROR FETCHING";
+        header('Location:file.php');
+    }
 
-
+   
+ }
 
 
 
