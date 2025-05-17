@@ -51,16 +51,40 @@ if(isset($_POST['accept_invi_btn'])){
  }
 
 
+if (isset($_POST['addbtn'])) {
+    $id_dossier = $_POST['id_dossier'];
+    $hp = $_POST['id_hp'];
 
+    $query1 = "SELECT * FROM dossier WHERE id = '$id_dossier'";
+    $query_run1 = mysqli_query($connection, $query1);
 
+    if ($query_run1) {
+        $run2 = mysqli_fetch_assoc($query_run1);
+        if ($run2) {
+            // ✅ Use UPDATE instead of INSERT
+            $query = "UPDATE dossier SET id_hp = '$hp' WHERE id = '$id_dossier'";
+            $query_run = mysqli_query($connection, $query);
 
-
-
-
-
-
-
-
+            if ($query_run) {
+                $_SESSION['success'] = "Dossier updated successfully";
+                header('Location: file_update.php');
+                exit();
+            } else {
+                $_SESSION['status'] = "Failed to update dossier";
+                header('Location: file_update.php');
+                exit();
+            }
+        } else {
+            $_SESSION['status'] = "Dossier not found";
+            header('Location: file_update.php');
+            exit();
+        }
+    } else {
+        $_SESSION['status'] = "Error fetching dossier";
+        header('Location: file_update.php');
+        exit();
+    }
+}
 
 
 
