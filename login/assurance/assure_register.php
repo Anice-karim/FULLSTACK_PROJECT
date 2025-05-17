@@ -104,7 +104,7 @@ include('../includes/navbar.php');
     </div>
   </div>
 </div>
- <!-- add a family member form -->
+
 
 <!-- end of add a family member form -->
 <div class="container-fluid">
@@ -176,7 +176,9 @@ include('../includes/navbar.php');
                 </form>
             </td>
             <td>
-              <button type="submit" name="add_family_btn" class="add-family-btn btn btn-primary" data-toggle="modal" data-target="#addfamily" id="addAdminButton">Add Family member</button>
+              <button type="submit" name="add_family_btn" class="add-family-btn btn btn-primary"
+               data-toggle="modal" 
+               data-target="#addfamily" id="addAdminButton">Add Family member</button>
             </td>
 
               <div class="modal fade" id="addfamily" tabindex="-1" role="dialog" aria-labelledby="ADD family" >

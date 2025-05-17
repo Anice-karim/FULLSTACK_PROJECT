@@ -50,8 +50,6 @@ include('../includes/navbar.php');
     </div>
   </div>
 </div>
- <!-- add a family member form -->
-
 <!-- end of add a family member form -->
 <div class="container-fluid">
 
@@ -78,117 +76,119 @@ include('../includes/navbar.php');
     }
     ?>
     <div class="table-responsive">
-    <?php 
-       $query ="SELECT 
-                  doc.id ,
-                  bn.id_ben ,
-                  bn.f_name ,
-                  bn.l_name 
-              FROM 
-                  dossier doc
-              JOIN 
-                  beneficiaire bn ON doc.id_benef = bn.id_ben;
-              ";
-       $query_run = mysqli_query($connection,$query);
-    ?>
-      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <?php 
+   $query = "SELECT 
+                doc.id,
+                bn.id AS id_ben,
+                bn.f_name,
+                bn.l_name 
+            FROM 
+                dossier doc
+            JOIN 
+                beneficiaire bn ON doc.id_benef = bn.id;";
+   $query_run = mysqli_query($connection, $query);
+?>
+      <table class="table table-bordered">
         <thead>
           <tr>
-            <th>id</th>
-            <th>Name</th>
-            <th>Last name</th>
-             <th>DELETE</th>
-            <th>ADD FACTURE</th>
-
-
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Delete</th>
+            <th>Add Facture</th>
           </tr>
         </thead>
         <tbody>
-     <?php 
-      if(mysqli_num_rows($query_run)>0){
-        while($row = mysqli_fetch_assoc($query_run))
-        {
-          ?>
-          
-          <tr>
-            <td><?php echo $row['id_ben']; ?></td>
-            <td><?php echo $row['f_name']; ?></td>
-            <td><?php echo $row['l_name'] ?></td>
-      
-      
-            <td>
-                <form action="code.php" method="post">
-                  <input type="hidden" name="delete_id_as" value="<?php echo $row['id']; ?>">
-                  <button type="submit" name="delete_btn_as" class="btn btn-danger"> DELETE</button>
-                </form>
-            </td>
-           <td>
-  <button type="button" name="add_fac" class="add_fac-btn btn btn-primary" data-toggle="modal" data-target="#addfacture1" id="addfactureBtn">Add Facture</button>
-</td>
-
-<div class="modal fade" id="addfacture1" tabindex="-1" role="dialog" aria-labelledby="addfactureLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <h5 class="modal-title" id="addfactureLabel">Add Facture</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      <form action="code.php" method="POST">
-        <div class="modal-body">
-        <input type="hidden" id="admin_id_modal" name="admin_id" class="form-control" value="<?php echo $row['id_as']; ?>">
-
-          <table>
-            <thead>
-              <tr>
-                <th>SERVICES</th>
-                <th>PRICE</th>
-                <th>Total (MAD)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><input type="text" name="SERV[]" /></td>
-                <td><input type="text" name="PRICE[]" class="price-input" /></td>
-                <td><span class="total">0</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" name="registerbtn_beni" class="btn btn-primary">Save</button>
-        </div>
-      </form>
-
-    </div>
-  </div>
-</div>
-</tr>
-
-
-          <?php
-        }
-      }
-      else {
-        echo "No Record Found";
-      }
+          <?php 
+      if(mysqli_num_rows($query_run) > 0){
+        while($row = mysqli_fetch_assoc($query_run)){
       ?>
-        
+          <tr>
+            <td><?= $row['id_ben']; ?></td>
+            <td><?= $row['f_name']; ?></td>
+            <td><?= $row['l_name']; ?></td>
+            <td>
+              <form action="code.php" method="POST">
+                <input type="hidden" name="delete_id_as" value="<?= $row['id']; ?>">
+                <button type="submit" name="delete_btn_as" class="btn btn-danger">Delete</button>
+              </form>
+            </td>
+            <td>
+              <!-- This is the button -->
+              <button 
+              type="button"
+              class="btn btn-primary" 
+              data-toggle="modal" 
+              data-target="#AddFacteur">
+              Add Facteur
+              </button>
+            </td>
+          </tr>
         </tbody>
       </table>
-
     </div>
-  </div>
-</div>
 
-</div>
+    <!-- This is the modal (outside the <tr>) -->
+    <div
+      class="modal fade"
+      id="AddFacteur"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Facture</h1>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="table-resposive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Service</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><input class="form-control" type="text" name="item[]"></td>
+      <td><input class="form-control price-input" type="number" name="price[]" placeholder="Enter price" oninput="updateTotal()"></td>
+      
+    </tr>
+  </tbody>
+  <tfoot>
+        <tr>
+          <th>Total</th>
+          <th><span id="finalTotal">0</span> MAD</th>
+        </tr>
+</table>
+          </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <?php
+        }
+      } else {
+        echo "<tr><td colspan='5'>No Records Found</td></tr>";
+      }
+      ?>
 <!-- /.container-fluid -->
-<script src="script.js" ></script>
+<script src="js/script.js" ></script>
 
 <?php
 include('../includes/scripts.php');
