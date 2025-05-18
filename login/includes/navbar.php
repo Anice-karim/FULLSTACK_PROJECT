@@ -125,8 +125,8 @@ if (isset($table)) {
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="..\assurance\assure_register.php">
-            <i class="fas fa-user"></i>
+        <a class="nav-link" href="..\assurance\file_assur.php">
+            <i class="fas fa-file"></i>
             <span>File</span>
         </a>
     </li>

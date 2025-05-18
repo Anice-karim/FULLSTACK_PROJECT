@@ -1,7 +1,21 @@
 <?php
-include('../security.php'); 
+include('../security.php');
 include('../includes/header.php');
-include('../includes/navbar.php'); 
+
+
+$email = $_SESSION['email'];
+$table = $_SESSION['table'];
+
+// Fetch current user data
+$query = "SELECT * FROM $table WHERE email = '$email'";
+$query_run = mysqli_query($connection, $query);
+
+if (!$query_run || mysqli_num_rows($query_run) == 0) {
+    echo "User not found!";
+    exit();
+}
+$user = mysqli_fetch_assoc($query_run);
+include('../includes/navbar.php');
 ?>
 
 
@@ -19,7 +33,7 @@ include('../includes/navbar.php');
         <div class="modal-body">
         
 
-            <input type="hidden" name="assu_id" value="4">
+            <input type="hidden" name="assu_id" value="<?php echo $user['id_assu'];?>">
             <div class="form-group">
                 <label> First Name </label>
                 <input type="text" name="name" class="form-control" placeholder="Enter name" required>

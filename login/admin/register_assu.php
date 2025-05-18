@@ -165,13 +165,13 @@ include('../includes/navbar.php');
 
             <td>
                 <form action="register_assu_edit.php" method="post">
-                    <input type="hidden" name="edit_assu" value="<?php  echo $row['id']; ?>">
+                    <input type="hidden" name="edit_assu" value="<?php  echo $row['id_assu']; ?>">
                     <button  type="submit" name="edit_assu_btn" class="btn btn-success"> EDIT</button>
                 </form>
             </td>
             <td>
                 <form action="delete-code.php" method="post">
-                  <input type="hidden" name="delete_assu" value="<?php echo $row['id']; ?>">
+                  <input type="hidden" name="delete_assu" value="<?php echo $row['id_assu']; ?>">
                   <button type="submit" name="delete_btn_assu" class="btn btn-danger"> DELETE</button>
                 </form>
             </td>

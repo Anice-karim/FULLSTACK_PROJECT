@@ -1,102 +1,43 @@
 <?php
-include('../security.php'); 
-include('../includes/header.php'); 
-include('../includes/navbar.php'); 
+include('../security.php');
+include('../includes/header.php');
+
+
+$email = $_SESSION['email'];
+$table = $_SESSION['table'];
+
+// Fetch current user data
+$query = "SELECT 
+    a.id_as AS assure_id,
+    a.name AS assure_name, 
+    ass.id_assu AS assurance_id,
+    ass.name AS assurance_nom,
+    ass.email , 
+    b.id AS benef_id,
+    b.l_name AS benef_nom,
+    d.id AS dossier_id,
+    d.date AS dossier_date
+
+FROM 
+    assure a
+JOIN 
+    assurance ass ON ass.id_assu = a.id_as
+JOIN 
+    beneficiaire b ON b.id_as = a.id_as
+JOIN 
+    dossier d ON d.id_benef = b.id
+ WHERE ass.email = '$email';";
+$query_run = mysqli_query($connection, $query);
+
+if (!$query_run || mysqli_num_rows($query_run) == 0) {
+    echo "User not found!";
+    exit();
+}
+$user = mysqli_fetch_assoc($query_run);
+include('../includes/navbar.php');
 ?>
-<!-- DataTales Example -->
-<div class="card shadow mb-4">
-  <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Edit Client Profile  </h6>
-  </div>
-
-  <div class="card-body">
-
- <?php 
-
- if(isset($_POST['edit_btn'])){
-    $id = $_POST['edit_id'];
-    $query= "SELECT * FROM  assure WHERE id_as='$id' ";
-    $query_run=mysqli_query($connection,$query);   
-    foreach($query_run as $row){
-        ?>
-        
-<div class="modal-body">
-    <form action="code.php" method="post">
-
-        <input type="hidden" name="edit_id" value="<?php echo $row['id_as']?>">
-
-        
-
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label>First Name</label>
-                <input type="text" name="name_edit" class="form-control" value="<?php echo $row['prenom_as'] ?>" required>
-            </div>
-
-            <div class="form-group col-md-6">
-                <label>Last Name</label>
-                <input type="text" name="nam2_edit" class="form-control" value="<?php echo $row['name'] ?>" required>
-            </div>
-        </div>
-        
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label>CIN</label>
-                <input type="number" name="cin_edit" class="form-control" value="<?php echo $row['CIN_as'] ?>" required>
-            </div>
-
-            <div class="form-group col-md-6">
-                <label>RIB</label>
-                <input type="text" name="rib_edit" class="form-control" value="<?php echo $row['RIB_as'] ?>" required>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="designation" class="form-label">Designation</label>
-            <select class="form-control" name="designation" id="designation" required>
-                <option value="" disabled selected>Select type</option>
-                <option value="employed">employed</option>
-                <option value="retired">retired</option>  
-                </select>
-        </div>
-
-        <div class="form-row">
-        <div class="form-group col-md-6">
-            <label>Salaire</label>
-            <input type="text" name="salaire" class="form-control" placeholder="Enter salaire" required>
-        </div>
-
-        <div class="form-group col-md-6">
-            <label for="password">Password</label>
-            <div class="input-group">
-                <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" required>
-                <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button" id="eye-icon">
-                        <i class="fas fa-eye"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-        
-        
-        <a href="register_etab.php" class="btn btn-danger">CANCEL</a>
-        <button type="submit" name ="updatebtn_etab" class="btn btn-primary" >Update</button>
-        </form>
-        <?php
-    }
- }
- ?>
-
-</div>
 
 
-    
-
-    </div>
-  </div>
-</div>
 <div class="card shadow mb-4">
   <div class="card-header py-3">
     <h6 class="m-0 font-weight-bold text-primary">Edit Client  family Profile  </h6>
@@ -112,16 +53,17 @@ include('../includes/navbar.php');
             <th>Name</th>
             <th>Last Name</th>
             <th>CIN</th>
-            <th>Relation</th>
-                      <th>Delete</th>
+            <th>id dossier</th>
+            <th>date de creation</th>
+            <th>status</th>
             <th>Edit</th>
-  
+            <th>Delete</th>
         </thead>
         <tbody>
              <?php 
-      if(mysqli_num_rows($query_run)>0){
-        while($row = mysqli_fetch_assoc($query_run))
-        {
+    //   if(mysqli_num_rows($query_run)>0){
+    //     while($row = mysqli_fetch_assoc($query_run))
+    //     {
           ?>
           <tr>
             <td><?php echo $row['f_name']; ?></td>
@@ -136,7 +78,7 @@ include('../includes/navbar.php');
                 </form>
             </td>
             <td>
-                <input type="hidden" name="edit_id" value="<?php echo $row['id']; ?>">
+                <input type="hidden" name="edit_id" value="<?php echo $row['id_ben']; ?>">
                 <button  type="submit" name="edit_btn" class="btn btn-success"  data-toggle="modal" data-target="#editfamily"> EDIT</button>
             </td>
             
@@ -218,17 +160,19 @@ include('../includes/navbar.php');
               </div>
             
              <?php
-        }
-      }
-      else {
-        echo "No Record Found";
-      }
+    //     }
+    //   }
+    //   else {
+    //     echo "No Record Found";
+    //   }
       ?>
         </tbody>
       </table>
+      <?php //}?>
+      <?php //}?>
       </div> 
 
-</div>
+
 
 
 
