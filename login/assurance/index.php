@@ -117,7 +117,7 @@ include('../includes/navbar.php');
         </div>
       </div>
     </div>  
-
+</div>
 
   <!-- Content Row -->
 

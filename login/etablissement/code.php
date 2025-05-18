@@ -158,10 +158,27 @@ if(isset($_POST['addbtn']))
     }else{
         $_SESSION['status']="ERROR FETCHING";
         header('Location:file.php');
-    }
-
-   
+    }  
  }
+ //delete table
+ if (isset($_POST['delete_btn_as'])) {
+    $id_to_delete = $_POST['delete_id_as'];
+
+    // SQL DELETE query
+    $delete_query = "DELETE FROM assurance WHERE id = '$id_to_delete'";
+    $delete_run = mysqli_query($connection, $delete_query);
+
+    if ($delete_run) {
+        $_SESSION['success'] = "Assurance deleted successfully";
+        header("Location: file.php"); // redirect to your page
+        exit();
+    } else {
+        $_SESSION['status'] = "Failed to delete assurance";
+        header("Location: file.php");
+        exit();
+    }
+}
+
 
 
 

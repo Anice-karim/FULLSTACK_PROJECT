@@ -27,18 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
       "Rheumatologist",
     ],
     BRI: ["Radiology", "Biology", "Imaging"],
-    paramedical: [
-      "Physiotherapist",
-      "Radiology Technician",
-      "Nurse",
-      "Lab Technician",
-      "Medical Assistant",
-      "Anesthesiology Technician",
-      "Occupational Therapist",
-      "Respiratory Therapist",
-      "Dental Hygienist",
-      "Speech Therapist",
-    ],
     pharmacy: [
       "Clinical Pharmacy",
       "Industrial Pharmacy",

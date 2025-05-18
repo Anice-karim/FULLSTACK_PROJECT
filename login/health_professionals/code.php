@@ -52,40 +52,44 @@ if(isset($_POST['accept_invi_btn'])){
  }
 
 // update the dossier
+
 if (isset($_POST['addbtn'])) {
     $id_dossier = $_POST['id_dossier'];
     $hp = $_POST['id_hp'];
 
+    // First, check if the dossier exists
     $query1 = "SELECT * FROM dossier WHERE id = '$id_dossier'";
     $query_run1 = mysqli_query($connection, $query1);
 
     if ($query_run1) {
         $run2 = mysqli_fetch_assoc($query_run1);
         if ($run2) {
-            
-            $query = "UPDATE dossier SET id_hp = '$hp' WHERE id = '$id_dossier'";
+            // Now, insert into dossier_hp (many-to-many link)
+            $query = "INSERT INTO dossier_hp (id_doss, id_hp) VALUES ('$id_dossier', '$hp')";
             $query_run = mysqli_query($connection, $query);
 
             if ($query_run) {
-                $_SESSION['success'] = "Dossier updated successfully";
-                header('Location: file_update.php');
+                $_SESSION['success'] = "Health professional assigned to dossier successfully";
+                header('Location: update_file.php');
                 exit();
             } else {
-                $_SESSION['status'] = "Failed to update dossier";
-                header('Location: file_update.php');
+                $_SESSION['status'] = "Failed to assign health professional";
+                header('Location: update_file.php');
                 exit();
             }
         } else {
             $_SESSION['status'] = "Dossier not found";
-            header('Location: file_update.php');
+            header('Location: update_file.php');
             exit();
         }
     } else {
         $_SESSION['status'] = "Error fetching dossier";
-        header('Location: file_update.php');
+        header('Location: update_file.php');
         exit();
     }
 }
+
+
 
 //BACKEND POUR ORDONNANCE 1 ------------------------------------------------------------------------------------
  
@@ -226,9 +230,7 @@ if (isset($_POST['deletebtn_doss'])) {
     exit;
 }
 
-<<<<<<< HEAD
-// backend pharma ----------------------------------------------------------------------
-//--------------------------------------------------------------------------------------
+//pharma
 
 if (isset($_POST['confirm_buy'])) {
     $id_doss = $_POST['pharma']; 
@@ -267,7 +269,6 @@ if (isset($_POST['confirm_buy'])) {
 }
 
 
-=======
 ///////edit profile
  if (isset($_POST['edit_btn'])) {
     $message = ""; // Initialize message
@@ -346,5 +347,4 @@ if (isset($_POST['confirm_buy'])) {
     header('Location: profile_edit.php');
     exit();
 }}
->>>>>>> 3d37a11b317ad8a3e06354c304030981de3371f2
 ?>

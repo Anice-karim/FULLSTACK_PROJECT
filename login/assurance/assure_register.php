@@ -1,7 +1,21 @@
 <?php
-include('../security.php'); 
+include('../security.php');
 include('../includes/header.php');
-include('../includes/navbar.php'); 
+
+
+$email = $_SESSION['email'];
+$table = $_SESSION['table'];
+
+// Fetch current user data
+$query = "SELECT * FROM $table WHERE email = '$email'";
+$query_run = mysqli_query($connection, $query);
+
+if (!$query_run || mysqli_num_rows($query_run) == 0) {
+    echo "User not found!";
+    exit();
+}
+$user = mysqli_fetch_assoc($query_run);
+include('../includes/navbar.php');
 ?>
 
 
@@ -19,7 +33,7 @@ include('../includes/navbar.php');
         <div class="modal-body">
         
 
-            <input type="hidden" name="assu_id" value="4">
+            <input type="hidden" name="assu_id" value="<?php echo $user['id']; ?>">
             <div class="form-group">
                 <label> First Name </label>
                 <input type="text" name="name" class="form-control" placeholder="Enter name" required>
@@ -42,7 +56,7 @@ include('../includes/navbar.php');
                 <div class="input-group">
                     <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email" readonly required>
                     <div class="input-group-append">
-                        <button class="btn btn-secondary" type="button" onclick="generateEmail()">Auto</button>
+                        <button class="btn btn-secondary" type="button" id="generateEmailBtn">Auto</button>
                     </div>
                 </div>
             </div>
@@ -78,6 +92,7 @@ include('../includes/navbar.php');
                 </div>
               </div>
             </div>
+            <h6 id="message"></h6>
             <div class="form-group">
                 <label for="confirmpassword">Confirm Password</label>
                 <div class="input-group">
@@ -165,13 +180,13 @@ include('../includes/navbar.php');
       
             <td>
                 <form action="assure_edit.php" method="post">
-                    <input type="hidden" name="edit_id" value="<?php echo $row['id_as']; ?>">
+                    <input type="hidden" name="edit_id" value="<?php echo $row['id']; ?>">
                     <button  type="submit" name="edit_btn" class="btn btn-success"> EDIT</button>
                 </form>
             </td>
             <td>
                 <form action="code.php" method="post">
-                  <input type="hidden" name="delete_id_as" value="<?php echo $row['id_as']; ?>">
+                  <input type="hidden" name="delete_id_as" value="<?php echo $row['id']; ?>">
                   <button type="submit" name="delete_btn_as" class="btn btn-danger"> DELETE</button>
                 </form>
             </td>
@@ -194,7 +209,7 @@ include('../includes/navbar.php');
                       <div class="modal-body">
                           
                       
-                        <input type="hidden" id="admin_id_modal" name="admin_id" readonly class="form-control" value="<?php echo $row['id_as']; ?>">
+                        <input type="hidden" id="admin_id_modal" name="admin_id" readonly class="form-control" value="<?php echo $row['id']; ?>">
 
                           <div class="form-group">
                               <label>First Name</label>

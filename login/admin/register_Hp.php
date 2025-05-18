@@ -19,7 +19,12 @@ include('../includes/navbar.php');
 ?>
 
 
-<div class="modal fade" id="addadminprofile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" 
+    id="addadminprofile" 
+    tabindex="-1" 
+    role="dialog" 
+    aria-labelledby="exampleModalLabel" 
+    aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -65,10 +70,6 @@ include('../includes/navbar.php');
                   <label class="form-check-label" for="BRI">BRI</label>
                 </div>
 
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="type" id="paramedical" value="paramedical">
-                  <label class="form-check-label" for="paramedical">Paramedical</label>
-                </div>
 
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="type" id="pharmacy" value="pharmacy">
@@ -137,7 +138,10 @@ include('../includes/navbar.php');
 <div class="card shadow mb-4">
   <div class="card-header py-3">
     <h6 class="m-0 font-weight-bold text-primary">Health professionals
-            <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#addadminprofile">
+            <button type="button" 
+            class="btn btn-primary " 
+            data-toggle="modal" 
+            data-target="#addadminprofile">
               Add A profile Medical
             </button>
     </h6>

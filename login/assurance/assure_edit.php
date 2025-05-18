@@ -15,7 +15,7 @@ include('../includes/navbar.php');
 
  if(isset($_POST['edit_btn'])){
     $id = $_POST['edit_id'];
-    $query= "SELECT * FROM  assure WHERE id_as='$id' ";
+    $query= "SELECT * FROM  assure WHERE id='$id' ";
     $query_run=mysqli_query($connection,$query);   
     foreach($query_run as $row){
         ?>
@@ -23,7 +23,7 @@ include('../includes/navbar.php');
 <div class="modal-body">
     <form action="code.php" method="post">
 
-        <input type="hidden" name="edit_id" value="<?php echo $row['id_as']?>">
+        <input type="hidden" name="edit_id" value="<?php echo $row['id']?>">
 
         
 
@@ -77,11 +77,12 @@ include('../includes/navbar.php');
                 </div>
             </div>
         </div>
+        <h6 id="message"></h6>
     </div>
 
         
         
-        <a href="register_etab.php" class="btn btn-danger">CANCEL</a>
+        <a href="assure_register.php" class="btn btn-danger">CANCEL</a>
         <button type="submit" name ="updatebtn_etab" class="btn btn-primary" >Update</button>
         </form>
         <?php
@@ -129,14 +130,14 @@ include('../includes/navbar.php');
             <td><?php echo $row['relation'] ?></td>
             
             <td>
-                 <form action="code.php" method="post">
-                  <input type="hidden" name="delete_id_as" value="<?php echo $row['id_as']; ?>">
-                  <button type="submit" name="delete_btn_as" class="btn btn-danger"> DELETE</button>
-                </form>
+                <input type="hidden" name="edit_id" value="<?php echo $row['id']; ?>">
+                <button  type="submit" name="edit_btn" class="btn btn-success"  data-toggle="modal" data-target="#editfamily"> EDIT</button>
             </td>
             <td>
-                <input type="hidden" name="edit_id" value="<?php echo $row['id_ben']; ?>">
-                <button  type="submit" name="edit_btn" class="btn btn-success"  data-toggle="modal" data-target="#editfamily"> EDIT</button>
+                 <form action="code.php" method="post">
+                  <input type="hidden" name="delete_id_as" value="<?php echo $row['id']; ?>">
+                  <button type="submit" name="delete_btn_as" class="btn btn-danger"> DELETE</button>
+                </form>
             </td>
             
                 <div class="modal fade" id="editfamily" tabindex="-1" role="dialog" aria-labelledby="ADD family" >
@@ -151,7 +152,7 @@ include('../includes/navbar.php');
                     <form action="code.php" method="POST">
                       <div class="modal-body">
                            
-                        <input type="hidden"  name="id_adit" readonly class="form-control" value="<?php echo $row['id_ben']; ?>">
+                        <input type="hidden"  name="id_adit" readonly class="form-control" value="<?php echo $row['id']; ?>">
 
                           <div class="form-group">
                               <label>First Name</label>
@@ -230,7 +231,7 @@ include('../includes/navbar.php');
 </div>
 
 
-
+<script src="script.js"></script>
 
 <?php
 include('../includes/scripts.php');

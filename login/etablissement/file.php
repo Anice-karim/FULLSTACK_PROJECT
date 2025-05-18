@@ -127,6 +127,7 @@ include('../includes/navbar.php');
               </button>
             </td>
           </tr>
+          <?php  }?>
         </tbody>
       </table>
     </div>
@@ -186,10 +187,11 @@ include('../includes/navbar.php');
     </div>
     <?php
         }
-      } else {
+       else {
         echo "<tr><td colspan='5'>No Records Found</td></tr>";
       }
       ?>
+      
 <!-- /.container-fluid -->
 <script src="js/script.js" ></script>
 

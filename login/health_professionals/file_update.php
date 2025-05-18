@@ -1,25 +1,15 @@
 <?php
-include('../security.php');
-include('../includes/header.php');
-
-
-$email = $_SESSION['email'];
-$table = $_SESSION['table'];
-
-// Fetch current user data
-$query = "SELECT * FROM $table WHERE email = '$email'";
-$query_run = mysqli_query($connection, $query);
-
-if (!$query_run || mysqli_num_rows($query_run) == 0) {
-    echo "User not found!";
-    exit();
-}
-$user = mysqli_fetch_assoc($query_run);
-include('../includes/navbar.php');
+include('../security.php'); 
+include('../includes/header.php'); 
+include('../includes/navbar.php'); 
 ?>
 
 
-<div class="modal fade" id="addadminprofile" tabindex="-1" role="dialog" aria-labelledby="Add clent" aria-hidden="true">
+<div class="modal fade" 
+      id="add_dossier" 
+      tabindex="-1" 
+      role="dialog" 
+      aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -57,7 +47,12 @@ include('../includes/navbar.php');
 <div class="card shadow mb-4">
   <div class="card-header py-3">
     <h6 class="m-0 font-weight-bold text-primary">dossier folders
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addadminprofile" id="add">
+            <button 
+            type="button" 
+            class="btn btn-primary" 
+            data-toggle="modal" 
+            data-target="#add_dossier" 
+            >
               Add dossier 
             </button>
     </h6>
@@ -67,11 +62,11 @@ include('../includes/navbar.php');
 
     <?php 
     if (isset($_SESSION['success']) && $_SESSION['success'] != ''){
-      echo '<h2>'.$_SESSION['success'].'</h2';
+      echo '<h2>'.$_SESSION['success'].'</h2>';
       unset($_SESSION['success']);
     }
     if (isset($_SESSION['status']) && $_SESSION['status'] != ''){
-      echo '<h2>'.$_SESSION['status'].'</h2';
+      echo '<h2>'.$_SESSION['status'].'</h2>';
       unset($_SESSION['status']);
     }
     ?>
@@ -111,12 +106,8 @@ include('../includes/navbar.php');
               <th>Achats des medicaments</th>
             <?php } ?>
 
-            <?php if($user['type'] == 'paramedical') { ?>
-              <th>Actes paramedicaux</th>
-            <?php } ?>
             <th>Delete</th>
            
-
           </tr>
         </thead>
         <tbody>
@@ -182,16 +173,7 @@ include('../includes/navbar.php');
         </td>
       <?php } ?>
 
-      <?php if($user['type'] == 'paramedical') { ?>
-        <td>
-          <button type="button" 
-          class="btn" 
-          style="background-color: #0d47a1; color: white;" 
-          data-toggle="modal" 
-          data-target="#Addpara"
-          data-id="<?= $row['id']; ?>">Add acts paramed</button>
-        </td>
-      <?php } ?>
+      
       <td>
               <form action="code.php" method="POST">
                 <input type="hidden" name="delete_doss"  value="<?= $user['id']; ?>">

@@ -109,7 +109,7 @@ if (isset($table)) {
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="..\health_professionals\file_update.php">
+        <a class="nav-link" href="..\health_professionals\update_file.php">
             <i class="fas fa-file"></i>
             <span>File</span>
         </a>

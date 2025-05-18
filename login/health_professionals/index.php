@@ -27,7 +27,7 @@ include('../includes/navbar.php');
             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Dossier</div>
             <div class="h5 mb-0 font-weight-bold text-gray-800">
               <?php
-              $query = "SELECT COUNT(*) AS total FROM dossier WHERE id_hp = '" . $_SESSION['user_id'] . "'";
+              $query = "SELECT COUNT(*) AS total FROM dossier_hp WHERE id_hp = '" . $_SESSION['user_id'] . "'";
               $query_run = mysqli_query($connection, $query);
               $data = mysqli_fetch_assoc($query_run);
               echo '<h1>' . $data['total'] . '</h1>';
