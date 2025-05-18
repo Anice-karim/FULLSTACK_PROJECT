@@ -181,7 +181,7 @@ if (isset($_POST['addana'])) {
                 // Otherwise, ignore this row because it is empty
             }
         } else {
-            // Case where ana and rcd are not arrays (single entry)
+            // Case where analyse and rcd are not arrays (single entry)
             if (trim($ana) !== '' || trim($rcd) !== '') {
                 $ana_val = mysqli_real_escape_string($connection, $ana);
                 $rcd_val = mysqli_real_escape_string($connection, $rcd);
