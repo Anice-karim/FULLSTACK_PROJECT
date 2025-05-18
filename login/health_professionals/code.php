@@ -226,6 +226,48 @@ if (isset($_POST['deletebtn_doss'])) {
     exit;
 }
 
+<<<<<<< HEAD
+// backend pharma ----------------------------------------------------------------------
+//--------------------------------------------------------------------------------------
+
+if (isset($_POST['confirm_buy'])) {
+    $id_doss = $_POST['pharma']; 
+    $id_hp = $_POST['id_hp']; 
+    $id_ord = $_POST['ordonnance_id']; 
+
+    $medicaments = $_POST['medicament'];
+    $prix_array = $_POST['prix'];
+
+    // Normalize to arrays
+    if (!is_array($medicaments)) {
+        $medicaments = [$medicaments];
+        $prix_array = [$prix_array];
+    }
+
+    for ($i = 0; $i < count($medicaments); $i++) {
+        $medicament = mysqli_real_escape_string($connection, $medicaments[$i]);
+        $prix = mysqli_real_escape_string($connection, $prix_array[$i]);
+
+        if (trim($prix) !== '') {
+            $query_detail = "
+                UPDATE ordonnance_details 
+                SET prix = '$prix', id_pharma = '$id_hp' 
+                WHERE ordonnance_id = '$id_ord' 
+                AND medicament = '$medicament'; 
+                
+            ";
+
+            mysqli_query($connection, $query_detail);
+        }
+    }
+
+    $_SESSION['success'] = "Achat confirmed";
+    header('Location: file_update.php');
+    exit;
+}
+
+
+=======
 ///////edit profile
  if (isset($_POST['edit_btn'])) {
     $message = ""; // Initialize message
@@ -304,4 +346,5 @@ if (isset($_POST['deletebtn_doss'])) {
     header('Location: profile_edit.php');
     exit();
 }}
+>>>>>>> 3d37a11b317ad8a3e06354c304030981de3371f2
 ?>
