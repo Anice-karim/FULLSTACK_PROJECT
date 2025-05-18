@@ -37,8 +37,9 @@ include('../includes/navbar.php');
 
           <div class="form-group">
             <label>Invitee Medical facilities INPE</label>
-            <input type="number" name="hp_inpe" class="form-control" placeholder="Enter Medical facilities INPE to Invite">
+            <input type="number" id="inpe" name="hp_inpe" class="form-control" placeholder="Enter Medical facilities INPE to Invite">
           </div>
+          <h6 id="msg"></h6>
 
           <!-- Optional: select role or send a note -->
           <div class="form-group">

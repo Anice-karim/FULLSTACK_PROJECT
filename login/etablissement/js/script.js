@@ -74,3 +74,29 @@ function updateTotal() {
 
 // Initialise l'écoute sur la première ligne au chargement
 addInputListeners(tableBody.querySelector("tr"));
+///inpe
+const inpeInput = document.getElementById("inpe");
+const msg = document.getElementById("msg");
+
+function validateInpe(value) {
+  // Remove non-digit characters
+  let digitsOnly = value.replace(/\D/g, "");
+  // Limit max 9 digits
+  if (digitsOnly.length > 9) {
+    digitsOnly = digitsOnly.slice(0, 9);
+  }
+  // Update the input value with filtered digits
+  inpeInput.value = digitsOnly;
+
+  // Check exact 9 digits
+  const regex = /^\d{9}$/;
+  if (regex.test(digitsOnly)) {
+    msg.textContent = "✅ Valid Input number.";
+    msg.style.color = "green";
+    return true;
+  } else {
+    msg.textContent = "❌ Must contain exactly 9 digits.";
+    msg.style.color = "red";
+    return false;
+  }
+}
