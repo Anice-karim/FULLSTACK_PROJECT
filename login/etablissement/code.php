@@ -60,6 +60,7 @@ if(isset($_POST['delete_invi_btn'])){
     }
 
  }
+ ///////edit profile
  if (isset($_POST['edit_btn'])) {
     $message = ""; // Initialize message
 

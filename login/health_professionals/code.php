@@ -226,4 +226,82 @@ if (isset($_POST['deletebtn_doss'])) {
     exit;
 }
 
+///////edit profile
+ if (isset($_POST['edit_btn'])) {
+    $message = ""; // Initialize message
+
+    // ✅ Ensure session email is available
+    if (isset($_SESSION['email'])) {
+        $email = $_SESSION['email'];
+
+        // ✅ Get current user from DB
+        $selectQuery = "SELECT * FROM health_professionals WHERE email = '$email'";
+        $result = mysqli_query($connection, $selectQuery);
+        $user = mysqli_fetch_assoc($result);
+
+        // ✅ Password update
+        if (!empty($_POST['current_password']) && !empty($_POST['new_password'])) {
+            $currentPassword = $_POST['current_password'];
+            $newPassword = $_POST['new_password'];
+
+            if ($user && md5($currentPassword) === $user['password']) {
+                $newPasswordHash = md5($newPassword);
+
+                $updatePassQuery = "UPDATE health_professionals SET password = '$newPasswordHash' WHERE email = '$email'";
+                $query_run = mysqli_query($connection, $updatePassQuery);
+
+                if ($query_run) {
+                    $message .= "✅ Password updated successfully. ";
+                } else {
+                    $message .= "❌ Error updating password. ";
+                }
+            } else {
+                $message .= "❌ Incorrect current password. ";
+            }
+        }
+       
+        // ✅ Profile picture upload
+       if (isset($_FILES['profile_pic']) && $_FILES['profile_pic']['error'] === UPLOAD_ERR_OK) {
+    $uploadDir = 'uploads/';
+    $fileTmp = $_FILES['profile_pic']['tmp_name'];
+    $originalName = $_FILES['profile_pic']['name'];
+
+    // ✅ Use pathinfo to get a reliable extension
+    $fileInfo = pathinfo($originalName);
+    $extension = strtolower($fileInfo['extension']); // e.g., "png"
+
+    // ✅ Validate extension
+    $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+    if (!in_array($extension, $allowedExtensions)) {
+        $message .= "❌ Invalid image extension.";
+    } else {
+        // ✅ Optional: clean the filename
+        $filenameWithoutExt = preg_replace('/[^a-zA-Z0-9_-]/', '_', $fileInfo['filename']);
+        
+        // ✅ Create a new unique filename
+        $newFilename = time() . '_' . $filenameWithoutExt . '.' . $extension;
+        $targetPath = $uploadDir . $newFilename;
+
+        if (move_uploaded_file($fileTmp, $targetPath)) {
+            $updatePicQuery = "UPDATE health_professionals SET profile_pic = '$newFilename' WHERE email = '$email'";
+            $query_run = mysqli_query($connection, $updatePicQuery);
+
+            if ($query_run) {
+                $message .= "✅ Profile picture updated successfully. ";
+            } else {
+                $message .= "❌ Error updating profile picture. ";
+            }
+        } else {
+            $message .= "❌ Error uploading the image. ";
+        }
+    }
+} else {
+    $message .= "⚠️ No profile picture uploaded or error occurred. ";
+}
+
+
+    $_SESSION['message'] = $message;
+    header('Location: profile_edit.php');
+    exit();
+}}
 ?>
