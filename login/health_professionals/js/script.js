@@ -120,3 +120,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+// fonction qui calcule le totale automatiquement ---------------------------------------------------------------------
+function updateTotal() {
+  let total = 0;
+  // Get all price inputs
+  const prices = document.querySelectorAll(".price-input");
+  prices.forEach((input) => {
+    const val = parseFloat(input.value);
+    if (!isNaN(val)) {
+      total += val;
+    }
+  });
+  // Set the total in the footer span
+  document.getElementById("finalTotal").textContent = total.toFixed(2);
+}

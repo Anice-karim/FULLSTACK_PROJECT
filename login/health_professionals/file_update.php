@@ -119,7 +119,6 @@ include('../includes/navbar.php');
 
           </tr>
         </thead>
-        <?php echo $user['type'] ;   ?>
         <tbody>
           <?php 
       if(mysqli_num_rows($query_run) > 0){
@@ -146,7 +145,7 @@ include('../includes/navbar.php');
         <td>
           <button type="submit" 
           class="btn" 
-          style="background-color: #2196f3; color: white;" 
+          style="background-color:rgb(79, 127, 166); color: white;" 
           data-toggle="modal" 
           data-target="#Acts"
           data-id="<?= $row['id']; ?>">Add acts</button>
@@ -165,7 +164,7 @@ include('../includes/navbar.php');
         <td>
           <button type="submit" 
           class="btn" 
-          style="background-color: #bbdefb; color: white;" 
+          style="background-color:rgb(125, 41, 210); color: white;" 
           data-toggle="modal" 
           data-target="#Addactsbri"
           data-id="<?= $row['id']; ?>">Add acts bri</button>
@@ -372,6 +371,82 @@ include('../includes/navbar.php');
   </div>
 </div>
 
+ <!-- Pharmacien -->
+  <div class="modal fade" id="Addachats" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    
+      <!-- ✅ Start form before modal-body -->
+      <form action="code.php" method="POST">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ordonnance</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="table-responsive">
+            <input type="hidden" name="addordonnace" value="1">
+             <input type="hidden" id="ord1_input" name="ord1" value="">
+            <input type="hidden" name="id_hp" value="<?php echo $user['id']; ?>">
+            
+           <?php 
+$query = "SELECT 
+    o.id AS ordonnance_id,
+    d.id AS dossier_id,
+    od.medicament,
+    od.unite,
+    od.dose
+FROM 
+    ordonnance o
+JOIN 
+    dossier d ON o.id_doss = d.id
+JOIN 
+    ordonnance_details od ON od.ordonnance_id = o.id";
+
+$query_run = mysqli_query($connection, $query);
+?>
+
+<table class="table table-bordered" width="100%" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Medicaments</th>
+      <th>Dose</th>
+      <th>Unité</th>
+      <th>Prix</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php while($row = mysqli_fetch_assoc($query_run)) { ?>
+      <tr>
+        <td><?= htmlspecialchars($row['medicament']); ?></td>
+        <td><?= htmlspecialchars($row['dose']); ?></td>
+        <td><?= htmlspecialchars($row['unite']); ?></td>
+        <td><input type="number" name="prix" class="form-control price-input" placeholder="Enter price" oninput="updateTotal()"></td>
+      </tr>
+  </tbody>
+  <tfoot>
+        <tr>
+          <th>Total</th>
+          <th><span id="finalTotal">0</span> MAD</th>
+        </tr>
+</table>
+
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <!-- ✅ Submit button -->
+          <button type="submit" name="confirm_buy" class="btn btn-primary">Confirmer l'achat</button>
+        </div>
+      </form>
+      
+      <!-- ✅ End of form -->
+
+    </div>
+  </div>
+</div>
+<?php } ?>
 
 <!-- /.container-fluid -->
 <script src="js/script.js" ></script>
