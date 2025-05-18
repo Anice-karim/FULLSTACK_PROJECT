@@ -340,38 +340,78 @@ include('../includes/navbar.php');
 </div>
 
 
- <!--modal BRI-->
-    <div class="modal fade" id="Addactsbri" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal BRI -->
+<div class="modal fade" id="Addactsbri" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
 
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">actes BRI</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      <div class="modal-body">
-        <form action ="code.php" method = POST >
-        <div class="form-group">
-        <label> CODE DES ACTES </label>
-        <input type="text" name="ACTES" class="form-control" placeholder="Enter ACTES" id="name"required>
+      <form action="code.php" method="POST">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Actes BRI</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
 
-        </form>
-      </div>
+        <div class="modal-body">
+        <div class="table-responsive">
+           <input type="hidden" id="anarad" name="anarad" value="">
+            <input type="hidden" name="id_hp" value="<?php echo $user['id']; ?>">
+            <?php $query9 = "SELECT 
+                        ar.id AS ana_rad_id,
+                        d.id AS dossier_id,
+                        ard.anarad
+                    FROM 
+                        ana_rad ar
+                    JOIN 
+                        dossier d ON ar.id_doss = d.id
+                    JOIN 
+                        ana_rad_details ard ON ard.ana_rad_id = ar.id";
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+$query_run7 = mysqli_query($connection, $query9);
+        ?>
+        
+          <table class="table table-bordered" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>Actes</th>
+                <th>Description des actes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php while($row = mysqli_fetch_assoc($query_run7)) { ?>
+                <tr>
+                  <td><?= htmlspecialchars($row['anarad']); ?></td>
+                  <td>
+                    <input type="text" name="descrip[]" class="form-control" placeholder="Description" required>
+                    <input type="hidden" name="ana_rad_id[]" value="<?= $row['ana_rad_id']; ?>">
+                    <input type="hidden" name="anarad[]" value="<?= htmlspecialchars($row['anarad']); ?>">
+                  </td>
+                </tr>
+              <?php } ?>
+            </tbody>
+            <tfoot>
+          </table>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" name="save_bri" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
 
     </div>
   </div>
 </div>
 
- <!-- Pharmacien -->
+
+
+
+ <!-- Pharmacien ------------------------------------------------------------------------------------------------>
+
+
+
   <div class="modal fade" id="Addachats" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -387,8 +427,7 @@ include('../includes/navbar.php');
 
         <div class="modal-body">
           <div class="table-responsive">
-            <input type="hidden" name="addordonnace" value="1">
-             <input type="hidden" id="ord1_input" name="ord1" value="">
+             <input type="hidden" id="pharma" name="pharma" value="">
             <input type="hidden" name="id_hp" value="<?php echo $user['id']; ?>">
             
            <?php 
@@ -425,7 +464,11 @@ $query_run = mysqli_query($connection, $query);
         <td><?= htmlspecialchars($row['unite']); ?></td>
         <td><input type="number" name="prix" class="form-control price-input" placeholder="Enter price" oninput="updateTotal()"></td>
       </tr>
+      <input type="hidden" value = "<?php echo $row['ordonnance_id']; ?> " name="ordonnance_id">
+      <input type="hidden" value = "<?php echo $row['medicament']; ?> " name="medicament">
+
   </tbody>
+
   <tfoot>
         <tr>
           <th>Total</th>
