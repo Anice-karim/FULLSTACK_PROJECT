@@ -153,12 +153,13 @@ include('../includes/navbar.php');
 
       <?php if($user['type'] == 'BRI') { ?>
         <td>
+          <input type="hidden" value ="<?= $row['id']; ?>" name="input_bri"  >
           <button type="submit" 
-          class="btn" 
+          class="btn"
+          name="btn_bri" 
           style="background-color:rgb(125, 41, 210); color: white;" 
-          data-toggle="modal" 
-          data-target="#Addactsbri"
-          data-id="<?= $row['id']; ?>">Add acts bri</button>
+          onclick="window.location.href='bri.php'"
+          >Add acts bri</button>
         </td>
       <?php } ?>
 
@@ -321,71 +322,6 @@ include('../includes/navbar.php');
   </div>
 </div>
 
-
-<!-- Modal BRI -->
-<div class="modal fade" id="Addactsbri" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-
-      <form action="code.php" method="POST">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Actes BRI</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-
-        <div class="modal-body">
-        <div class="table-responsive">
-           <input type="hidden" id="anarad" name="anarad" value="">
-            <input type="hidden" name="id_hp" value="<?php echo $user['id']; ?>">
-            <?php $query9 = "SELECT 
-                        ar.id AS ana_rad_id,
-                        d.id AS dossier_id,
-                        ard.anarad
-                    FROM 
-                        ana_rad ar
-                    JOIN 
-                        dossier d ON ar.id_doss = d.id
-                    JOIN 
-                        ana_rad_details ard ON ard.ana_rad_id = ar.id";
-
-$query_run7 = mysqli_query($connection, $query9);
-        ?>
-        
-          <table class="table table-bordered" width="100%" cellspacing="0">
-            <thead>
-              <tr>
-                <th>Actes</th>
-                <th>Description des actes</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php while($row = mysqli_fetch_assoc($query_run7)) { ?>
-                <tr>
-                  <td><?= htmlspecialchars($row['anarad']); ?></td>
-                  <td>
-                    <input type="text" name="descrip[]" class="form-control" placeholder="Description" required>
-                    <input type="hidden" name="ana_rad_id[]" value="<?= $row['ana_rad_id']; ?>">
-                    <input type="hidden" name="anarad[]" value="<?= htmlspecialchars($row['anarad']); ?>">
-                  </td>
-                </tr>
-              <?php } ?>
-            </tbody>
-            <tfoot>
-          </table>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" name="save_bri" class="btn btn-primary">Save changes</button>
-        </div>
-      </form>
-
-    </div>
-  </div>
-</div>
 
 
 
