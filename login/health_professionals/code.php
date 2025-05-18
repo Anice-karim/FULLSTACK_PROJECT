@@ -86,8 +86,47 @@ if (isset($_POST['addbtn'])) {
     }
 }
 
+//BACKEND POUR ORDONNANCE 1 ------------------------------------------------------------------------------------
+ 
+if (isset($_POST['save_ordonnance'])) {
+    $id_doss = $_POST['ord1'];         // dossier ID from hidden input
+    $id_hp = $_POST['id_hp'];          // health professional ID
 
+    $medicaments = $_POST['item'];
+    $doses = $_POST['dose'];
+    $unites = $_POST['unite'];
+    $recommendations = $_POST['recommendation'];
 
+    $success = true;
+
+    for ($i = 0; $i < count($medicaments); $i++) {
+        $med = trim($medicaments[$i]);
+        $dose = trim($doses[$i]);
+        $unit = trim($unites[$i]);
+        $rec = trim($recommendations[$i]);
+
+        if ($med === "") continue;
+
+        // Only insert what's needed (without id_ben)
+        $query = "INSERT INTO ordonnance (id_doss, id_hp, medicament, unites, recommendation)
+                  VALUES ('$id_doss', '$id_hp', '$med' , '$dose','$unit' , '$rec')";
+
+        $stmt = $connection->prepare($query);
+        $stmt->bind_param("iisss", $id_doss, $id_hp, $med, $unit, $rec);
+
+        if (!$stmt->execute()) {
+            $success = false;
+            break;
+        }
+    }
+
+    $_SESSION[$success ? 'success' : 'status'] = $success
+        ? "Ordonnance enregistrée avec succès."
+        : "Erreur lors de l'enregistrement de l'ordonnance.";
+
+    header("Location: ordonnance_page.php");
+    exit();
+}
 
 
 

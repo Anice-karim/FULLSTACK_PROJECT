@@ -97,7 +97,15 @@ include('../includes/navbar.php');
             <th>First Name</th>
             <th>Last Name</th>
             <th>Delete</th>
-            <th>Add Facture</th>
+            <th>Add ordonnance</th>
+            <th>Actes medecins</th>
+            <th>Actes bri</th>
+            <th>Achats des medicaments</th>
+            <th>Actes paramedicaux</th>
+            <th>Add analyses/imageries</th>
+
+           
+
           </tr>
         </thead>
         <tbody>
@@ -118,14 +126,67 @@ include('../includes/navbar.php');
             </td>
             <td>
               <!-- This is the button -->
+              <input type="hidden" name="ord1" value="<?= $row['id']; ?>">
               <button 
               type="button"
               class="btn btn-primary" 
               data-toggle="modal" 
-              data-target="#AddFacteur">
-              Add Facteur
+              data-target="#Addordonnance">
+              Add ordonnance
               </button>
             </td>
+             <td>
+              <!-- This is the button -->
+              <button 
+              type="button"
+              class="btn btn-primary" 
+              data-toggle="modal" 
+              data-target="#Acts">
+              Add acts
+              </button>
+            </td> 
+            <td>
+              <!-- This is the button -->
+              <button 
+              type="button"
+              class="btn btn-primary" 
+              data-toggle="modal" 
+              data-target="#Addactsbri">
+              Add acts bri
+              </button>
+            </td>
+             <td>
+                  <!-- This is the button -->
+              <button 
+              type="button"
+              class="btn btn-primary" 
+              data-toggle="modal" 
+              data-target="#Addachats">
+              Add achats medicaments
+              </button>
+            </td>
+              <!-- This is the button -->
+               <td>
+                <button 
+              type="button"
+              class="btn btn-primary" 
+              data-toggle="modal" 
+              data-target="#Addpara">
+              Add acts paramed
+              </button>
+               </td>
+         
+                <!-- This is the button -->
+               <td>
+                <button 
+              type="button"
+              class="btn btn-primary" 
+              data-toggle="modal" 
+              data-target="#Addimag">
+              Add analyse/imagerie
+              </button>
+               </td>
+            
           </tr>
               <?php
         }
@@ -138,9 +199,54 @@ include('../includes/navbar.php');
     </div>
 
     <!-- This is the modal (outside the <tr>) -->
+  <div class="modal fade" id="Addordonnance" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    
+      <!-- ✅ Start form before modal-body -->
+      <form action="code.php" method="POST">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ordonnance</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="table-responsive">
+            <input type="hidden" name="id_hp" value="<?php echo $user['id']; ?>">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Medicaments</th>
+                  <th>Dose</th>
+                  <th>Unité</th>
+                  <th>Recommandation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- JavaScript will add rows here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <!-- ✅ Submit button -->
+          <button type="submit" name="save_ordonnance" class="btn btn-primary">Save Ordonnance</button>
+        </div>
+      </form>
+      <!-- ✅ End of form -->
+
+    </div>
+  </div>
+</div>
+
+     <!-- ordonnance analyse et imagerie -->
     <div
       class="modal fade"
-      id="AddFacteur"
+      id="Addimag"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
@@ -148,33 +254,25 @@ include('../includes/navbar.php');
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Facture</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Ordonnance</h1>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <div class="table-resposive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+               <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
   <thead>
     <tr>
-      <th>Service</th>
-      <th>Price</th>
+      <th>analyse/radio</th>
+      <th>Recommandation</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td><input class="form-control" type="text" name="item[]"></td>
-      <td><input class="form-control price-input" type="number" name="price[]" placeholder="Enter price" oninput="updateTotal()"></td>
-      
-    </tr>
+    <!-- JavaScript will manage rows here -->
   </tbody>
-  <tfoot>
-        <tr>
-          <th>Total</th>
-          <th><span id="finalTotal">0</span> MAD</th>
-        </tr>
 </table>
+
           </div>
           </div>
           <div class="modal-footer">
@@ -190,6 +288,70 @@ include('../includes/navbar.php');
         </div>
       </div>
     </div>
+
+    <!--modal medecin dentiste-->
+    <div class="modal fade" id="Acts" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">actes</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form action ="code.php" method = POST >
+        <div class="form-group">
+        <label> CODE DES ACTES </label>
+        <input type="text" name="ACTES" class="form-control" placeholder="Enter ACTES" id="name"required>
+        </div>
+
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+ <!--modal BRI-->
+    <div class="modal fade" id="Addactsbri" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">actes BRI</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form action ="code.php" method = POST >
+        <div class="form-group">
+        <label> CODE DES ACTES </label>
+        <input type="text" name="ACTES" class="form-control" placeholder="Enter ACTES" id="name"required>
+        </div>
+
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
 <!-- /.container-fluid -->
 <script src="js/script.js" ></script>

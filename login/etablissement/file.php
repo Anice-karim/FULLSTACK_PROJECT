@@ -91,7 +91,9 @@ include('../includes/navbar.php');
       <table class="table table-bordered">
         <thead>
           <tr>
+
             <th>ID</th>
+            <th>ID beneficiaire</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Delete</th>
@@ -99,42 +101,38 @@ include('../includes/navbar.php');
           </tr>
         </thead>
         <tbody>
-   <?php 
-if(mysqli_num_rows($query_run) > 0){
-    while($row = mysqli_fetch_assoc($query_run)){
-?>
-    <tr>
-        <td><?= $row['id_ben']; ?></td>
-        <td><?= $row['f_name']; ?></td>
-        <td><?= $row['l_name']; ?></td>
-        <td>
-            <form action="code.php" method="POST">
+          <?php 
+      if(mysqli_num_rows($query_run) > 0){
+        while($row = mysqli_fetch_assoc($query_run)){
+      ?>
+          <tr>
+            <td><?= $row['id']; ?></td>
+            <td><?= $row['id_ben']; ?></td>
+            <td><?= $row['f_name']; ?></td>
+            <td><?= $row['l_name']; ?></td>
+            <td>
+              <form action="code.php" method="POST">
                 <input type="hidden" name="delete_id_as" value="<?= $row['id']; ?>">
                 <button type="submit" name="delete_btn_as" class="btn btn-danger">Delete</button>
-            </form>
-        </td>
-        <td>
-            <button 
+              </form>
+            </td>
+            <td>
+              <!-- This is the button -->
+              <button 
               type="button"
               class="btn btn-primary" 
               data-toggle="modal" 
               data-target="#AddFacteur">
               Add Facteur
-            </button>
-        </td>
-    </tr>
-<?php
-    } 
-} else {
-    echo "<tr><td colspan='5'>No Records Found</td></tr>";
-}
-?>
-</tbody>
-</table>
-</div>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-
-<div
+    <!-- This is the modal (outside the <tr>) -->
+    <div
       class="modal fade"
       id="AddFacteur"
       tabindex="-1"
@@ -186,7 +184,12 @@ if(mysqli_num_rows($query_run) > 0){
         </div>
       </div>
     </div>
-      
+    <?php
+        }
+      } else {
+        echo "<tr><td colspan='5'>No Records Found</td></tr>";
+      }
+      ?>
 <!-- /.container-fluid -->
 <script src="js/script.js" ></script>
 
