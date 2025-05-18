@@ -78,3 +78,16 @@ window.addEventListener("DOMContentLoaded", () => {
   addNewRow();
   addNewRow1();
 });
+//========================Add id Dossier in forms add ordonnace======================
+document.addEventListener('DOMContentLoaded', function () {
+    const ordonnanceButtons = document.querySelectorAll('button[data-target="#Addordonnance"]');
+    const ordInput = document.getElementById('ord1_input');
+
+    ordonnanceButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const id = this.getAttribute('data-id');
+            ordInput.value = id;
+        });
+    });
+});
+//========================Add id Dossier in forms======================

@@ -96,18 +96,30 @@ include('../includes/navbar.php');
             <th>ID beneficiaire</th>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Delete</th>
-            <th>Add ordonnance</th>
-            <th>Actes medecins</th>
-            <th>Actes bri</th>
-            <th>Achats des medicaments</th>
-            <th>Actes paramedicaux</th>
-            <th>Add analyses/imageries</th>
+            
+            <?php if($user['type'] == 'doctor') { ?>
+              <th>Add ordonnance</th>
+              <th>Actes medecins</th>
+              <th>Add analyses/imageries</th>
+            <?php } ?>
 
+            <?php if($user['type'] == 'BRI') { ?>
+              <th>Actes bri</th>
+            <?php } ?>
+
+            <?php if($user['type'] == 'pharmacy') { ?>
+              <th>Achats des medicaments</th>
+            <?php } ?>
+
+            <?php if($user['type'] == 'paramedical') { ?>
+              <th>Actes paramedicaux</th>
+            <?php } ?>
+            <th>Delete</th>
            
 
           </tr>
         </thead>
+        <?php echo $user['type'] ;   ?>
         <tbody>
           <?php 
       if(mysqli_num_rows($query_run) > 0){
@@ -118,84 +130,84 @@ include('../includes/navbar.php');
             <td><?= $row['id_ben']; ?></td>
             <td><?= $row['f_name']; ?></td>
             <td><?= $row['l_name']; ?></td>
-            <td>
+            
+            <?php if($user['type'] == 'doctor') { ?>
+        <td>
+          <input type="hidden" name="ord1" value="<?= $row['id']; ?>">
+          <button type="submit"
+              name="addordonnance"
+              class="btn" 
+              style="background-color: #bbdefb; color: white;" 
+              data-toggle="modal" 
+              data-target="#Addordonnance"
+              data-id="<?= $row['id']; ?>">Add ordonnance</button>
+          
+        </td>
+        <td>
+          <button type="submit" 
+          class="btn" 
+          style="background-color: #2196f3; color: white;" 
+          data-toggle="modal" 
+          data-target="#Acts"
+          data-id="<?= $row['id']; ?>">Add acts</button>
+        </td>
+        <td>
+          <button type="submit" 
+          class="btn" 
+          style="background-color: #0d47a1; color: white;" 
+          data-toggle="modal" 
+          data-target="#Addimag"
+          data-id="<?= $row['id']; ?>">Add analyse/imagerie</button>
+        </td>
+      <?php } ?>
+
+      <?php if($user['type'] == 'BRI') { ?>
+        <td>
+          <button type="submit" 
+          class="btn" 
+          style="background-color: #bbdefb; color: white;" 
+          data-toggle="modal" 
+          data-target="#Addactsbri"
+          data-id="<?= $row['id']; ?>">Add acts bri</button>
+        </td>
+      <?php } ?>
+
+      <?php if($user['type'] == 'pharmacy') { ?>
+        <td>
+          <button type="submit" 
+          class="btn" 
+          style="background-color: #2196f3; color: white;" 
+          data-toggle="modal" 
+          data-target="#Addachats"
+          data-id="<?= $row['id']; ?>">Add achats medicaments</button>
+        </td>
+      <?php } ?>
+
+      <?php if($user['type'] == 'paramedical') { ?>
+        <td>
+          <button type="button" 
+          class="btn" 
+          style="background-color: #0d47a1; color: white;" 
+          data-toggle="modal" 
+          data-target="#Addpara"
+          data-id="<?= $row['id']; ?>">Add acts paramed</button>
+        </td>
+      <?php } ?>
+      <td>
               <form action="code.php" method="POST">
                 <input type="hidden" name="delete_id_as" value="<?= $row['id']; ?>">
                 <button type="submit" name="delete_btn_as" class="btn btn-danger">Delete</button>
               </form>
             </td>
-            <td>
-              <!-- This is the button -->
-              <input type="hidden" name="ord1" value="<?= $row['id']; ?>">
-              <button 
-              type="button"
-              class="btn btn-primary" 
-              data-toggle="modal" 
-              data-target="#Addordonnance">
-              Add ordonnance
-              </button>
-            </td>
-             <td>
-              <!-- This is the button -->
-              <button 
-              type="button"
-              class="btn btn-primary" 
-              data-toggle="modal" 
-              data-target="#Acts">
-              Add acts
-              </button>
-            </td> 
-            <td>
-              <!-- This is the button -->
-              <button 
-              type="button"
-              class="btn btn-primary" 
-              data-toggle="modal" 
-              data-target="#Addactsbri">
-              Add acts bri
-              </button>
-            </td>
-             <td>
-                  <!-- This is the button -->
-              <button 
-              type="button"
-              class="btn btn-primary" 
-              data-toggle="modal" 
-              data-target="#Addachats">
-              Add achats medicaments
-              </button>
-            </td>
-              <!-- This is the button -->
-               <td>
-                <button 
-              type="button"
-              class="btn btn-primary" 
-              data-toggle="modal" 
-              data-target="#Addpara">
-              Add acts paramed
-              </button>
-               </td>
-         
-                <!-- This is the button -->
-               <td>
-                <button 
-              type="button"
-              class="btn btn-primary" 
-              data-toggle="modal" 
-              data-target="#Addimag">
-              Add analyse/imagerie
-              </button>
-               </td>
-            
-          </tr>
-              <?php
-        }
-      } else {
-        echo "<tr><td colspan='5'>No Records Found</td></tr>";
+    </tr>
+    <?php
       }
-      ?>
-        </tbody>
-      </table>
+    } else {
+      echo "<tr><td colspan='5'>No Records Found</td></tr>";
+    }
+    ?>
+  </tbody>
+</table>
     </div>
 
     <!-- This is the modal (outside the <tr>) -->
@@ -214,6 +226,8 @@ include('../includes/navbar.php');
 
         <div class="modal-body">
           <div class="table-responsive">
+            <input type="hidden" name="addordonnace" value="1">
+             <input type="hidden" id="ord1_input" name="ord1" value="">
             <input type="hidden" name="id_hp" value="<?php echo $user['id']; ?>">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>

@@ -1,6 +1,6 @@
 <?php
 include('../security.php'); 
-
+// responds to invitation accept
 if(isset($_POST['accept_invi_btn'])){
     $id =$_POST['accept_invi_id'];
     $status="accepted";
@@ -33,6 +33,7 @@ if(isset($_POST['accept_invi_btn'])){
 
 
 
+// responds to invitation refuse
 
 
  if(isset($_POST['decline_invi_btn'])){
@@ -50,7 +51,7 @@ if(isset($_POST['accept_invi_btn'])){
 
  }
 
-
+// update the dossier
 if (isset($_POST['addbtn'])) {
     $id_dossier = $_POST['id_dossier'];
     $hp = $_POST['id_hp'];
@@ -61,7 +62,7 @@ if (isset($_POST['addbtn'])) {
     if ($query_run1) {
         $run2 = mysqli_fetch_assoc($query_run1);
         if ($run2) {
-            // ✅ Use UPDATE instead of INSERT
+            
             $query = "UPDATE dossier SET id_hp = '$hp' WHERE id = '$id_dossier'";
             $query_run = mysqli_query($connection, $query);
 
@@ -88,49 +89,44 @@ if (isset($_POST['addbtn'])) {
 
 //BACKEND POUR ORDONNANCE 1 ------------------------------------------------------------------------------------
  
-if (isset($_POST['save_ordonnance'])) {
-    $id_doss = $_POST['ord1'];         // dossier ID from hidden input
-    $id_hp = $_POST['id_hp'];          // health professional ID
 
-    $medicaments = $_POST['item'];
-    $doses = $_POST['dose'];
-    $unites = $_POST['unite'];
-    $recommendations = $_POST['recommendation'];
+    if (isset($_POST['save_ordonnance'])) {
+        $id_doss = $_POST['ord1']; 
+        $id_hp = $_POST['id_hp']; // Health professional ID
 
-    $success = true;
+        $medicaments = $_POST['item'];
+        $doses = $_POST['dose'];
+        $unites = $_POST['unite'];
+        $recommendations = $_POST['recommendation'];
 
+        $query ="INSERT INTO ordonnance (id_doss, id_hp) VALUES('$id_doss','$id_hp')";
+        $query_run = mysqli_query($connection , $query);
+
+    
+
+    if ($query_run) {
+    // Récupérer l'id inséré
+    $ordonnance_id = mysqli_insert_id($connection);
+
+    // Insertion détails
     for ($i = 0; $i < count($medicaments); $i++) {
-        $med = trim($medicaments[$i]);
-        $dose = trim($doses[$i]);
-        $unit = trim($unites[$i]);
-        $rec = trim($recommendations[$i]);
+        $med = mysqli_real_escape_string($connection, $medicaments[$i]);
+        $dose = mysqli_real_escape_string($connection, $doses[$i]);
+        $unite = mysqli_real_escape_string($connection, $unites[$i]);
+        $rec = mysqli_real_escape_string($connection, $recommendations[$i]);
 
-        if ($med === "") continue;
-
-        // Only insert what's needed (without id_ben)
-        $query = "INSERT INTO ordonnance (id_doss, id_hp, medicament, unites, recommendation)
-                  VALUES ('$id_doss', '$id_hp', '$med' , '$dose','$unit' , '$rec')";
-
-        $stmt = $connection->prepare($query);
-        $stmt->bind_param("iisss", $id_doss, $id_hp, $med, $unit, $rec);
-
-        if (!$stmt->execute()) {
-            $success = false;
-            break;
-        }
+        $query_detail = "INSERT INTO ordonnance_details (ordonnance_id, medicament, dose, unite, recommendation)
+                         VALUES ('$ordonnance_id', '$med', '$dose', '$unite', '$rec')";
+        mysqli_query($connection, $query_detail);
     }
 
-    $_SESSION[$success ? 'success' : 'status'] = $success
-        ? "Ordonnance enregistrée avec succès."
-        : "Erreur lors de l'enregistrement de l'ordonnance.";
-
-    header("Location: ordonnance_page.php");
-    exit();
+     $_SESSION['success']="Ordonnace  Added";
+            header('Location:file_update.php');
+        }else{
+            $_SESSION['status']="Ordonnace Not Added";
+            header('Location:file_update.php');
+        }
 }
-
-
-
-
-
+//BACKEND POUR Add analuse /imagerie ------------------------------------------------------------------------------------
 
 ?>
