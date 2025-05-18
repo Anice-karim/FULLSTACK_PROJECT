@@ -90,7 +90,7 @@ if (isset($_POST['addbtn'])) {
 //BACKEND POUR ORDONNANCE 1 ------------------------------------------------------------------------------------
  
 
-    if (isset($_POST['save_ordonnance'])) {
+if (isset($_POST['save_ordonnance'])) {
         $id_doss = $_POST['ord1']; 
         $id_hp = $_POST['id_hp']; // Health professional ID
 
@@ -127,6 +127,22 @@ if (isset($_POST['addbtn'])) {
             header('Location:file_update.php');
         }
 }
-//BACKEND POUR Add analuse /imagerie ------------------------------------------------------------------------------------
+//BACKEND POUR Add acts ------------------------------------------------------------------------------------
+if (isset($_POST['addacte'])) {
+        $id_doss = $_POST['ord1']; 
+        $id_hp = $_POST['id_hp']; 
 
+        $act = $_POST['act'];
+        
+
+        $query ="INSERT INTO acte (id_doss, id_hp,code_acts) VALUES('$id_doss','$id_hp','$act')";
+        $query_run = mysqli_query($connection , $query);
+        if($query_run){
+            $_SESSION['success']="Act  Added";
+            header('Location:file_update.php');
+        }else{
+            $_SESSION['status']="Act Not Added";
+            header('Location:file_update.php');
+        }
+}
 ?>

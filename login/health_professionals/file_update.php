@@ -274,6 +274,8 @@ include('../includes/navbar.php');
             </button>
           </div>
           <div class="modal-body">
+             <input type="text" id="imag_input" name="ord1" value="">
+            <input type="hidden" name="id_hp" value="<?php echo $user['id']; ?>">
             <div class="table-resposive">
                <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
   <thead>
@@ -309,7 +311,7 @@ include('../includes/navbar.php');
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">actes</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Acte Doctor</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -317,19 +319,21 @@ include('../includes/navbar.php');
 
       <div class="modal-body">
         <form action ="code.php" method = POST >
+          <input type="text" id="acts_input" name="ord1" value="">
+          <input type="hidden" name="id_hp" value="<?php echo $user['id']; ?>">
         <div class="form-group">
         <label> CODE DES ACTES </label>
-        <input type="text" name="ACTES" class="form-control" placeholder="Enter ACTES" id="name"required>
+        <input type="text" name="act" class="form-control" placeholder="Enter ACTES" id="name"required>
         </div>
 
-        </form>
+        
       </div>
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" name="addacte" class="btn btn-primary">Save changes</button>
       </div>
-
+    </form>
     </div>
   </div>
 </div>
