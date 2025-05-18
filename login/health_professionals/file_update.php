@@ -274,20 +274,21 @@ include('../includes/navbar.php');
             </button>
           </div>
           <div class="modal-body">
-             <input type="text" id="imag_input" name="ord1" value="">
+            <form action="code.php" method="post">
+             <input type="text" id="imag_input" name="imag_input" value="">
             <input type="hidden" name="id_hp" value="<?php echo $user['id']; ?>">
             <div class="table-resposive">
                <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
-  <thead>
-    <tr>
-      <th>analyse/radio</th>
-      <th>Recommandation</th>
-    </tr>
-  </thead>
-  <tbody>
+            <thead>
+              <tr>
+                <th>analyse/radio</th>
+                <th>Recommandation</th>
+              </tr>
+            </thead>
+            <tbody>
     <!-- JavaScript will manage rows here -->
-  </tbody>
-</table>
+            </tbody>
+          </table>
 
           </div>
           </div>
@@ -299,7 +300,8 @@ include('../includes/navbar.php');
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="submit" name="addana" class="btn btn-primary">Save changes</button>
+            </form>
           </div>
         </div>
       </div>

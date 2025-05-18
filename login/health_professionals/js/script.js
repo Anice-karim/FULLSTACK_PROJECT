@@ -18,6 +18,7 @@ function addNewRow() {
     <td><input class="form-control" type="number" name="dose[]"></td>
     <td>
       <select class="form-control" name="unite[]">
+        <option value="">Chode unite</option>
         <option value="mg">mg</option> 
         <option value="g">g</option> 
         <option value="ml">ml</option> 
@@ -79,31 +80,43 @@ window.addEventListener("DOMContentLoaded", () => {
   addNewRow1();
 });
 //========================Add id Dossier in forms add ordonnace======================
-document.addEventListener('DOMContentLoaded', function () {
-    const allButtons = document.querySelectorAll('button[data-target][data-id]');
+document.addEventListener("DOMContentLoaded", function () {
+  const allButtons = document.querySelectorAll("button[data-target][data-id]");
 
-    allButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            const id = this.getAttribute('data-id');
-            const target = this.getAttribute('data-target'); // e.g. "#Addordonnance"
+  allButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      const id = this.getAttribute("data-id");
+      const target = this.getAttribute("data-target"); // e.g. "#Addordonnance"
 
-            // map modal target to hidden input id
-            let inputId;
-            switch(target) {
-                case '#Addordonnance': inputId = 'ord1_input'; break;
-                case '#Acts': inputId = 'acts_input'; break;
-                case '#Addimag': inputId = 'imag_input'; break;
-                case '#Addactsbri': inputId = 'imag_input'; break;
-                case '#Addachats': inputId = 'imag_input'; break;
-                case '#Addpara': inputId = 'imag_input'; break;
-                default: inputId = 'ord1_input';
-            }
+      // map modal target to hidden input id
+      let inputId;
+      switch (target) {
+        case "#Addordonnance":
+          inputId = "ord1_input";
+          break;
+        case "#Acts":
+          inputId = "acts_input";
+          break;
+        case "#Addimag":
+          inputId = "imag_input";
+          break;
+        case "#Addactsbri":
+          inputId = "actbri";
+          break;
+        case "#Addachats":
+          inputId = "pharma";
+          break;
+        case "#Addpara":
+          inputId = "para";
+          break;
+        default:
+          inputId = "ord1_input";
+      }
 
-            const input = document.getElementById(inputId);
-            if(input) {
-                input.value = id;
-            }
-        });
+      const input = document.getElementById(inputId);
+      if (input) {
+        input.value = id;
+      }
     });
+  });
 });
-//========================Add id Dossier in forms======================

@@ -91,41 +91,49 @@ if (isset($_POST['addbtn'])) {
  
 
 if (isset($_POST['save_ordonnance'])) {
-        $id_doss = $_POST['ord1']; 
-        $id_hp = $_POST['id_hp']; // Health professional ID
+    $id_doss = $_POST['ord1']; 
+    $id_hp = $_POST['id_hp']; // Health professional ID
 
-        $medicaments = $_POST['item'];
-        $doses = $_POST['dose'];
-        $unites = $_POST['unite'];
-        $recommendations = $_POST['recommendation'];
+    $medicaments = $_POST['item'];
+    $doses = $_POST['dose'];
+    $unites = $_POST['unite'];
+    $recommendations = $_POST['recommendation'];
 
-        $query ="INSERT INTO ordonnance (id_doss, id_hp) VALUES('$id_doss','$id_hp')";
-        $query_run = mysqli_query($connection , $query);
-
-    
+    $query = "INSERT INTO ordonnance (id_doss, id_hp) VALUES('$id_doss','$id_hp')";
+    $query_run = mysqli_query($connection , $query);
 
     if ($query_run) {
-    // Récupérer l'id inséré
-    $ordonnance_id = mysqli_insert_id($connection);
+        // Get the inserted ID
+        $ordonnance_id = mysqli_insert_id($connection);
 
-    // Insertion détails
-    for ($i = 0; $i < count($medicaments); $i++) {
-        $med = mysqli_real_escape_string($connection, $medicaments[$i]);
-        $dose = mysqli_real_escape_string($connection, $doses[$i]);
-        $unite = mysqli_real_escape_string($connection, $unites[$i]);
-        $rec = mysqli_real_escape_string($connection, $recommendations[$i]);
+        // Insert details only if at least one of the fields is not empty
+        for ($i = 0; $i < count($medicaments); $i++) {
+            if (
+                trim($medicaments[$i]) !== '' || 
+                trim($doses[$i]) !== '' || 
+                trim($unites[$i]) !== '' || 
+                trim($recommendations[$i]) !== ''
+            ) {
+                $med = mysqli_real_escape_string($connection, $medicaments[$i]);
+                $dose = mysqli_real_escape_string($connection, $doses[$i]);
+                $unite = mysqli_real_escape_string($connection, $unites[$i]);
+                $rec = mysqli_real_escape_string($connection, $recommendations[$i]);
 
-        $query_detail = "INSERT INTO ordonnance_details (ordonnance_id, medicament, dose, unite, recommendation)
-                         VALUES ('$ordonnance_id', '$med', '$dose', '$unite', '$rec')";
-        mysqli_query($connection, $query_detail);
-    }
-
-     $_SESSION['success']="Ordonnace  Added";
-            header('Location:file_update.php');
-        }else{
-            $_SESSION['status']="Ordonnace Not Added";
-            header('Location:file_update.php');
+                $query_detail = "INSERT INTO ordonnance_details (ordonnance_id, medicament, dose, unite, recommendation)
+                                 VALUES ('$ordonnance_id', '$med', '$dose', '$unite', '$rec')";
+                mysqli_query($connection, $query_detail);
+            }
+            // else skip empty row
         }
+
+        $_SESSION['success'] = "Ordonnance Added";
+        header('Location:file_update.php');
+        exit;
+    } else {
+        $_SESSION['status'] = "Ordonnance Not Added";
+        header('Location:file_update.php');
+        exit;
+    }
 }
 //BACKEND POUR Add acts ------------------------------------------------------------------------------------
 if (isset($_POST['addacte'])) {
@@ -145,4 +153,54 @@ if (isset($_POST['addacte'])) {
             header('Location:file_update.php');
         }
 }
+//BACKEND to add analyse t radd a faire===============
+if (isset($_POST['addana'])) {
+    $id_doss = $_POST['imag_input']; 
+    $id_hp = $_POST['id_hp']; // Health professional ID
+
+    $ana = $_POST['analyse'];
+    $rcd = $_POST['recommendation_analyse'];
+
+    $query = "INSERT INTO ana_rad (id_doss, id_hp) VALUES('$id_doss','$id_hp')";
+    $query_run = mysqli_query($connection, $query);
+
+    if ($query_run) {
+        $ana_id = mysqli_insert_id($connection);
+
+        if (is_array($ana) && is_array($rcd)) {
+            for ($i = 0; $i < count($ana); $i++) {
+                // Check that neither ana nor rcd are empty (trim removes spaces)
+                if (trim($ana[$i]) !== '' || trim($rcd[$i]) !== '') {
+                    $ana_val = mysqli_real_escape_string($connection, $ana[$i]);
+                    $rcd_val = mysqli_real_escape_string($connection, $rcd[$i]);
+
+                    $query_detail = "INSERT INTO ana_rad_details (id_ana, anarad, recommendations)
+                                     VALUES ('$ana_id', '$ana_val', '$rcd_val')";
+                    mysqli_query($connection, $query_detail);
+                }
+                // Otherwise, ignore this row because it is empty
+            }
+        } else {
+            // Case where ana and rcd are not arrays (single entry)
+            if (trim($ana) !== '' || trim($rcd) !== '') {
+                $ana_val = mysqli_real_escape_string($connection, $ana);
+                $rcd_val = mysqli_real_escape_string($connection, $rcd);
+
+                $query_detail = "INSERT INTO ana_rad_details (id_ana, anarad, recommendations)
+                                 VALUES ('$ana_id', '$ana_val', '$rcd_val')";
+                mysqli_query($connection, $query_detail);
+            }
+        }
+
+        $_SESSION['success'] = "Analyse Or Rad Added";
+        header('Location:file_update.php');
+        exit;
+    } else {
+        $_SESSION['status'] = "Analyse Or Rad Not Added";
+        header('Location:file_update.php');
+        exit;
+    }
+}
+
+
 ?>
