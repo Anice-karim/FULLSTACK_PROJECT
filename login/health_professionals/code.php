@@ -201,6 +201,29 @@ if (isset($_POST['addana'])) {
         exit;
     }
 }
+///delete conncetion with documents
+if (isset($_POST['deletebtn_doss'])) {
+    $id = $_POST['delete_doss'];
 
+    // Start by deleting related records from child tables (if applicable)
+    $query1 = "DELETE FROM ordonnance WHERE id_hp = '$id'";
+    $query2 = "DELETE FROM acte WHERE id_hp = '$id'";
+    $query3 = "DELETE FROM ana_rad WHERE id_hp = '$id'";
+    $query4 ="UPDATE dossier SET id_hp=NULL WHERE id_hp='$id'";
+
+    $run1 = mysqli_query($connection, $query1);
+    $run2 = mysqli_query($connection, $query2);
+    $run3 = mysqli_query($connection, $query3);
+    $run4 = mysqli_query($connection, $query4);
+
+    if ($run1 && $run2 && $run3) {
+        $_SESSION['success'] = "Data has been successfully deleted";
+    } else {
+        $_SESSION['status'] = "Some data could not be deleted";
+    }
+
+    header('Location: file_update.php');
+    exit;
+}
 
 ?>

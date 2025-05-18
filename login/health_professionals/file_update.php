@@ -194,8 +194,8 @@ include('../includes/navbar.php');
       <?php } ?>
       <td>
               <form action="code.php" method="POST">
-                <input type="hidden" name="delete_id_as" value="<?= $row['id']; ?>">
-                <button type="submit" name="delete_btn_as" class="btn btn-danger">Delete</button>
+                <input type="hidden" name="delete_doss"  value="<?= $user['id']; ?>">
+                <button type="submit" name="deletebtn_doss" class="btn btn-danger">Delete</button>
               </form>
             </td>
     </tr>
