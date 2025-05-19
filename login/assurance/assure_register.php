@@ -209,7 +209,7 @@ include('../includes/navbar.php');
                       <div class="modal-body">
                           
                       
-                        <input type="hidden" id="admin_id_modal" name="admin_id" readonly class="form-control" value="<?php echo $row['id']; ?>">
+                        <input type="text" id="admin_id_modal" name="admin_id" readonly class="form-control" value="<?php echo $row['id']; ?>">
 
                           <div class="form-group">
                               <label>First Name</label>
