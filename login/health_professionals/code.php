@@ -70,21 +70,21 @@ if (isset($_POST['addbtn'])) {
 
             if ($query_run) {
                 $_SESSION['success'] = "Health professional assigned to dossier successfully";
-                header('Location: update_file.php');
+                header('Location: file_update.php');
                 exit();
             } else {
                 $_SESSION['status'] = "Failed to assign health professional";
-                header('Location: update_file.php');
+                header('Location: file_update.php');
                 exit();
             }
         } else {
             $_SESSION['status'] = "Dossier not found";
-            header('Location: update_file.php');
+            header('Location: file_update.php');
             exit();
         }
     } else {
         $_SESSION['status'] = "Error fetching dossier";
-        header('Location: update_file.php');
+        header('Location: file_update.php');
         exit();
     }
 }
@@ -157,54 +157,7 @@ if (isset($_POST['addacte'])) {
             header('Location:file_update.php');
         }
 }
-//BACKEND to add analyse t radd a faire===============
-if (isset($_POST['addana'])) {
-    $id_doss = $_POST['imag_input']; 
-    $id_hp = $_POST['id_hp']; // Health professional ID
 
-    $ana = $_POST['analyse'];
-    $rcd = $_POST['recommendation_analyse'];
-
-    $query = "INSERT INTO ana_rad (id_doss, id_hp) VALUES('$id_doss','$id_hp')";
-    $query_run = mysqli_query($connection, $query);
-
-    if ($query_run) {
-        $ana_id = mysqli_insert_id($connection);
-
-        if (is_array($ana) && is_array($rcd)) {
-            for ($i = 0; $i < count($ana); $i++) {
-                // Check that neither ana nor rcd are empty (trim removes spaces)
-                if (trim($ana[$i]) !== '' || trim($rcd[$i]) !== '') {
-                    $ana_val = mysqli_real_escape_string($connection, $ana[$i]);
-                    $rcd_val = mysqli_real_escape_string($connection, $rcd[$i]);
-
-                    $query_detail = "INSERT INTO ana_rad_details (id_ana, anarad, recommendations)
-                                     VALUES ('$ana_id', '$ana_val', '$rcd_val')";
-                    mysqli_query($connection, $query_detail);
-                }
-                // Otherwise, ignore this row because it is empty
-            }
-        } else {
-            // Case where analyse and rcd are not arrays (single entry)
-            if (trim($ana) !== '' || trim($rcd) !== '') {
-                $ana_val = mysqli_real_escape_string($connection, $ana);
-                $rcd_val = mysqli_real_escape_string($connection, $rcd);
-
-                $query_detail = "INSERT INTO ana_rad_details (id_ana, anarad, recommendations)
-                                 VALUES ('$ana_id', '$ana_val', '$rcd_val')";
-                mysqli_query($connection, $query_detail);
-            }
-        }
-
-        $_SESSION['success'] = "Analyse Or Rad Added";
-        header('Location:file_update.php');
-        exit;
-    } else {
-        $_SESSION['status'] = "Analyse Or Rad Not Added";
-        header('Location:file_update.php');
-        exit;
-    }
-}
 ///delete conncetion with documents
 if (isset($_POST['deletebtn_doss'])) {
     $id = $_POST['delete_doss'];

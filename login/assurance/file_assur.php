@@ -8,9 +8,9 @@ $table = $_SESSION['table'];
 
 // Fetch current user data
 $query = "SELECT 
-    a.id_as AS assure_id,
+    a.id AS assure_id,
     a.name AS assure_name, 
-    ass.id_assu AS assurance_id,
+    ass.id AS assurance_id,
     ass.name AS assurance_nom,
     ass.email , 
     b.id AS benef_id,
@@ -21,9 +21,9 @@ $query = "SELECT
 FROM 
     assure a
 JOIN 
-    assurance ass ON ass.id_assu = a.id_as
+    assurance ass ON ass.id = a.id
 JOIN 
-    beneficiaire b ON b.id_as = a.id_as
+    beneficiaire b ON b.id_as = a.id
 JOIN 
     dossier d ON d.id_benef = b.id
  WHERE ass.email = '$email';";

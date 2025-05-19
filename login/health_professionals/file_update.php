@@ -1,7 +1,22 @@
 <?php
-include('../security.php'); 
-include('../includes/header.php'); 
-include('../includes/navbar.php'); 
+include('../security.php');
+include('../includes/header.php');
+
+
+$email = $_SESSION['email'];
+$table = $_SESSION['table'];
+
+// Fetch current user data
+$query = "SELECT * FROM $table WHERE email = '$email'";
+$query_run = mysqli_query($connection, $query);
+
+if (!$query_run || mysqli_num_rows($query_run) == 0) {
+    echo "User not found!";
+    exit();
+}
+$user = mysqli_fetch_assoc($query_run);
+include('../includes/navbar.php');
+
 ?>
 
 
@@ -72,34 +87,35 @@ include('../includes/navbar.php');
     ?>
     <div class="table-responsive">
       <?php 
-   $query = "SELECT 
-                doc.id,
-                bn.id AS id_ben,
-                bn.f_name,
-                bn.l_name 
-            FROM 
-                dossier doc
-            JOIN 
-                beneficiaire bn ON doc.id_benef = bn.id  WHERE id_hp = " . $user['id'] ;
+   $query = "
+          SELECT 
+              doc.id,
+              bn.id AS id_ben,
+              bn.f_name,
+              bn.l_name 
+          FROM 
+              dossier doc
+          JOIN 
+              dossier_hp dhp ON doc.id = dhp.id_doss
+          JOIN 
+              beneficiaire bn ON doc.id_benef = bn.id  
+          WHERE 
+              dhp.id_hp = " . $user['id'] ;
    $query_run = mysqli_query($connection, $query);
+   
 ?>
       <table class="table table-bordered">
         <thead>
           <tr>
 
             <th>ID</th>
-            <th>ID beneficiaire</th>
             <th>First Name</th>
             <th>Last Name</th>
             
             <?php if($user['type'] == 'doctor') { ?>
               <th>Add ordonnance</th>
               <th>Actes medecins</th>
-              <th>Add analyses/imageries</th>
-            <?php } ?>
-
-            <?php if($user['type'] == 'BRI') { ?>
-              <th>Actes bri</th>
+             
             <?php } ?>
 
             <?php if($user['type'] == 'pharmacy') { ?>
@@ -117,7 +133,6 @@ include('../includes/navbar.php');
       ?>
           <tr>
             <td><?= $row['id']; ?></td>
-            <td><?= $row['id_ben']; ?></td>
             <td><?= $row['f_name']; ?></td>
             <td><?= $row['l_name']; ?></td>
             
@@ -139,29 +154,11 @@ include('../includes/navbar.php');
           style="background-color:rgb(79, 127, 166); color: white;" 
           data-toggle="modal" 
           data-target="#Acts"
-          data-id="<?= $row['id']; ?>">Add acts</button>
+          data-id="<?= $row['id']; ?>">Add acts effectues</button>
         </td>
-        <td>
-          <button type="submit" 
-          class="btn" 
-          style="background-color: #0d47a1; color: white;" 
-          data-toggle="modal" 
-          data-target="#Addimag"
-          data-id="<?= $row['id']; ?>">Add analyse/imagerie</button>
-        </td>
+        
       <?php } ?>
 
-      <?php if($user['type'] == 'BRI') { ?>
-        <td>
-          <input type="hidden" value ="<?= $row['id']; ?>" name="input_bri"  >
-          <button type="submit" 
-          class="btn"
-          name="btn_bri" 
-          style="background-color:rgb(125, 41, 210); color: white;" 
-          onclick="window.location.href='bri.php'"
-          >Add acts bri</button>
-        </td>
-      <?php } ?>
 
       <?php if($user['type'] == 'pharmacy') { ?>
         <td>
@@ -192,12 +189,12 @@ include('../includes/navbar.php');
 </table>
     </div>
 
-    <!-- This is the modal (outside the <tr>) -->
+    <!-- This is the modal for add ordonnance -->
   <div class="modal fade" id="Addordonnance" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
     
-      <!-- ✅ Start form before modal-body -->
+      <!--  Start form before modal-body -->
       <form action="code.php" method="POST">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Ordonnance</h5>
@@ -229,7 +226,6 @@ include('../includes/navbar.php');
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <!-- ✅ Submit button -->
           <button type="submit" name="save_ordonnance" class="btn btn-primary">Save Ordonnance</button>
         </div>
       </form>
@@ -239,57 +235,8 @@ include('../includes/navbar.php');
   </div>
 </div>
 
-     <!-- ordonnance analyse et imagerie -->
-    <div
-      class="modal fade"
-      id="Addimag"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Ordonnance</h1>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form action="code.php" method="post">
-             <input type="text" id="imag_input" name="imag_input" value="">
-            <input type="hidden" name="id_hp" value="<?php echo $user['id']; ?>">
-            <div class="table-resposive">
-               <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
-            <thead>
-              <tr>
-                <th>analyse/radio</th>
-                <th>Recommandation</th>
-              </tr>
-            </thead>
-            <tbody>
-    <!-- JavaScript will manage rows here -->
-            </tbody>
-          </table>
 
-          </div>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button type="submit" name="addana" class="btn btn-primary">Save changes</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!--modal medecin dentiste-->
+    <!--modal acte medecin dentiste-->
     <div class="modal fade" id="Acts" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -303,7 +250,7 @@ include('../includes/navbar.php');
 
       <div class="modal-body">
         <form action ="code.php" method = POST >
-          <input type="text" id="acts_input" name="ord1" value="">
+          <input type="hidden" id="acts_input" name="ord1" value="">
           <input type="hidden" name="id_hp" value="<?php echo $user['id']; ?>">
         <div class="form-group">
         <label> CODE DES ACTES </label>
@@ -334,7 +281,7 @@ include('../includes/navbar.php');
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
     
-      <!-- ✅ Start form before modal-body -->
+      <!--  Start form before modal-body -->
       <form action="code.php" method="POST">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Ordonnance</h5>
@@ -349,65 +296,68 @@ include('../includes/navbar.php');
             <input type="hidden" name="id_hp" value="<?php echo $user['id']; ?>">
             
            <?php 
-$query = "SELECT 
-    o.id AS ordonnance_id,
-    d.id AS dossier_id,
-    od.medicament,
-    od.unite,
-    od.dose
-FROM 
-    ordonnance o
-JOIN 
-    dossier d ON o.id_doss = d.id
-JOIN 
-    ordonnance_details od ON od.ordonnance_id = o.id";
+            $query = "SELECT 
+                o.id AS ordonnance_id,
+                d.id AS dossier_id,
+                od.medicament,
+                od.unite,
+                od.dose
+            FROM 
+                ordonnance o
+            JOIN 
+                dossier d ON o.id_doss = d.id
+            JOIN 
+                ordonnance_details od ON od.ordonnance_id = o.id";
 
-$query_run = mysqli_query($connection, $query);
-?>
+            $query_run = mysqli_query($connection, $query);
+            ?>
 
-<table class="table table-bordered" width="100%" cellspacing="0">
-  <thead>
-    <tr>
-      <th>Medicaments</th>
-      <th>Dose</th>
-      <th>Unité</th>
-      <th>Prix</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php while($row = mysqli_fetch_assoc($query_run)) { ?>
-      <tr>
-        <td><?= htmlspecialchars($row['medicament']); ?></td>
-        <td><?= htmlspecialchars($row['dose']); ?></td>
-        <td><?= htmlspecialchars($row['unite']); ?></td>
-        <td><input type="number" name="prix" class="form-control price-input" placeholder="Enter price" oninput="updateTotal()"></td>
-      </tr>
-      <input type="hidden" value = "<?php echo $row['ordonnance_id']; ?> " name="ordonnance_id">
-      <input type="hidden" value = "<?php echo $row['medicament']; ?> " name="medicament">
+            <table class="table table-bordered" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Medicaments</th>
+                  <th>Dose</th>
+                  <th>Unité</th>
+                  <th>Prix</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php while($row = mysqli_fetch_assoc($query_run)) { ?>
+                  <tr>
+                    <td><?= htmlspecialchars($row['medicament']); ?></td>
+                    <td><?= htmlspecialchars($row['dose']); ?></td>
+                    <td><?= htmlspecialchars($row['unite']); ?></td>
+                    <td><input type="number" name="prix" class="form-control price-input" placeholder="Enter price" oninput="updateTotal()"></td>
+                  </tr>
+                  <input type="hidden" value = "<?php echo $row['ordonnance_id']; ?> " name="ordonnance_id">
+                  <input type="hidden" value = "<?php echo $row['medicament']; ?> " name="medicament">
 
-  </tbody>
+              </tbody>
+                 <?php } ?>    
+              <tfoot>
+                    <tr>
+                      <th>Total</th>
+                      <th><span id="finalTotal">0</span> MAD</th>
+                    </tr>
+            </table>
 
-  <tfoot>
-        <tr>
-          <th>Total</th>
-          <th><span id="finalTotal">0</span> MAD</th>
-        </tr>
-</table>
 
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               
+                <button type="submit" name="confirm_buy" class="btn btn-primary">Confirmer l'achat</button>
+              </div>
+            </form>
+           
+            <!--  End of form -->
 
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <!-- ✅ Submit button -->
-          <button type="submit" name="confirm_buy" class="btn btn-primary">Confirmer l'achat</button>
+          </div>
         </div>
-      </form>
-      
-      <!-- ✅ End of form -->
-
-    </div>
-  </div>
-</div>
-<?php } ?>
+      </div>
+                </div>
+                </div>
+                </div>
+                </div>
 
 <!-- /.container-fluid -->
 <script src="js/script.js" ></script>
