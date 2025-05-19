@@ -63,7 +63,7 @@ if (isset($_POST['addbtn'])) {
         $run2 = mysqli_fetch_assoc($query_run1);
         if ($run2) {
             
-            $query = "UPDATE dossier SET id_hp = '$hp' WHERE id = '$id_dossier'";
+            $query = "INSERT INTO dossier_hp (id_hp, id_doss) VALUES ('$hp', '$id_dossier')";
             $query_run = mysqli_query($connection, $query);
 
             if ($query_run) {
@@ -204,19 +204,18 @@ if (isset($_POST['addana'])) {
 ///delete conncetion with documents
 if (isset($_POST['deletebtn_doss'])) {
     $id = $_POST['delete_doss'];
+    $id_hp = $_POST['delete_hp'];
 
     // Start by deleting related records from child tables (if applicable)
-    $query1 = "DELETE FROM ordonnance WHERE id_hp = '$id'";
-    $query2 = "DELETE FROM acte WHERE id_hp = '$id'";
-    $query3 = "DELETE FROM ana_rad WHERE id_hp = '$id'";
-    $query4 ="UPDATE dossier SET id_hp=NULL WHERE id_hp='$id'";
+    $query1 = "DELETE FROM ordonnance WHERE id_doss = '$id' AND id_hp='$id_hp'";
+    $query2 = "DELETE FROM acte WHERE id_hp = '$id_hp'AND id_doss = '$id' ";  
+    $query4 ="DELETE FROM dossier_hp  WHERE id_hp='$id_hp' AND id_doss = '$id'";
 
     $run1 = mysqli_query($connection, $query1);
     $run2 = mysqli_query($connection, $query2);
-    $run3 = mysqli_query($connection, $query3);
     $run4 = mysqli_query($connection, $query4);
 
-    if ($run1 && $run2 && $run3) {
+    if ($run1 && $run2 && $run4) {
         $_SESSION['success'] = "Data has been successfully deleted";
     } else {
         $_SESSION['status'] = "Some data could not be deleted";

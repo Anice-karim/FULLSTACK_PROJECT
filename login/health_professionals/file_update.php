@@ -174,7 +174,8 @@ include('../includes/navbar.php');
       
       <td>
               <form action="code.php" method="POST">
-                <input type="hidden" name="delete_doss"  value="<?= $user['id']; ?>">
+                <input type="hidden" name="delete_hp"  value="<?= $user['id']; ?>">
+                <input type="hidden" name="delete_doss"  value="<?= $row['id']; ?>">
                 <button type="submit" name="deletebtn_doss" class="btn btn-danger">Delete</button>
               </form>
             </td>
@@ -292,25 +293,32 @@ include('../includes/navbar.php');
 
         <div class="modal-body">
           <div class="table-responsive">
-             <input type="hidden" id="pharma" name="pharma" value="">
-            <input type="hidden" name="id_hp" value="<?php echo $user['id']; ?>">
+             <input type="text" id="pharma" name="pharma" value="">
+            <input type="text" name="pharma" placeholder="ID du dossier">
             
-           <?php 
-            $query = "SELECT 
-                o.id AS ordonnance_id,
-                d.id AS dossier_id,
-                od.medicament,
-                od.unite,
-                od.dose
-            FROM 
-                ordonnance o
-            JOIN 
-                dossier d ON o.id_doss = d.id
-            JOIN 
-                ordonnance_details od ON od.ordonnance_id = o.id";
+            
+           <?php
+                  $query = "SELECT 
+                      o.id AS ordonnance_id,
+                      d.id AS dossier_id,
+                      od.medicament,
+                      od.unite,
+                      od.dose
+                  FROM 
+                      ordonnance o
+                  JOIN 
+                      dossier d ON o.id_doss = d.id
+                  JOIN 
+                      ordonnance_details od ON od.ordonnance_id = o.id
+                  WHERE 
+                      d.id = ";
 
-            $query_run = mysqli_query($connection, $query);
-            ?>
+                  $query_run = mysqli_query($connection, $query);
+
+                  echo "Nombre de résultats : " . mysqli_num_rows($query_run);
+              
+              ?>
+
 
             <table class="table table-bordered" width="100%" cellspacing="0">
               <thead>

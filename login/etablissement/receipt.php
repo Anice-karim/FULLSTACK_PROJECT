@@ -118,7 +118,7 @@ include('../includes/navbar.php');
                         WHERE a.id_hp IN (
                             SELECT e.id_hp
                             FROM employe e
-                            WHERE e.id_etab".$user['id']." 
+                            WHERE e.id_etab =".$user['id']." 
                         );";
                // $query_run = mysqli_query($connection, $query);
                     
