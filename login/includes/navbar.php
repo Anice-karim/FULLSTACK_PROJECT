@@ -98,6 +98,12 @@ if (isset($table)) {
             <span>File</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="..\etablissement\receipt.php">
+            <i class="fas fa-fw fa-receipt"></i>
+            <span>receipt</span>
+        </a>
+    </li>
 <?php endif; ?>
 
 <!-- HEALTH PROFESSIONALS -->
@@ -109,7 +115,7 @@ if (isset($table)) {
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="..\health_professionals\update_file.php">
+        <a class="nav-link" href="..\health_professionals\file_update.php">
             <i class="fas fa-file"></i>
             <span>File</span>
         </a>

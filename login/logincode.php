@@ -34,6 +34,7 @@ if (isset($_POST['login_btn'])) {
                 $_SESSION['username'] = $user['name']; 
                 $_SESSION['table'] = $table;
                 $_SESSION['profile_pic'] = $user['profile_pic'];
+                $_SESSION['user']['type'] = $user['type'];
                 header("Location: $folder/index.php");
                 exit();
             }

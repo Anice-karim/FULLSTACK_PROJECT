@@ -8,7 +8,26 @@ $email = $_SESSION['email'];
 $table = $_SESSION['table'];
 
 // Fetch current user data
-$query = "SELECT * FROM $table WHERE email = '$email'";
+$query = "SELECT 
+    a.id AS assure_id,
+    a.name AS assure_name, 
+    ass.id AS assurance_id,
+    ass.name AS assurance_nom,
+    ass.email , 
+    b.id AS benef_id,
+    b.l_name AS benef_nom,
+    d.id AS dossier_id,
+    d.date AS dossier_date
+
+FROM 
+    assure a
+JOIN 
+    assurance ass ON ass.id = a.id
+JOIN 
+    beneficiaire b ON b.id_as = a.id
+JOIN 
+    dossier d ON d.id_benef = b.id
+ WHERE ass.email = '$email';";
 $query_run = mysqli_query($connection, $query);
 
 if (!$query_run || mysqli_num_rows($query_run) == 0) {
