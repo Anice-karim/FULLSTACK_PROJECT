@@ -159,3 +159,45 @@ if(isset($_POST['registerbtn']))
     exit();
 }
 ?>
+
+
+<?php
+// responds to invitation accept
+if(isset($_POST['accept_btn'])){
+    $id =$_POST['accept_id'];
+    $status="reimbursed";
+    $query="UPDATE dossier SET status ='$status' WHERE id = '$id'";
+    $query_run=mysqli_query($connection,$query);
+    if($query_run){
+        $_SESSION['success']="Dossier refunded";
+        header('Location:file_assur.php');
+    }else{
+        $_SESSION['status']="Dossier NOT accepted";
+        header('Location:file_assur.php');
+    }
+ }
+
+
+
+// responds to invitation refuse
+
+
+ if(isset($_POST['refuse_btn_as'])){
+    $id =$_POST['refuse_id_as'];
+    $status="refused";
+    $query="UPDATE dossier SET status ='$status' WHERE id = '$id'";
+    $query_run=mysqli_query($connection,$query);
+    if($query_run){
+        $_SESSION['success']="Dossier refused";
+        header('Location:file_assur.php');
+    }else{
+        $_SESSION['status']="Dossier was NOT rejected";
+        header('Location:file_assur.php');
+    }
+
+ }
+
+// update the dossier
+
+
+?>
