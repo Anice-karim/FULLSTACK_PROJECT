@@ -83,7 +83,7 @@ include('../includes/navbar.php');
         
         
         <a href="assure_register.php" class="btn btn-danger">CANCEL</a>
-        <button type="submit" name ="updatebtn_etab" class="btn btn-primary" >Update</button>
+        <button type="submit" name ="updatebtn" class="btn btn-primary" >Update</button>
         </form>
         <?php
     }
@@ -114,8 +114,8 @@ include('../includes/navbar.php');
             <th>Last Name</th>
             <th>CIN</th>
             <th>Relation</th>
-                      <th>Delete</th>
             <th>Edit</th>
+            <th>Delete</th>
   
         </thead>
         <tbody>
@@ -139,8 +139,6 @@ include('../includes/navbar.php');
                   <input type="hidden" name="delete_id_as" value="<?php echo $row['id']; ?>">
                   <button type="submit" name="delete_btn_as" class="btn btn-danger"> DELETE</button>
                 </form>
-                <input type="hidden" name="edit_id" value="<?php echo $row['id']; ?>">
-                <button  type="submit" name="edit_btn" class="btn btn-success"  data-toggle="modal" data-target="#editfamily"> EDIT</button>
             </td>
             
                 <div class="modal fade" id="editfamily" tabindex="-1" role="dialog" aria-labelledby="ADD family" >

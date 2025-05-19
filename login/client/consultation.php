@@ -60,8 +60,7 @@ WHERE
             <th>id dossier</th>
             <th>date de creation</th>
             <th>status</th>
-            <th>ACCEPTER</th>
-            <th>REFUSER</th>
+           
         </thead>
         <tbody>
              <?php 
@@ -91,42 +90,22 @@ WHERE
                 }
 
                 echo "<span class='$badgeClass'>" . ucfirst($status) . "</span>";
+
+
+            }
+        }
               ?>
             </td>
-            
-            <td>
-                <form action="code.php" method="POST" >
-                <input type="hidden" name="accept_id" value="<?php echo $row['dossier_id']; ?>">
-                <button  type="submit" name="accept_btn" class="btn btn-success"  data-toggle="modal" data-target="#editfamily"> ACCEPTER</button>
-                </form>
-            </td>
-            <td>
-                 <form action="code.php" method="post">
-                  <input type="hidden" name="refuse_id_as" value="<?php echo $row['dossier_id']; ?>">
-                  <button type="submit" name="refuse_btn_as" class="btn btn-danger"> REFUSER</button>
-                </form>
-            </td>
-            
-               
-             <?php
-         }
-      }
-       else {
-         echo "No Record Found";
-   }
-      ?>
-        </tbody>
+            </tr>
+             </tbody>
       </table>
       <?php //}?>
       <?php //}?>
       </div> 
-
-
-
-
-
-
-<?php
+      </div>
+      </div> 
+      </div>
+            <?php
 include('../includes/scripts.php');
 include('../includes/footer.php');
 ?>

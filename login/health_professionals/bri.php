@@ -29,7 +29,7 @@ include('../includes/navbar.php');
 
  if(isset($_POST['btn_bri'])){
     $id = $_POST['input_bri'];
-    $query= "SELECT * FROM  health_professionals WHERE id='$id' ";
+    $query= "SELECT * FROM  dossier WHERE id='$id' ";
     $query_run=mysqli_query($connection,$query);   
     foreach($query_run as $row){
         ?>

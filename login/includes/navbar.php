@@ -15,6 +15,9 @@ if (isset($table)) {
       case 'assurance':
           $sidebar_class = 'bg-gradient-assurance'; // Insurance
           break;
+      case 'assure':
+          $sidebar_class = 'bg-gradient-assure'; // Client
+          break;          
       default:
           $sidebar_class = 'bg-gradient-dark';
           break;
@@ -136,6 +139,17 @@ if (isset($table)) {
             <span>File</span>
         </a>
     </li>
+<?php endif; ?>
+
+<!-- CLIENT -->
+<?php if ($table === 'assure'): ?>
+    <li class="nav-item">
+        <a class="nav-link" href="..\client\consultation.php">
+            <i class="fas fa-briefcase"></i>
+            <span>consulter vos dossier</span>
+        </a>
+    </li>
+
 <?php endif; ?>
 
 
