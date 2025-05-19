@@ -190,6 +190,120 @@ include('../includes/navbar.php');
       </div>
     </div>
     <!--------------------fin etab info ----------------------------->
+    <?php 
+      $query2 = "SELECT 
+                      a.code_acts,       
+                      a.date,
+                      a.prix,
+                      hp.inpe
+                  FROM acte a
+                  JOIN health_professionals hp ON hp.id = a.id_hp
+                  JOIN dossier d ON d.id = a.id_doss
+                  WHERE d.id = $id";
+
+      $query_run2 = mysqli_query($connection, $query2);
+    ?>
+    <!------------------acte info------------------------------>
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Acte Info</h6>
+      </div>
+
+      <div class="card-body">
+        <div class="table-responsive">
+          <?php if (mysqli_num_rows($query_run1) > 0): ?>
+            <form action="code.php" method="POST">
+                
+
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>INPE</th>
+                    <th>Acte</th>
+                    <th>Date</th>
+                    <th>Prix</th> 
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php while ($row = mysqli_fetch_assoc($query_run2)): ?>
+                    
+                    <tr>
+                      <td><?= htmlspecialchars($row['inpe']) ?></td>
+                      <td><?= htmlspecialchars($row['code_acts']) ?></td>
+                      <td><?= htmlspecialchars($row['date']) ?></td>
+                      <td><?= htmlspecialchars($row['prix']) ?>.00 MAD</td>
+                
+                      
+                    </tr>
+                  <?php endwhile; ?>
+                </tbody>
+                
+              </table>
+            </form>
+          <?php else: ?>
+            <p>No records found for this client.</p>
+          <?php endif; ?>
+        </div>
+      </div>
+    </div>
+  <!----------------------fin act info ---------------------------->
+  <?php 
+      $query3 = "SELECT 
+                      od.medicament,       
+                      od.dose,
+                      od.unite,
+                      od.prix
+                  FROM ordonnance_details od
+                  JOIN ordonnance o ON  o.id = od.ordonnance_id
+                  JOIN health_professionals hp ON hp.id = o.id_hp
+                  JOIN dossier d ON d.id = o.id_doss
+                  WHERE d.id = $id";
+
+      $query_run3 = mysqli_query($connection, $query3);
+    ?>
+  <!------------------------med info------------------------------>
+  <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Med Info</h6>
+      </div>
+
+      <div class="card-body">
+        <div class="table-responsive">
+          <?php if (mysqli_num_rows($query_run3) > 0): ?>
+            <form action="code.php" method="POST">
+                
+
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Medicament</th>
+                    <th>Dose</th>
+                    <th>Unite</th>
+                    <th>Prix</th> 
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php while ($row = mysqli_fetch_assoc($query_run2)): ?>
+                    
+                    <tr>
+                      <td><?= htmlspecialchars($row['medicament']) ?></td>
+                      <td><?= htmlspecialchars($row['dose']) ?></td>
+                      <td><?= htmlspecialchars($row['unite']) ?></td>
+                      <td><?= htmlspecialchars($row['prix']) ?>.00 MAD</td>
+                
+                      
+                    </tr>
+                  <?php endwhile; ?>
+                </tbody>
+                
+              </table>
+            </form>
+          <?php else: ?>
+            <p>No records found for this client.</p>
+          <?php endif; ?>
+        </div>
+      </div>
+    </div>
 <!----------------------fin-------------------->
     <?php } ?>
   </div>
