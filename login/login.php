@@ -23,7 +23,7 @@
       $msg = $_SESSION['msg'] ?? '';
       unset($_SESSION['msg']); // clear after displaying
       ?>
-      <h1 class="text-4xl font-bold text-blue-400 text-center mb-8">Login / Register</h1>
+      <h1 class="text-4xl font-bold text-blue-400 text-center mb-8">Login</h1>
       <?php if ($msg): ?>
         <div class="text-red-500 text-center mb-4"><?= $msg ?></div>
       <?php endif; ?>

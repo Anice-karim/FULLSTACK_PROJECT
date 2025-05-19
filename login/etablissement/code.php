@@ -165,11 +165,11 @@ if(isset($_POST['addbtn']))
     $id_to_delete = $_POST['delete_id_as'];
 
     // SQL DELETE query
-    $delete_query = "DELETE FROM assurance WHERE id = '$id_to_delete'";
+    $delete_query = "DELETE FROM dossier WHERE id = '$id_to_delete'";
     $delete_run = mysqli_query($connection, $delete_query);
 
     if ($delete_run) {
-        $_SESSION['success'] = "Assurance deleted successfully";
+        $_SESSION['success'] = "Dossier deleted successfully";
         header("Location: file.php"); // redirect to your page
         exit();
     } else {

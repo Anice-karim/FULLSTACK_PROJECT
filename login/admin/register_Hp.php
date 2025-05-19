@@ -66,12 +66,6 @@ include('../includes/navbar.php');
                 </div>
 
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="type" id="BRI" value="BRI">
-                  <label class="form-check-label" for="BRI">BRI</label>
-                </div>
-
-
-                <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="type" id="pharmacy" value="pharmacy">
                   <label class="form-check-label" for="pharmacy">Pharmacy</label>
                 </div>

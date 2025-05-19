@@ -49,29 +49,6 @@ function addInputListenersToRow(row, tableBodyRef, addRowFunc) {
   });
 }
 
-// ==================== TABLE 2: Imagerie et Analyse ====================
-
-const tableBody1 = document.querySelector("#dataTable1 tbody");
-
-function addNewRow1() {
-  const rows = tableBody1.querySelectorAll("tr");
-  if (rows.length > 0) {
-    const lastRowInputs = rows[rows.length - 1].querySelectorAll("input");
-    const isLastRowEmpty = Array.from(lastRowInputs).every(
-      (input) => input.value.trim() === ""
-    );
-    if (isLastRowEmpty) return;
-  }
-
-  const newRow = document.createElement("tr");
-  newRow.innerHTML = `
-    <td><input class="form-control" type="text" name="analyse[]"></td>
-    <td><input class="form-control" type="text" name="recommendation_analyse[]"></td>
-  `;
-
-  tableBody1.appendChild(newRow);
-  addInputListenersToRow(newRow, tableBody1, addNewRow1);
-}
 
 // ==================== Init Both Tables on Load ====================
 
