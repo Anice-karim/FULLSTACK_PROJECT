@@ -103,7 +103,7 @@ include('../includes/navbar.php');
     <div class="modal-content">
         <form action="code.php" method="POST">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ordonnance</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Receipt</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -113,17 +113,21 @@ include('../includes/navbar.php');
           <div class="table-responsive">
             
             <?php 
-                $query ="SELECT  a.code_acts
-                        FROM acte a
-                        WHERE a.id_hp IN (
-                            SELECT e.id_hp
-                            FROM employe e
-                            WHERE e.id_etab =".$user['id']." 
-                        );";
-               // $query_run = mysqli_query($connection, $query);
+                $query ="SELECT a.code_acts,
+                                  a.id_doss,
+                                  a.prix
+                            FROM acte a
+                            WHERE a.id_hp IN (
+                                SELECT e.id_hp
+                                FROM employe e
+                                WHERE e.id_etab = ".$user['id']."
+                            )
+                            AND a.id_doss = ".$row['id'].";";"
+
+                $query_run = mysqli_query($connection, $query)";
                     
                 ?>
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered"  width="100%" cellspacing="0">
               <thead>
                 <tr>
                   <th>Actes</th>
@@ -131,15 +135,18 @@ include('../includes/navbar.php');
                 </tr>
               </thead>
               <tbody>
-                <?php //while($row = mysqli_fetch_assoc($query_run)) { ?>
+                <?php while($row = mysqli_fetch_assoc($query_run)) { ?>
                   <tr>
                     <td><?= htmlspecialchars($row['code_acts']); ?></td>
             
-                    <td><input type="number" name="prix" class="form-control price-input" placeholder="Enter price" oninput="updateTotal()"></td>
+                    <td>
+                      <input type="number" name="prix" class="form-control price-input" placeholder="Enter price" oninput="updateTotal()"></td>
+                      <input type="hidden" name="acts" value="<?= htmlspecialchars($row['code_acts']); ?>">
+                      <input type="hidden" name="dossier" value="<?= htmlspecialchars($row['id_doss']); ?>">
                   </tr>
                 
               </tbody>
-              <?php //} ?>
+              <?php } ?>
               <tfoot>
                     <tr>
                       <th>Total</th>
@@ -151,7 +158,7 @@ include('../includes/navbar.php');
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" name="save_ordonnance" class="btn btn-primary">Save Ordonnance</button>
+          <button type="submit" name="receipt_btn" class="btn btn-primary">Save Receipt</button>
         </div>
       </form>
 </div>

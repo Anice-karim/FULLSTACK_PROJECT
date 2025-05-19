@@ -178,6 +178,32 @@ if(isset($_POST['addbtn']))
         exit();
     }
 }
+// receipts pay
+
+  if (isset($_POST['receipt_btn'])) {
+    $medicaments = $_POST['acts']; 
+    $prixs = $_POST['prix'];
+    $ordonnance_ids = $_POST['ordonnance'];
+    $hps=$_POST['hp'];
+
+    
+
+    for ($i = 0; $i < count($medicaments); $i++) {
+        $medicament = mysqli_real_escape_string($connection, $medicaments[$i]); // escape string
+        $prix = floatval($prixs[$i]);
+        $ordonnance_id = intval($ordonnance_ids[$i]);
+        $hp=floatval($hps[$i]);
+
+        $query = "UPDATE ordonnance_details 
+                  SET prix = '$prix' , id_hp='$hp'
+                  WHERE ordonnance_id = '$ordonnance_id' AND medicament = '$medicament'";
+
+        mysqli_query($connection, $query);
+    }
+
+    header("Location: receipt.php");
+    exit();}
+
 
 
 
