@@ -26,7 +26,7 @@ include('../includes/navbar.php');
         <p class="message"><?php if (isset($_SESSION['message'])) { echo $_SESSION['message']; unset($_SESSION['message']); } ?></p>
 
         <!-- Profile Edit Form -->
-        <form action="profile-code.php" method="POST" enctype="multipart/form-data" id="form">
+        <form action="code.php" method="POST" enctype="multipart/form-data" id="form">
         <fieldset>
         <legend>Change Password</legend>
         <div class="form-group">
