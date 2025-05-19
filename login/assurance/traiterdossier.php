@@ -255,7 +255,6 @@ include('../includes/navbar.php');
                       od.prix
                   FROM ordonnance_details od
                   JOIN ordonnance o ON  o.id = od.ordonnance_id
-                  JOIN health_professionals hp ON hp.id = o.id_hp
                   JOIN dossier d ON d.id = o.id_doss
                   WHERE d.id = $id";
 
@@ -283,7 +282,7 @@ include('../includes/navbar.php');
                   </tr>
                 </thead>
                 <tbody>
-                  <?php while ($row = mysqli_fetch_assoc($query_run2)): ?>
+                  <?php while ($row = mysqli_fetch_assoc($query_run3)): ?>
                     
                     <tr>
                       <td><?= htmlspecialchars($row['medicament']) ?></td>
