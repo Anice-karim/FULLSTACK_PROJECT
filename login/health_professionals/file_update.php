@@ -119,7 +119,7 @@ include('../includes/navbar.php');
             <?php } ?>
 
             <?php if($user['type'] == 'pharmacy') { ?>
-              <th>Achats des medicaments</th>
+              <th>Edits et Achats des medicaments</th>
             <?php } ?>
 
             <th>Delete</th>
