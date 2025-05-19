@@ -23,35 +23,35 @@ include('../includes/navbar.php');
   <div class="card-header py-3">
     <h6 class="m-0 font-weight-bold text-primary">Edit Client  family Profile  </h6>
   </div>
-<div class="modal-body">
+<div class="card-body">
     <div class="table-responsive"> 
          <?php 
       $query ="SELECT 
-    a.id AS assure_id,
-    a.name AS assure_name, 
-    ass.id AS assurance_id,
-    ass.name AS assurance_name,
-    ass.email AS assurance_email, 
-    b.cin_ben AS cin_ben,
-    b.id AS benef_id,
-    b.l_name AS benef_l_name,
-    b.f_name AS benef_f_name,
-    d.id AS dossier_id,
-    d.date AS dossier_date,
-    d.status AS d_status
+                a.id AS assure_id,
+                a.name AS assure_name, 
+                ass.id AS assurance_id,
+                ass.name AS assurance_name,
+                ass.email AS assurance_email, 
+                b.cin_ben AS cin_ben,
+                b.id AS benef_id,
+                b.l_name AS benef_l_name,
+                b.f_name AS benef_f_name,
+                d.id AS dossier_id,
+                d.date AS dossier_date,
+                d.status AS d_status
 
-FROM 
-    assure a
-JOIN 
-    assurance ass ON ass.id = a.id_assurance
-JOIN 
-    beneficiaire b ON b.id_as = a.id
-JOIN 
-    dossier d ON d.id_benef = b.id
-WHERE 
-    ass.email = '$email'";
-      $query_run = mysqli_query($connection,$query);
-    ?>    
+                FROM 
+                    assure a
+                JOIN 
+                    assurance ass ON ass.id = a.id_assurance
+                JOIN 
+                    beneficiaire b ON b.id_as = a.id
+                JOIN 
+                    dossier d ON d.id_benef = b.id
+                WHERE 
+                    ass.email = '$email' AND status ='pending'";
+            $query_run = mysqli_query($connection,$query);
+          ?>    
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
             <th>Name</th>
@@ -60,8 +60,8 @@ WHERE
             <th>id dossier</th>
             <th>date de creation</th>
             <th>status</th>
-            <th>ACCEPTER</th>
-            <th>REFUSER</th>
+            <th>Traiter</th>
+            
         </thead>
         <tbody>
              <?php 
@@ -95,15 +95,9 @@ WHERE
             </td>
             
             <td>
-                <form action="code.php" method="POST" >
-                <input type="hidden" name="accept_id" value="<?php echo $row['dossier_id']; ?>">
-                <button  type="submit" name="accept_btn" class="btn btn-success"  data-toggle="modal" data-target="#editfamily"> ACCEPTER</button>
-                </form>
-            </td>
-            <td>
-                 <form action="code.php" method="post">
-                  <input type="hidden" name="refuse_id_as" value="<?php echo $row['dossier_id']; ?>">
-                  <button type="submit" name="refuse_btn_as" class="btn btn-danger"> REFUSER</button>
+                <form action="traiterdossier.php" method="POST" >
+                <input type="hidden" name="trai_id" value="<?php echo $row['dossier_id']; ?>">
+                <button  type="submit" name="trai_btn" class="btn btn-success"> Traiter</button>
                 </form>
             </td>
             
@@ -117,9 +111,9 @@ WHERE
       ?>
         </tbody>
       </table>
-      <?php //}?>
-      <?php //}?>
-      </div> 
+  </div>
+  </div>
+</div> 
 
 
 
