@@ -231,7 +231,7 @@ include('../includes/navbar.php');
                       <td><?= htmlspecialchars($row['inpe']) ?></td>
                       <td><?= htmlspecialchars($row['code_acts']) ?></td>
                       <td><?= htmlspecialchars($row['date']) ?></td>
-                      <td><?= htmlspecialchars($row['prix']) ?>.00 MAD</td>
+                      <td class="prix"><?= htmlspecialchars($row['prix']) ?></td>
                 
                       
                     </tr>
@@ -288,7 +288,7 @@ include('../includes/navbar.php');
                       <td><?= htmlspecialchars($row['medicament']) ?></td>
                       <td><?= htmlspecialchars($row['dose']) ?></td>
                       <td><?= htmlspecialchars($row['unite']) ?></td>
-                      <td><?= htmlspecialchars($row['prix']) ?>.00 MAD</td>
+                      <td class="prix"><?= htmlspecialchars($row['prix']) ?></td>
                 
                       
                     </tr>
@@ -303,10 +303,59 @@ include('../includes/navbar.php');
         </div>
       </div>
     </div>
+  <!-----------------------------fin med info--------------------->
+  <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Total</h6>
+      </div>
+
+      <div class="card-body">
+        <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot>
+                    <tr>
+                      <th>Total</th>
+                      <th><span id="total">0</span> MAD</th>
+                    </tr>
+              </table>
+
+        </div>
+      </div>
+    </div>
 <!----------------------fin-------------------->
     <?php } ?>
   </div>
 </div>
+<script>
+function updateTotal() {
+  let total = 0;
+
+  const prixCells = document.querySelectorAll('td.prix');
+  
+  prixCells.forEach(cell => {
+    
+    let value = cell.textContent.trim();
+  
+    value = value.replace(' MAD', '');
+    
+    let number = parseFloat(value);
+    if (!isNaN(number)) {
+      total += number;
+    }
+  });
+
+  t
+  document.getElementById('total').textContent = total.toFixed(2) + " MAD";
+}
+  
+
+window.onload = updateTotal;
+</script>
+
 <script src="js/script.js" ></script>
 <?php
 include('../includes/scripts.php');
