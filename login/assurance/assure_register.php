@@ -181,7 +181,7 @@ include('../includes/navbar.php');
             <td>
                 <form action="assure_edit.php" method="post">
                     <input type="hidden" name="edit_id" value="<?php echo $row['id']; ?>">
-                    <button  type="submit" name="edit_btn" class="btn btn-success"> EDIT</button>
+                    <button type="submit" name="edit_btn" class="btn btn-success"> EDIT</button>
                 </form>
             </td>
             <td>
@@ -191,16 +191,16 @@ include('../includes/navbar.php');
                 </form>
             </td>
             <td>
-              <button type="submit" name="add_family_btn" class="add-family-btn btn btn-primary"
-               data-toggle="modal" 
-               data-target="#addfamily" id="addAdminButton">Add Family member</button>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addfamily<?php echo $row['id']; ?>">
+                Add Family member
+              </button>
             </td>
-
-              <div class="modal fade" id="addfamily" tabindex="-1" role="dialog" aria-labelledby="ADD family" >
+            <td>
+              <div class="modal fade" id="addfamily<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="ADD family" >
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="addfamily">Add Family</h5>
+                      <h5 class="modal-title">Add Family</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
@@ -209,7 +209,7 @@ include('../includes/navbar.php');
                       <div class="modal-body">
                           
                       
-                        <input type="text" id="admin_id_modal" name="admin_id" readonly class="form-control" value="<?php echo $row['id']; ?>">
+                        <input type="hidden" id="admin_id_modal" name="admin_id" readonly class="form-control" value="<?php echo $row['id']; ?>">
 
                           <div class="form-group">
                               <label>First Name</label>
@@ -232,14 +232,14 @@ include('../includes/navbar.php');
                           </div>
                           <div class="form-group form-check">
                                 <input type="hidden" name="chronic" value="false" >
-                                <input type="checkbox" name="chronic" value="true" class="form-check-input" id="chronicCheck">
-                                <label class="form-check-label"  for="chronicCheck">Do you have a chronic disease?</label>
+                                <input type="checkbox" name="chronic" value="true" class="form-check-input" id="chronicCheck<?php echo $row['id']; ?>">
+                                <label class="form-check-label" for="chronicCheck<?php echo $row['id']; ?>">Do you have a chronic disease?</label>
                             </div>
 
                             <!-- Select input shown only if checkbox is checked -->
-                            <div class="form-group" id="chronicSelectGroup" style="display: none;">
-                                <label for="chronicSelect">Select Chronic Disease</label>
-                                <select name="chronic2" id="chronicSelect" class="form-control">
+                            <div class="form-group chronicSelectGroup" id="chronicSelectGroup<?php echo $row['id']; ?>" style="display: none;">
+                                <label for="chronicSelect<?php echo $row['id']; ?>">Select Chronic Disease</label>
+                                <select name="chronic2" id="chronicSelect<?php echo $row['id']; ?>" class="form-control">
                                     <option value="">-- Choose one --</option>
                                     <option value="Diabetes">Diabetes</option>
                                     <option value="Hypertension">Hypertension</option>
@@ -252,12 +252,12 @@ include('../includes/navbar.php');
                             <div class="form-group">
                                 <label>Relationship to Primary Insured:</label><br>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="relation" id="relationSpouse" value="Spouse">
-                                    <label class="form-check-label" for="relationSpouse">Spouse</label>
+                                    <input class="form-check-input" type="radio" name="relation" id="relationSpouse<?php echo $row['id']; ?>" value="Spouse">
+                                    <label class="form-check-label" for="relationSpouse<?php echo $row['id']; ?>">Spouse</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="relation" id="relationChild" value="Child">
-                                    <label class="form-check-label" for="relationChild">Child</label>
+                                    <input class="form-check-input" type="radio" name="relation" id="relationChild<?php echo $row['id']; ?>" value="Child">
+                                    <label class="form-check-label" for="relationChild<?php echo $row['id']; ?>">Child</label>
                                 </div>
                             </div>
                             
@@ -273,7 +273,7 @@ include('../includes/navbar.php');
                   </div>
                 </div>
               </div>
-              
+             </td> 
             
 
           </tr> 
