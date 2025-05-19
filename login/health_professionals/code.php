@@ -228,41 +228,41 @@ if (isset($_POST['deletebtn_doss'])) {
 // backend pharma ----------------------------------------------------------------------
 //--------------------------------------------------------------------------------------
 
-if (isset($_POST['confirm_buy'])) {
-    $id_doss = $_POST['pharma']; 
-    $id_hp = $_POST['id_hp']; 
-    $id_ord = $_POST['ordonnance_id']; 
+// if (isset($_POST['confirm_buy'])) {
+//     $id_doss = $_POST['pharma']; 
+//     $id_hp = $_POST['id_hp']; 
+//     $id_ord = $_POST['ordonnance_id']; 
 
-    $medicaments = $_POST['medicament'];
-    $prix_array = $_POST['prix'];
+//     $medicaments = $_POST['medicament'];
+//     $prix_array = $_POST['prix'];
 
-    // Normalize to arrays
-    if (!is_array($medicaments)) {
-        $medicaments = [$medicaments];
-        $prix_array = [$prix_array];
-    }
+//     // Normalize to arrays
+//     if (!is_array($medicaments)) {
+//         $medicaments = [$medicaments];
+//         $prix_array = [$prix_array];
+//     }
 
-    for ($i = 0; $i < count($medicaments); $i++) {
-        $medicament = mysqli_real_escape_string($connection, $medicaments[$i]);
-        $prix = mysqli_real_escape_string($connection, $prix_array[$i]);
+//     for ($i = 0; $i < count($medicaments); $i++) {
+//         $medicament = mysqli_real_escape_string($connection, $medicaments[$i]);
+//         $prix = mysqli_real_escape_string($connection, $prix_array[$i]);
 
-        if (trim($prix) !== '') {
-            $query_detail = "
-                UPDATE ordonnance_details 
-                SET prix = '$prix', id_pharma = '$id_hp' 
-                WHERE ordonnance_id = '$id_ord' 
-                AND medicament = '$medicament'; 
+//         if (trim($prix) !== '') {
+//             $query_detail = "
+//                 UPDATE ordonnance_details 
+//                 SET prix = '$prix', id_pharma = '$id_hp' 
+//                 WHERE ordonnance_id = '$id_ord' 
+//                 AND medicament = '$medicament'; 
                 
-            ";
+//             ";
 
-            mysqli_query($connection, $query_detail);
-        }
-    }
+//             mysqli_query($connection, $query_detail);
+//         }
+//     }
 
-    $_SESSION['success'] = "Achat confirmed";
-    header('Location: file_update.php');
-    exit;
-}
+//     $_SESSION['success'] = "Achat confirmed";
+//     header('Location: file_update.php');
+//     exit;
+// }
 
 
 ///////edit profile
@@ -343,4 +343,30 @@ if (isset($_POST['confirm_buy'])) {
     header('Location: profile_edit.php');
     exit();
 }}
+///////////achat des medicaments
+if (isset($_POST['addachat'])) {
+  if (isset($_POST['addachat'])) {
+    $medicaments = $_POST['medicament']; 
+    $prixs = $_POST['prix'];
+    $ordonnance_ids = $_POST['ordonnance'];
+    $hps=$_POST['hp'];
+
+    
+
+    for ($i = 0; $i < count($medicaments); $i++) {
+        $medicament = mysqli_real_escape_string($connection, $medicaments[$i]); // escape string
+        $prix = floatval($prixs[$i]);
+        $ordonnance_id = intval($ordonnance_ids[$i]);
+        $hp=floatval($hps[$i]);
+
+        $query = "UPDATE ordonnance_details 
+                  SET prix = '$prix' , id_hp='$hp'
+                  WHERE ordonnance_id = '$ordonnance_id' AND medicament = '$medicament'";
+
+        mysqli_query($connection, $query);
+    }
+
+    header("Location: file_update.php");
+    exit();}
+}
 ?>
