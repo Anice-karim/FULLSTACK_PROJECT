@@ -73,9 +73,9 @@ include('../includes/navbar.php');
                       <td><?= htmlspecialchars($row['unite']) ?></td>
                       <td>
                         <input type="number" name="prix[]" class="form-control price-input" placeholder="Enter price" oninput="updateTotal()">
-                        <input type="text" name="ordonnance[]" value="<?= htmlspecialchars($row['ordonnance_id']) ?>">
-                        <input type="text" name="medicament[]" value="<?= htmlspecialchars($row['medicament']) ?>">
-                        <input type="text" name="hp[]" value="<?= htmlspecialchars($user['id']) ?>">
+                        <input type="hidden" name="ordonnance[]" value="<?= htmlspecialchars($row['ordonnance_id']) ?>">
+                        <input type="hidden" name="medicament[]" value="<?= htmlspecialchars($row['medicament']) ?>">
+                        <input type="hidden" name="hp[]" value="<?= htmlspecialchars($user['id']) ?>">
                     </td>
                     </tr>
                   <?php endwhile; ?>
