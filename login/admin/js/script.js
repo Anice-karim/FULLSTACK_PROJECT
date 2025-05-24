@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // --- Specialty Dropdown Logic ---
   const radios = document.querySelectorAll(
     'input[name="type"], input[name="type_edit"]'
   );
@@ -43,10 +44,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   radios.forEach((radio) => {
     radio.addEventListener("change", () => {
-      const selected = radio.value;
-      const options = specialties[selected] || [];
+      const selectedType = radio.value;
+      const options = specialties[selectedType] || [];
 
-      // Clear and update all specialty selects
       specialtySelects.forEach((select) => {
         if (select) {
           select.innerHTML = "";
@@ -59,139 +59,180 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
 
-      // Show or hide container
-      specialtyContainer.style.display = options.length ? "block" : "none";
+      if (specialtyContainer) {
+        specialtyContainer.style.display =
+          options.length > 0 ? "block" : "none";
+      }
     });
   });
-});
 
-// Generate email based on name + random + @health.ma
-function generateEmail() {
-  const nameField = document.getElementById("name");
-  const emailField = document.getElementById("email");
+  // --- Password Visibility Toggle ---
+  function toggleVisibility(buttonId, inputId) {
+    const button = document.getElementById(buttonId);
+    const input = document.getElementById(inputId);
 
-  if (!nameField || !emailField) return;
-
-  const name = nameField.value.trim().toLowerCase().replace(/\s+/g, "");
-  const random = Math.floor(100 + Math.random() * 900); // random 3-digit
-
-  if (name) {
-    const email = `${name}${random}@health.ma`;
-    emailField.value = email;
-  } else {
-    alert("Please enter a name first.");
+    if (button && input) {
+      button.addEventListener("click", () => {
+        const isPassword = input.type === "password";
+        input.type = isPassword ? "text" : "password";
+        button.innerHTML = `<i class="fas fa-eye${
+          isPassword ? "-slash" : ""
+        }"></i>`;
+      });
+    }
   }
-}
-function toggleVisibility(buttonId, inputId) {
-  const button = document.getElementById(buttonId);
-  const input = document.getElementById(inputId);
 
-  if (button && input) {
-    button.addEventListener("click", () => {
-      const isPassword = input.type === "password";
-      input.type = isPassword ? "text" : "password";
-      button.innerHTML = `<i class="fas fa-eye${
-        isPassword ? "-slash" : ""
-      }"></i>`;
+  toggleVisibility("eye-icon", "password");
+  toggleVisibility("eye-icon-confirm", "confirmpassword");
+  toggleVisibility("eye-icon-1", "current_password");
+  toggleVisibility("eye-icon-2", "new_password");
+
+  // --- Password Strength Validation ---
+  const passwordInput = document.getElementById("password");
+  const passwordMessage = document.getElementById("message");
+  // Assuming the form containing the password might have a specific ID, e.g., "passwordForm"
+  // If it's always the same form as INPE, we can reuse that reference.
+  // For now, let's assume a potentially different form or handle it generically.
+
+  function validatePassword(password) {
+    const minLength = 8;
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/;
+    let isValid = true;
+    let messageText = "";
+    let messageColor = "";
+
+    if (!password || password.length < minLength) {
+      // Check if password exists
+      messageText = "❌ At least 8 characters required.";
+      messageColor = "red";
+      isValid = false;
+    } else if (!regex.test(password)) {
+      messageText =
+        "❌ Must include uppercase, lowercase, number, and special character.";
+      messageColor = "red";
+      isValid = false;
+    } else {
+      messageText = "✅ Password is strong!";
+      messageColor = "green";
+      isValid = true;
+    }
+
+    if (passwordMessage) {
+      passwordMessage.textContent = messageText;
+      passwordMessage.style.color = messageColor;
+    }
+    return isValid;
+  }
+
+  // Add input listener only if password input exists
+  if (passwordInput) {
+    passwordInput.addEventListener("input", () => {
+      validatePassword(passwordInput.value);
     });
   }
-}
 
-// Utilisation
-toggleVisibility("eye-icon", "password");
-toggleVisibility("eye-icon-confirm", "confirmpassword");
-toggleVisibility("eye-icon-1", "current_password");
-toggleVisibility("eye-icon-2", "new_password");
+  // --- INPE Number Validation ---
+  const inpeInput = document.getElementById("inpe");
+  const inpeMessage = document.getElementById("msg");
 
-//password validator
-const passwordInput = document.getElementById("password");
-const message = document.getElementById("message");
-const form = document.getElementById("form");
+  function validateInpe(value) {
+    // Ensure value is treated as a string
+    const valueStr = String(value || "");
+    let digitsOnly = valueStr.replace(/\D/g, "");
+    let isValid = false;
+    let messageText = "";
+    let messageColor = "";
 
-function validatePassword(password) {
-  const minLength = 8;
-  const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/;
+    if (digitsOnly.length > 9) {
+      digitsOnly = digitsOnly.slice(0, 9);
+    }
 
-  if (password.length < minLength) {
-    message.textContent = "❌ At least 8 characters required.";
-    message.style.color = "red";
-    return false;
-  } else if (!regex.test(password)) {
-    message.textContent =
-      "❌ Must include uppercase, lowercase, number, and special character.";
-    message.style.color = "red";
-    return false;
-  } else {
-    message.textContent = "✅ Password is strong!";
-    message.style.color = "green";
-    return true;
-  }
-}
+    // Update input value visually only if it exists and changed
+    if (inpeInput && inpeInput.value !== digitsOnly) {
+      inpeInput.value = digitsOnly;
+    }
 
-passwordInput.addEventListener("input", () => {
-  validatePassword(passwordInput.value);
-});
+    const regex = /^\d{9}$/;
+    if (regex.test(digitsOnly)) {
+      messageText = "✅ Valid INPE number.";
+      messageColor = "green";
+      isValid = true;
+    } else {
+      messageText = "❌ Must contain exactly 9 digits.";
+      messageColor = "red";
+      isValid = false;
+    }
 
-form.addEventListener("submit", (event) => {
-  if (!validatePassword(passwordInput.value)) {
-    event.preventDefault(); // Prevent form submission if invalid
-    passwordInput.focus();
-  }
-});
-//inpe validator
-const inpeInput = document.getElementById("inpe");
-const msg = document.getElementById("msg");
-
-function validateInpe(value) {
-  // Remove non-digit characters
-  let digitsOnly = value.replace(/\D/g, "");
-  // Limit max 9 digits
-  if (digitsOnly.length > 9) {
-    digitsOnly = digitsOnly.slice(0, 9);
-  }
-  // Update the input value with filtered digits
-  inpeInput.value = digitsOnly;
-
-  // Check exact 9 digits
-  const regex = /^\d{9}$/;
-  if (regex.test(digitsOnly)) {
-    msg.textContent = "✅ Valid Input number.";
-    msg.style.color = "green";
-    return true;
-  } else {
-    msg.textContent = "❌ Must contain exactly 9 digits.";
-    msg.style.color = "red";
-    return false;
-  }
-}
-
-inpeInput.addEventListener("input", () => {
-  validateInpe(inpeInput.value);
-});
-
-form.addEventListener("submit", (event) => {
-  if (!validateInpe(inpeInput.value)) {
-    event.preventDefault(); // Stop form submit
-    inpeInput.focus();
-  }
-});
-//phone input
-const phoneInput = document.getElementById("phone");
-const prefix = "+212";
-
-phoneInput.addEventListener("input", () => {
-  let val = phoneInput.value;
-
-  // If it doesn't start with +212, force prefix
-  if (!val.startsWith(prefix)) {
-    val = prefix;
+    if (inpeMessage) {
+      inpeMessage.textContent = messageText;
+      inpeMessage.style.color = messageColor;
+    }
+    return isValid;
   }
 
-  // Remove all non-digit characters except the + at start
-  val = prefix + val.slice(prefix.length).replace(/\D/g, "");
+  // Add input listener only if INPE input exists
+  if (inpeInput) {
+    inpeInput.addEventListener("input", (e) => {
+      validateInpe(e.target.value);
+    });
+  }
 
-  // Limit to 9 digits after +212
-  val = val.slice(0, prefix.length + 9);
+  // --- Form Submission Validation ---
+  const mainForm = document.getElementById("form"); // Get the form by its actual ID
 
-  phoneInput.value = val;
+  if (mainForm) {
+    mainForm.addEventListener("submit", function (event) {
+      let isFormValid = true;
+      let focusTarget = null;
+
+      // 1. Validate INPE if the input exists within this form
+      const currentInpeInput = mainForm.querySelector("#inpe");
+      if (currentInpeInput) {
+        if (!validateInpe(currentInpeInput.value)) {
+          isFormValid = false;
+          focusTarget = currentInpeInput;
+          // Optionally show an alert or rely on the inline message
+          // alert("Please enter a valid 9-digit INPE number.");
+        }
+      }
+
+      // 2. Validate Password if the input exists within this form
+      const currentPasswordInput = mainForm.querySelector("#password");
+      if (currentPasswordInput) {
+        if (!validatePassword(currentPasswordInput.value)) {
+          isFormValid = false;
+          // Set focus to password only if INPE was valid or doesn't exist
+          if (!focusTarget) {
+            focusTarget = currentPasswordInput;
+          }
+        }
+      }
+
+      // 3. Add other validations here if needed
+
+      // Prevent submission if any validation failed
+      if (!isFormValid) {
+        event.preventDefault();
+        if (focusTarget) {
+          focusTarget.focus(); // Focus the first invalid field
+        }
+      }
+    });
+  }
+
+  // --- Phone Number Input Formatting (+212 prefix) ---
+  const phoneInput = document.getElementById("phone");
+  const prefix = "+212";
+
+  if (phoneInput) {
+    phoneInput.addEventListener("input", () => {
+      let val = phoneInput.value;
+      if (!val.startsWith(prefix)) {
+        val = prefix;
+      }
+      val = prefix + val.slice(prefix.length).replace(/\D/g, "");
+      val = val.slice(0, prefix.length + 9);
+      phoneInput.value = val;
+    });
+  }
 });

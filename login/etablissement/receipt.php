@@ -37,25 +37,18 @@ include('../includes/navbar.php');
     ?>
      <div class="table-responsive">
       <?php 
-   $query = "
-          SELECT DISTINCT 
-        hp.name, 
-        hp.specialty, 
-        a.id,
-        a.id_doss,
-        a.prix,
-        a.id_etab,
-        a.code_acts
-        FROM employe e
-        JOIN 
-            health_professionals hp ON e.id_hp = hp.id
-        JOIN 
-            dossier_hp c ON c.id_hp = hp.id
-        JOIN 
-            acte a ON a.id_hp = hp.id AND a.id_doss = c.id_doss
-        WHERE 
-            e.id_etab =" . $user['id'] ;
-   $query_run = mysqli_query($connection, $query);
+    $query = "SELECT DISTINCT 
+         hp.name, 
+         hp.specialty,
+         d.id,
+         health_professionals hp
+         JOIN 
+             employe e ON e.id_hp = hp.id
+         JOIN 
+             dossier_hp c ON c.id_hp = hp.id
+         WHERE 
+             e.id_etab =" . $user['id'] ;
+    $query_run = mysqli_query($connection, $query);
    
 ?>
     <table class="table table-bordered">
@@ -89,7 +82,7 @@ include('../includes/navbar.php');
         
       </tr>
       <?php
-      }
+     }
     } else {
       echo "<tr><td colspan='5'>No Records Found</td></tr>";
     }

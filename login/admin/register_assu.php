@@ -40,60 +40,24 @@ include('../includes/navbar.php');
             <div class="form-group">
                 <label>Name</label>
                 <input type="text" name="name" class="form-control" placeholder="Enter Name" id="name" required>
-            </div>
-            
+            </div>            
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="prv-pub" id="public" value="true" required>
                 <label class="form-check-label" for="public">Public</label>
               </div>
-
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="prv-pub" id="private" value="false">
                 <label class="form-check-label" for="private">Private</label>
-              </div>
-
-
-
-             
+              </div>           
               <div class="form-group">
                 <label>Email</label>
                 <div class="input-group">
-                    <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email" readonly  required>
-                    <div class="input-group-append">
-                        <button class="btn btn-secondary" type="button" onclick="generateEmail()">Auto</button>
-                    </div>
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email"  required>                    
                 </div>
-</div>
-
             <div class="form-group">
                 <label>Phone</label>
-                <input type="tel" name="tel" id="phone" class="form-control" placeholder="06" required>
+                <input type="tel" name="tel" id="phone" class="form-control" placeholder="+212" required>
             </div>
-          
-            <div class="form-group">
-              <label for="password">Password</label>
-              <div class="input-group">
-                <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" required>
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" type="button" id="eye-icon">
-                    <i class="fas fa-eye"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div id="message"></div>
-            <div class="form-group">
-                <label for="confirmpassword">Confirm Password</label>
-                <div class="input-group">
-                  <input type="password" name="confirmpassword" id="confirmpassword" class="form-control" placeholder="Confirm Password" required>
-                  <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button" id="eye-icon-confirm">
-                      <i class="fas fa-eye"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -103,6 +67,7 @@ include('../includes/navbar.php');
 
     </div>
   </div>
+</div>
 </div>
 
 

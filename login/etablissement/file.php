@@ -2,7 +2,6 @@
 include('../security.php');
 include('../includes/header.php');
 
-
 $email = $_SESSION['email'];
 $table = $_SESSION['table'];
 
@@ -48,112 +47,94 @@ include('../includes/navbar.php');
     </div>
   </div>
 </div>
-<!-- end of creat a dossier -->
+<!-- end of create a dossier -->
+
 <div class="container-fluid">
 
-<!-- Button of modal -->
-<div class="card shadow mb-4">
-  <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">dossier folders
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addadminprofile" id="add">
-              Add dossier 
-            </button>
-    </h6>
-  </div>
-<!--Dossier added-->
-  <div class="card-body">
+  <!-- Button of modal -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">dossier folders
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addadminprofile" id="add">
+          Add dossier 
+        </button>
+      </h6>
+    </div>
+    <!--Dossier added-->
+    <div class="card-body">
 
-    <?php 
-    // Affiche un message de succès si une action s'est bien passée (ex: ajout ou suppression)
-    if (isset($_SESSION['success']) && $_SESSION['success'] != '') {
-        echo '<h2>' . $_SESSION['success'] . '</h2>';
-        unset($_SESSION['success']); // Nettoie la session après affichage
-    }
-
-    // Affiche un message d'erreur ou d'échec
-    if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
-        echo '<h2>' . $_SESSION['status'] . '</h2>';
-        unset($_SESSION['status']);
-    }
-    ?>
-
-    <div class="table-responsive">
       <?php 
-      // Requête SQL pour récupérer tous les dossiers et les informations de leurs bénéficiaires associés
-      $query = "SELECT 
-                  doc.id,
-                  bn.id AS id_ben,
-                  bn.f_name,
-                  bn.l_name 
-                FROM 
-                  dossier doc
-                JOIN 
-                  beneficiaire bn ON doc.id_benef = bn.id;";
-      $query_run = mysqli_query($connection, $query);
-      ?>
-      
-      <!-- Tableau affichant les dossiers -->
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>ID beneficiaire</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Delete</th>
-            
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-          // Vérifie s'il y a des résultats à afficher
-          if (mysqli_num_rows($query_run) > 0) {
-              while ($row = mysqli_fetch_assoc($query_run)) {
-          ?>
-          <tr>
-            <!-- Affiche les données du dossier et du bénéficiaire -->
-            <td><?= $row['id']; ?></td>
-            <td><?= $row['id_ben']; ?></td>
-            <td><?= $row['f_name']; ?></td>
-            <td><?= $row['l_name']; ?></td>
-
-            <!-- Formulaire pour supprimer un dossier -->
-            <td>
-              <form action="code.php" method="POST">
-                <!-- Champ caché contenant l'ID du dossier à supprimer -->
-                <input type="hidden" name="delete_id_as" value="<?= $row['id']; ?>">
-                <button type="submit" name="delete_btn_as" class="btn btn-danger">Delete</button>
-              </form>
-            </td>
-
-            <!-- Bouton pour ajouter une facture au dossier -->
-            
-          </tr>
-          <?php  
-              } // fin du while
-          ?>
-        </tbody>
-      </table>
-    </div> <!-- Fin de table-responsive -->
-    <?php 
-      } else {
-        // S'il n'y a pas de dossier trouvé
-        echo "<tr><td colspan='6'>No Records Found</td></tr>";
+      // Success message
+      if (isset($_SESSION['success']) && $_SESSION['success'] != '') {
+          echo '<h2>' . $_SESSION['success'] . '</h2>';
+          unset($_SESSION['success']);
       }
-    ?>
-</div> <!-- Fin de card-body -->
 
+      // Error message
+      if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
+          echo '<h2>' . $_SESSION['status'] . '</h2>';
+          unset($_SESSION['status']);
+      }
+      ?>
 
+      <div class="table-responsive">
+        <?php 
+        // Fetch dossiers with beneficiary info
+        $query = "SELECT 
+                    doc.id,
+                    bn.id AS id_ben,
+                    bn.f_name,
+                    bn.l_name 
+                  FROM 
+                    dossier doc
+                  JOIN 
+                    beneficiaire bn ON doc.id_benef = bn.id;";
+        $query_run = mysqli_query($connection, $query);
+        ?>
+        
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>ID beneficiaire</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+            if (mysqli_num_rows($query_run) > 0) {
+                while ($row = mysqli_fetch_assoc($query_run)) {
+            ?>
+            <tr>
+              <td><?= $row['id']; ?></td>
+              <td><?= $row['id_ben']; ?></td>
+              <td><?= $row['f_name']; ?></td>
+              <td><?= $row['l_name']; ?></td>
+              <td>
+                <form action="code.php" method="POST">
+                  <input type="hidden" name="delete_id_as" value="<?= $row['id']; ?>">
+                  <button type="submit" name="delete_btn_as" class="btn btn-danger">Delete</button>
+                </form>
+              </td>
+            </tr>
+            <?php  
+                }
+            } else {
+              echo "<tr><td colspan='5'>No Records Found</td></tr>";
+            }
+            ?>
+          </tbody>
+        </table>
+      </div> <!-- end table-responsive -->
 
-    
-    </div>
-      </div>
-    </div>
-    
-      
+    </div> <!-- end card-body -->
+  </div> <!-- end card shadow -->
+</div> <!-- end container-fluid -->
+
 <!-- /.container-fluid -->
-<script src="js/script.js" ></script>
-
+<script src="js/script.js"></script>
 
 <?php
 include('../includes/scripts.php');

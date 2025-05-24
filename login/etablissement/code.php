@@ -6,17 +6,18 @@ if (isset($_POST['send_invite_btn'])) {
     $etab = $_POST['etab_id'];
     $message = $_POST['message'] ?? null;
 
-    // First, get the HP internal ID
-    $query_get_id = "SELECT id FROM health_professionals WHERE inpe = '$Hp'"; 
-    $result = mysqli_query($connection, $query_get_id);
+    // Get HP id and email
+    $query_get_hp = "SELECT id, email FROM health_professionals WHERE inpe = '$Hp'"; 
+    $result = mysqli_query($connection, $query_get_hp);
 
     if ($result) {
         $Hp1 = mysqli_fetch_assoc($result);
         if ($Hp1) {
-            $id = $Hp1['id']; // the internal user ID
+            $id = $Hp1['id']; 
+            $hpEmail = $Hp1['email'];
             $status = "pending";
 
-            // 🔍 Check if invitation already exists for this HP and etablissement
+            // Check if invitation already exists
             $check_query = "SELECT * FROM invitations WHERE id_etab = '$etab' AND id_Hp = '$id'";
             $check_result = mysqli_query($connection, $check_query);
 
@@ -26,13 +27,26 @@ if (isset($_POST['send_invite_btn'])) {
                 exit();
             }
 
-            // ✅ If not already invited, insert new invitation
+            // Insert invitation
             $sent = "INSERT INTO invitations (id_etab, id_Hp, message, status, created_at) 
                      VALUES ('$etab', '$id', '$message', '$status', NOW())";
             $run = mysqli_query($connection, $sent);
 
             if ($run) {
-                $_SESSION['success'] = "Invitation sent successfully!";
+                // Send email from logged-in user to HP
+                $fromEmail = $_SESSION['email'];
+                $toEmail = $hpEmail;
+                $subject = "New Invitation";
+                $messageBody = "Hello,\n\nYou have received a new invitation:\n\n$message\n\nBest regards.";
+                $headers = "From: " . $fromEmail . "\r\n" .
+                           "Reply-To: " . $fromEmail . "\r\n" .
+                           "X-Mailer: PHP/" . phpversion();
+
+                if (mail($toEmail, $subject, $messageBody, $headers)) {
+                    $_SESSION['success'] = "Invitation sent successfully and email notification sent!";
+                } else {
+                    $_SESSION['success'] = "Invitation sent but failed to send email notification.";
+                }
             } else {
                 $_SESSION['status'] = "Failed to send invitation.";
             }
@@ -46,6 +60,7 @@ if (isset($_POST['send_invite_btn'])) {
     header('Location: invitation.php');
     exit();
 }
+
 
 if(isset($_POST['delete_invi_btn'])){
     $id =$_POST['delete_invi_id'];

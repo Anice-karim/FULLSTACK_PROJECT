@@ -39,10 +39,8 @@ include('../includes/navbar.php');
             <div class="form-group">
                 <label>Email</label>
                 <div class="input-group">
-                    <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email"  readonly required>
-                    <div class="input-group-append">
-                        <button class="btn btn-secondary" type="button" onclick="generateEmail()">Auto</button>
-                    </div>
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email"   required>
+                    
                 </div>
             </div>
             <div class="form-group">

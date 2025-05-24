@@ -37,9 +37,9 @@ include('../includes/navbar.php');
 
         <div class="modal-body">
 
-            <div class="form-group">
+            <div class="form-group" id="registerForm">
                 <label>INPE</label>
-                <input type="number" id="inpe" name="inpe" class="form-control" placeholder="Enter INPE" required>
+                <input type="text" id="inpe" name="inpe" class="form-control" placeholder="Enter INPE" required>
             </div>
             <h6 id="msg"></h6>
             <div class="row">
@@ -76,43 +76,12 @@ include('../includes/navbar.php');
                   <!-- options will be added dynamically -->
                 </select>
               </div>
-
-
-
-             
               <div class="form-group">
                 <label>Email</label>
                 <div class="input-group">
-                    <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email" readonly required>
-                    <div class="input-group-append">
-                        <button class="btn btn-secondary" type="button" onclick="generateEmail()">Auto</button>
-                    </div>
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email"  required>
                 </div>
             </div>
-          
-            <div class="form-group">
-              <label for="password">Password</label>
-              <div class="input-group">
-                <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" required>
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" type="button" id="eye-icon">
-                    <i class="fas fa-eye"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <h6 id="message"></h6>
-            <div class="form-group">
-                <label for="confirmpassword">Confirm Password</label>
-                <div class="input-group">
-                  <input type="password" name="confirmpassword" id="confirmpassword" class="form-control" placeholder="Confirm Password" required>
-                  <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button" id="eye-icon-confirm">
-                      <i class="fas fa-eye"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
             
         </div>
         <div class="modal-footer">

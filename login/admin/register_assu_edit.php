@@ -61,7 +61,7 @@ include('../includes/navbar.php');
               <div class="form-row">
     <div class="form-group col-md-6">
         <label>Email to log in</label>
-        <input type="email" name="email_edit" id="email" class="form-control" value="<?php echo $row['email']; ?>" readonly required>
+        <input type="email" name="email_edit" id="email" class="form-control" value="<?php echo $row['email']; ?>"  required>
     </div>
 
         <div class="form-group col-md-6">
@@ -70,18 +70,7 @@ include('../includes/navbar.php');
         </div>
 </div>
         
-        <div class="form-group">
-              <label for="password">Password</label>
-              <div class="input-group">
-                <input type="password" name="edit_password" id="password" class="form-control" placeholder="Enter Password" required>
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" type="button" id="eye-icon">
-                    <i class="fas fa-eye"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div id="message"></div>
+      
         
 
         <a href="register_assu.php" class="btn btn-danger">CANCEL</a>

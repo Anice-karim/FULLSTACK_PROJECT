@@ -60,20 +60,8 @@ include('../includes/navbar.php');
               </div>
         <div class="form-group">
             <label>Email</label>
-            <input type="email" name="edit_email" value="<?php echo $row['email']?>" class="form-control" placeholder="Enter Email" readonly>
+            <input type="email" name="edit_email" value="<?php echo $row['email']?>" class="form-control" placeholder="Enter Email" required>
         </div>
-        <div class="form-group">
-              <label for="password">Password</label>
-              <div class="input-group">
-                <input type="password" name="edit_password" id="password" class="form-control" placeholder="Enter Password" required>
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" type="button" id="eye-icon">
-                    <i class="fas fa-eye"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <h6 id="message"></h6>
         <div class="mb-3">
                 <label class="form-label d-block">Designation</label>
 
