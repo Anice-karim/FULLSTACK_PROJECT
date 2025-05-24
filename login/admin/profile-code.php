@@ -1,27 +1,26 @@
 <?php
 include('../security.php'); 
 
-//Edit profile
-
+// Edit profile
 if (isset($_POST['edit_btn'])) {
     $message = ""; // Initialize message
 
-    //  Ensure session email is available
+    // Ensure session email is available
     if (isset($_SESSION['email'])) {
         $email = $_SESSION['email'];
 
-        //  Get current user from DB
+        // Get current user from DB
         $selectQuery = "SELECT * FROM register WHERE email = '$email'";
         $result = mysqli_query($connection, $selectQuery);
         $user = mysqli_fetch_assoc($result);
 
-        //  Password update
+        // Password update
         if (!empty($_POST['current_password']) && !empty($_POST['new_password'])) {
             $currentPassword = $_POST['current_password'];
             $newPassword = $_POST['new_password'];
 
-            if ($user && md5($currentPassword) === $user['password']) {
-                $newPasswordHash = md5($newPassword);
+            if ($user && password_verify($currentPassword, $user['password'])) {
+                $newPasswordHash = password_hash($newPassword, PASSWORD_DEFAULT);
 
                 $updatePassQuery = "UPDATE register SET password = '$newPasswordHash' WHERE email = '$email'";
                 $query_run = mysqli_query($connection, $updatePassQuery);
@@ -35,8 +34,8 @@ if (isset($_POST['edit_btn'])) {
                 $message .= "❌ Incorrect current password. ";
             }
         }
-       
-        //  Profile picture upload
+
+        // Profile picture upload
         if (isset($_FILES['profile_pic']) && $_FILES['profile_pic']['error'] === UPLOAD_ERR_OK) {
             $uploadDir = 'uploads/';
             $filename = time() . '_' . basename($_FILES['profile_pic']['name']);
@@ -71,5 +70,4 @@ if (isset($_POST['edit_btn'])) {
     header('Location: profile_edit.php');
     exit();
 }
-
 ?>

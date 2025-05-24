@@ -41,18 +41,19 @@ include('../includes/navbar.php');
     ?>
     <div class="table-responsive">
     <?php 
+    $id_hp = $_SESSION['user_id'];
        $query ="SELECT 
-                  etab.name ,
-                  etab.type_etab,
-                  etab.email,
-                  inv.status,
-                  inv.id
-              FROM 
-                  invitations inv
-              JOIN 
-                  etablissement etab ON inv.id_etab = etab.id
-              WHERE 
-                  inv.status = 'pending';
+              etab.name,
+              etab.type_etab,
+              etab.email,
+              inv.status,
+              inv.id
+          FROM 
+              invitations inv
+          JOIN 
+              etablissement etab ON inv.id_etab = etab.id
+          WHERE 
+              inv.status = 'pending' AND inv.id_hp = $id_hp;
               ";
        $query_run = mysqli_query($connection,$query);
     ?>

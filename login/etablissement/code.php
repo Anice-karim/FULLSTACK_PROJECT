@@ -6,60 +6,60 @@ if (isset($_POST['send_invite_btn'])) {
     $etab = $_POST['etab_id'];
     $message = $_POST['message'] ?? null;
 
-    // Get HP id and email
-    $query_get_hp = "SELECT id, email FROM health_professionals WHERE inpe = '$Hp'"; 
-    $result = mysqli_query($connection, $query_get_hp);
+    // Get HP id and email using prepared statement
+    $stmt = $connection->prepare("SELECT id, email FROM health_professionals WHERE inpe = ?");
+    $stmt->bind_param("s", $Hp);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    if ($result) {
-        $Hp1 = mysqli_fetch_assoc($result);
-        if ($Hp1) {
-            $id = $Hp1['id']; 
-            $hpEmail = $Hp1['email'];
-            $status = "pending";
+    if ($result && $Hp1 = $result->fetch_assoc()) {
+        $id = $Hp1['id'];
+        $hpEmail = $Hp1['email'];
+        $status = "pending";
 
-            // Check if invitation already exists
-            $check_query = "SELECT * FROM invitations WHERE id_etab = '$etab' AND id_Hp = '$id'";
-            $check_result = mysqli_query($connection, $check_query);
+        // Check for existing invitation
+        $check_stmt = $connection->prepare("SELECT id FROM invitations WHERE id_etab = ? AND id_Hp = ?");
+        $check_stmt->bind_param("ii", $etab, $id);
+        $check_stmt->execute();
+        $check_result = $check_stmt->get_result();
 
-            if (mysqli_num_rows($check_result) > 0) {
-                $_SESSION['status'] = "Invitation already sent to this Health Professional.";
-                header('Location: invitation.php');
-                exit();
-            }
-
+        if ($check_result->num_rows > 0) {
+            $_SESSION['status'] = "Invitation already sent to this Health Professional.";
+        } else {
             // Insert invitation
-            $sent = "INSERT INTO invitations (id_etab, id_Hp, message, status, created_at) 
-                     VALUES ('$etab', '$id', '$message', '$status', NOW())";
-            $run = mysqli_query($connection, $sent);
+            $insert_stmt = $connection->prepare(
+                "INSERT INTO invitations (id_etab, id_Hp, message, status, created_at) VALUES (?, ?, ?, ?, NOW())"
+            );
+            $insert_stmt->bind_param("iiss", $etab, $id, $message, $status);
 
-            if ($run) {
-                // Send email from logged-in user to HP
+            if ($insert_stmt->execute()) {
+                // Send email
                 $fromEmail = $_SESSION['email'];
-                $toEmail = $hpEmail;
                 $subject = "New Invitation";
                 $messageBody = "Hello,\n\nYou have received a new invitation:\n\n$message\n\nBest regards.";
-                $headers = "From: " . $fromEmail . "\r\n" .
-                           "Reply-To: " . $fromEmail . "\r\n" .
+                $headers = "From: $fromEmail\r\n" .
+                           "Reply-To: $fromEmail\r\n" .
                            "X-Mailer: PHP/" . phpversion();
 
-                if (mail($toEmail, $subject, $messageBody, $headers)) {
+                if (mail($hpEmail, $subject, $messageBody, $headers)) {
                     $_SESSION['success'] = "Invitation sent successfully and email notification sent!";
                 } else {
                     $_SESSION['success'] = "Invitation sent but failed to send email notification.";
+                    // Optional: Log the failure
+                    error_log("Mail function failed for $hpEmail");
                 }
             } else {
                 $_SESSION['status'] = "Failed to send invitation.";
             }
-        } else {
-            $_SESSION['status'] = "Health Professional not found with this INPE.";
         }
     } else {
-        $_SESSION['status'] = "Error while fetching user data.";
+        $_SESSION['status'] = "Health Professional not found with this INPE.";
     }
 
     header('Location: invitation.php');
     exit();
 }
+
 
 
 if(isset($_POST['delete_invi_btn'])){
